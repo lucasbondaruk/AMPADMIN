@@ -1,15 +1,15 @@
 package Negocio;
 
-import Modelos.CuentaCorriente;
-import Datos.DCuentaCorriente;
+import Modelos.Cliente;
+import Datos.DCliente;
 import java.util.List;
 
 
-public class NCuentaCorriente {
+public class NCliente {
 
-    private DCuentaCorriente dcc = new DCuentaCorriente();
+    private DCliente dcc = new DCliente();
 
-    public void create(CuentaCorriente cuenta) throws Exception {
+    public void create(Cliente cuenta) throws Exception {
 
         validarCuenta(cuenta);
 
@@ -23,9 +23,9 @@ public class NCuentaCorriente {
 
     }
 
-    public void update(CuentaCorriente cuenta) throws Exception {
+    public void update(Cliente cuenta) throws Exception {
 
-        if (cuenta.getId() <= 0) {
+        if (cuenta.getIdCliente() <= 0) {
             throw new Exception("ID inválido");
         }
 
@@ -43,7 +43,7 @@ public class NCuentaCorriente {
         dcc.delete(id);
     }
 
-    public CuentaCorriente select(String cuit) throws Exception {
+    public Cliente select(String cuit) throws Exception {
 
         if (!cuit.matches("\\d{11}")) {
             throw new IllegalArgumentException("CUIT/CUIL inválido");
@@ -52,11 +52,11 @@ public class NCuentaCorriente {
         return dcc.select(cuit);
     }
 
-    public List<CuentaCorriente> listar() {
+    public List<Cliente> listar() {
         return dcc.listar();
     }
 
-    private void validarCuenta(CuentaCorriente cuenta) throws Exception {
+    private void validarCuenta(Cliente cuenta) throws Exception {
 
         if (cuenta.getRazonSocial() == null || cuenta.getRazonSocial().trim().isEmpty()) {
             throw new Exception("La razón social es obligatoria");

@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import Modelos.CuentaCorriente;
+import Modelos.Cliente;
 
-public class DCuentaCorriente {
+public class DCliente {
 
     private SqlConection conexion = new SqlConection();
 
-    public void insert(CuentaCorriente c) throws Exception {
+    public void insert(Cliente c) throws Exception {
 
-        String sql = "INSERT INTO dbo.CuentaCorriente "
-                + "(razonSocial, telefono, cuit, fchaIngreso, domicilio, mail, tipo) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO dbo.Cliente "
+                + "(razonSocial, telefono, cuit, fchaIngreso, domicilio, mail, tipoCliente,estado,tipoPersona,idCondIva) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?,?,?,?)";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -27,7 +27,10 @@ public class DCuentaCorriente {
             ps.setDate(4, new java.sql.Date(c.getfchaIngreso().getTime()));
             ps.setString(5, c.getDomicilio());
             ps.setString(6, c.getMail());
-            ps.setString(7, c.getTipo());
+            ps.setString(7, c.getTipoCliente());
+            ps.setString(8,c.getEstado());
+            ps.setString(9,c.getTipoPersona());
+            ps.setInt(10,c.getIdCondIva());
 
             int filas = ps.executeUpdate();
 
@@ -40,10 +43,10 @@ public class DCuentaCorriente {
         }
     }
 
-    public void update(CuentaCorriente c) throws Exception {
-        String sql = "UPDATE dbo.CuentaCorriente SET "
-                + "razonSocial=?, telefono=?, cuit=?, fchaIngreso=?, domicilio=?, mail=?, tipo=? "
-                + "WHERE id=?";
+    public void update(Cliente c) throws Exception {
+        String sql = "UPDATE dbo.Cliente SET "
+                + "razonSocial=?, telefono=?, cuit=?, fchaIngreso=?, domicilio=?, mail=?, tipoCliente=?, estado=?, tipoPersona=?, idCondIva = ? "
+                + "WHERE idCliente=?";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -53,13 +56,16 @@ public class DCuentaCorriente {
             ps.setDate(4, new java.sql.Date(c.getfchaIngreso().getTime()));
             ps.setString(5, c.getDomicilio());
             ps.setString(6, c.getMail());
-            ps.setString(7, c.getTipo());
-            ps.setInt(8, c.getId());
+            ps.setString(7, c.getTipoCliente());
+            ps.setString(9,c.getTipoPersona());
+            ps.setInt(10,c.getIdCondIva());
+
+            ps.setInt(8, c.getIdCliente());
 
             int filas = ps.executeUpdate();
 
             if (filas == 0) {
-                throw new Exception("No existe el id " + c.getId() + ". Ingrese un ID válido");
+                throw new Exception("No existe el id " + c.getIdCliente() + ". Ingrese un ID válido");
             }
 
         } catch (Exception e) {
@@ -69,7 +75,7 @@ public class DCuentaCorriente {
 
     public void delete(int id) throws Exception {
 
-    String sql = "UPDATE dbo.CuentaCorriente SET estado = 'INACTIVA' WHERE id = ?";
+    String sql = "UPDATE dbo.Cliente SET estado = 'INACTIVA' WHERE id = ?";
 
     try (Connection con = conexion.getConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
@@ -87,8 +93,8 @@ public class DCuentaCorriente {
         }
     }
 
-    public CuentaCorriente select(String cuit) throws Exception {
-        String sql = "SELECT * FROM dbo.CuentaCorriente WHERE cuit = ? AND estado = 'ACTIVA'";
+    public Cliente select(String cuit) throws Exception {
+        String sql = "SELECT * FROM dbo.Cliente WHERE cuit = ? AND estado = 'ACTIVA'";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -97,15 +103,15 @@ public class DCuentaCorriente {
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
-                    CuentaCorriente c = new CuentaCorriente();
-                    c.setId(rs.getInt("id"));
+                    Cliente c = new Cliente();
+                    c.setIdCliente(rs.getInt("id"));
                     c.setRazonSocial(rs.getString("razonSocial"));
                     c.setTelefono(rs.getString("telefono"));
                     c.setCuit(rs.getString("cuit"));
                     c.setfchaIngreso(rs.getDate("fchaIngreso"));
                     c.setDomicilio(rs.getString("domicilio"));
                     c.setMail(rs.getString("mail"));
-                    c.setTipo(rs.getString("tipo"));
+                    c.setTipoCliente(rs.getString("tipo"));
                     c.setEstado(rs.getString("estado"));
 
                     return c;
@@ -118,23 +124,23 @@ public class DCuentaCorriente {
         }
     }
 
-    public List<CuentaCorriente> listar() {
-        List<CuentaCorriente> lista = new ArrayList<>();
+    public List<Cliente> listar() {
+        List<Cliente> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM CuentaCorriente WHERE estado = 'ACTIVA'";
+        String sql = "SELECT * FROM Cliente WHERE estado = 'ACTIVO'";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                CuentaCorriente c = new CuentaCorriente();
-                c.setId(rs.getInt("id"));
+                Cliente c = new Cliente();
+                c.setIdCliente(rs.getInt("idCliente"));
                 c.setRazonSocial(rs.getString("razonSocial"));
                 c.setTelefono(rs.getString("telefono"));
                 c.setCuit(rs.getString("cuit"));
                 c.setfchaIngreso(rs.getDate("fchaIngreso"));
                 c.setDomicilio(rs.getString("domicilio"));
                 c.setMail(rs.getString("mail"));
-                c.setTipo(rs.getString("tipo"));
+                c.setTipoPersona(rs.getString("tipoPersona"));
 
                 lista.add(c);
             }
@@ -148,7 +154,7 @@ public class DCuentaCorriente {
 
     public boolean existeCuit(String cuit) throws Exception {
 
-        String sql = "SELECT COUNT(*) FROM dbo.CuentaCorriente WHERE cuit = ?";
+        String sql = "SELECT COUNT(*) FROM dbo.Cliente WHERE cuit = ?";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
