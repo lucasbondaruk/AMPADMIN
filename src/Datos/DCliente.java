@@ -94,7 +94,7 @@ public class DCliente {
     }
 
     public Cliente select(String cuit) throws Exception {
-        String sql = "SELECT * FROM dbo.Cliente WHERE cuit = ? AND estado = 'ACTIVA'";
+        String sql = "SELECT * FROM dbo.Cliente WHERE cuit = ? AND estado = 'Activo'";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -104,15 +104,17 @@ public class DCliente {
 
                 if (rs.next()) {
                     Cliente c = new Cliente();
-                    c.setIdCliente(rs.getInt("id"));
+                    c.setIdCliente(rs.getInt("idCliente"));
                     c.setRazonSocial(rs.getString("razonSocial"));
                     c.setTelefono(rs.getString("telefono"));
                     c.setCuit(rs.getString("cuit"));
                     c.setfchaIngreso(rs.getDate("fchaIngreso"));
                     c.setDomicilio(rs.getString("domicilio"));
                     c.setMail(rs.getString("mail"));
-                    c.setTipoCliente(rs.getString("tipo"));
+                    c.setTipoCliente(rs.getString("tipoCliente"));
                     c.setEstado(rs.getString("estado"));
+                    c.setTipoPersona(rs.getString("tipoPersona"));
+                    c.setIdCondIva(rs.getInt("idCondIva"));
 
                     return c;
                 }

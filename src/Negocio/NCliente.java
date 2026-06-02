@@ -11,8 +11,6 @@ public class NCliente {
 
     public void create(Cliente cuenta) throws Exception {
 
-        validarCuenta(cuenta);
-
         String cuit = cuenta.getCuit().replaceAll("[^0-9]", "");
 
         if (dcc.existeCuit(cuit)) {
@@ -28,8 +26,6 @@ public class NCliente {
         if (cuenta.getIdCliente() <= 0) {
             throw new Exception("ID inválido");
         }
-
-        validarCuenta(cuenta);
 
         dcc.update(cuenta);
     }
@@ -56,23 +52,4 @@ public class NCliente {
         return dcc.listar();
     }
 
-    private void validarCuenta(Cliente cuenta) throws Exception {
-
-        if (cuenta.getRazonSocial() == null || cuenta.getRazonSocial().trim().isEmpty()) {
-            throw new Exception("La razón social es obligatoria");
-        }
-
-        if (!cuenta.getTelefono().matches("\\d+")) {
-            throw new Exception("El teléfono debe ser numérico");
-        }
-
-        if (!cuenta.getCuit().matches("\\d{11}")) {
-            throw new Exception("CUIT inválido");
-        }
-
-        if (cuenta.getfchaIngreso() == null) {
-            throw new Exception("Fecha obligatoria");
-        }
-
-    }
 }

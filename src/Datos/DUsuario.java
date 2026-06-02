@@ -12,9 +12,12 @@ public class DUsuario {
 
     public Usuario validarLogin(String usuario, String contrasenia) throws Exception {    //SI TIENEN PROBLEMAS PARA VALIDAR USUARIO, CAPAZ ES POR EL STRING DE CONEXIÓN
 
-        String sql = "SELECT id, usuario, rol, estado "
+        String sql = "SELECT id, usuario, estado, idRol "
                 + "FROM dbo.Usuario "
-                + "WHERE usuario = ? AND contrasenia = ? AND estado = 'Activo'";
+                + "WHERE usuario = ? "
+                + "AND contrasenia = ? "
+                + "AND estado = 'Activo' "
+                + "AND idRol = 1";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -27,7 +30,7 @@ public class DUsuario {
                     Usuario u = new Usuario();
                     u.setId(rs.getInt("id"));
                     u.setUsuario(rs.getString("usuario"));
-                    u.setRol(rs.getString("rol"));
+                    u.setIdRol(rs.getInt("idRol"));
                     u.setEstado(rs.getString("estado"));
 
                     return u;

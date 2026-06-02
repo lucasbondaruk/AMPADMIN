@@ -6,6 +6,8 @@ import Modelos.Cliente;
 import Negocio.NCliente;
 import Negocio.NCondIVA;
 import Modelos.CondIVA;
+import Modelos.MetodoPago;
+import Negocio.NMetodoPago;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -25,7 +27,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         opc = false;
 
         cargarTabla();
-        cargarCbCondIva();
 
         revalidate();
         repaint();
@@ -97,7 +98,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         ListaPanel = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaLista = new javax.swing.JTable();
@@ -123,7 +123,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnEstadisticas1 = new javax.swing.JButton();
         btnProductos1 = new javax.swing.JButton();
         cargaPanel = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        lblFact = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         txtStock = new javax.swing.JTextField();
         cbProductosV = new javax.swing.JComboBox<>();
@@ -153,29 +153,29 @@ public class PPanelAMP extends javax.swing.JFrame {
         metodoPago = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         panelFact = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        cbMpVentas = new javax.swing.JComboBox<>();
+        factB = new javax.swing.JButton();
+        factA = new javax.swing.JButton();
         jLabel42 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtCuotas = new javax.swing.JTextField();
         labelFact = new javax.swing.JLabel();
         panelCli = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        cbCondIvaMp = new javax.swing.JComboBox<>();
+        AgregarCliMP = new javax.swing.JButton();
+        BuscarCliMP = new javax.swing.JButton();
+        txtDomCliente = new javax.swing.JTextField();
+        txtNombreCliente = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtCuitCliente = new javax.swing.JTextField();
         jLabel41 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
-        cancelarMP = new javax.swing.JButton();
+        LimpiarMp = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        cancelarMP1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(991, 777));
@@ -548,12 +548,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         ListaPanel.setBackground(new java.awt.Color(255, 255, 255));
         ListaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel24.setBackground(new java.awt.Color(161, 161, 161));
-        jLabel24.setFont(new java.awt.Font("Serif", 0, 130)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(242, 242, 242));
-        jLabel24.setText("AMPADMIN");
-        ListaPanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, 116));
-
         jLabel25.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(0, 66, 115));
         jLabel25.setText("Búsqueda por:");
@@ -710,12 +704,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         cargaPanel.setBackground(new java.awt.Color(2, 33, 55));
         cargaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setFont(new java.awt.Font("Serif", 0, 100)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("X");
-        jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        cargaPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 90));
+        lblFact.setFont(new java.awt.Font("Serif", 0, 100)); // NOI18N
+        lblFact.setForeground(new java.awt.Color(255, 255, 255));
+        lblFact.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFact.setText("X");
+        lblFact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        cargaPanel.add(lblFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 90, 90));
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
@@ -750,7 +744,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("Precio Final");
+        jLabel30.setText("Precio Unit.");
         cargaPanel.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
 
         txtPre2.setEditable(false);
@@ -928,30 +922,32 @@ public class PPanelAMP extends javax.swing.JFrame {
         metodoPago.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
 
         panelFact.setBackground(new java.awt.Color(19, 107, 116));
-        panelFact.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.darkGray, null, null));
+        panelFact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 98, 101), 5, true));
         panelFact.setForeground(new java.awt.Color(0, 0, 0));
         panelFact.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(null);
-        panelFact.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 340, 30));
+        cbMpVentas.setBackground(new java.awt.Color(255, 255, 255));
+        cbMpVentas.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        cbMpVentas.setForeground(new java.awt.Color(0, 0, 0));
+        cbMpVentas.setBorder(null);
+        cbMpVentas.addActionListener(this::cbMpVentasActionPerformed);
+        panelFact.add(cbMpVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 340, 30));
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("B");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelFact.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 160, 30));
+        factB.setBackground(new java.awt.Color(255, 255, 255));
+        factB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        factB.setForeground(new java.awt.Color(0, 0, 0));
+        factB.setText("B");
+        factB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        factB.addActionListener(this::factBActionPerformed);
+        panelFact.add(factB, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 160, 30));
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 0));
-        jButton5.setText("A");
-        jButton5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelFact.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 160, 30));
+        factA.setBackground(new java.awt.Color(255, 255, 255));
+        factA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        factA.setForeground(new java.awt.Color(0, 0, 0));
+        factA.setText("A");
+        factA.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        factA.addActionListener(this::factAActionPerformed);
+        panelFact.add(factA, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 160, 30));
 
         jLabel42.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(255, 255, 255));
@@ -968,10 +964,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel38.setText("Cuotas:");
         panelFact.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        panelFact.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 160, -1));
+        txtCuotas.setBackground(new java.awt.Color(255, 255, 255));
+        txtCuotas.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        txtCuotas.setForeground(new java.awt.Color(0, 0, 0));
+        panelFact.add(txtCuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 160, -1));
 
         labelFact.setFont(new java.awt.Font("Serif", 0, 90)); // NOI18N
         labelFact.setForeground(new java.awt.Color(255, 255, 255));
@@ -980,92 +976,96 @@ public class PPanelAMP extends javax.swing.JFrame {
         labelFact.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         panelFact.add(labelFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 140));
 
-        metodoPago.add(panelFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 580, 270));
+        metodoPago.add(panelFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 380, 580, 270));
 
-        panelCli.setBackground(new java.awt.Color(6, 40, 85));
+        panelCli.setBackground(new java.awt.Color(15, 15, 52));
+        panelCli.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(115, 115, 168), 5, true));
         panelCli.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel45.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(255, 255, 255));
         jLabel45.setText("CUIT/CUIL:");
-        panelCli.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        panelCli.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(255, 255, 255));
         jLabel39.setText("Cond. IVA:");
-        panelCli.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+        panelCli.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(null);
-        panelCli.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 320, 30));
+        cbCondIvaMp.setBackground(new java.awt.Color(255, 255, 255));
+        cbCondIvaMp.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        cbCondIvaMp.setForeground(new java.awt.Color(0, 0, 0));
+        cbCondIvaMp.setBorder(null);
+        panelCli.add(cbCondIvaMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 330, 30));
 
-        jButton9.setBackground(new java.awt.Color(255, 255, 255));
-        jButton9.setForeground(new java.awt.Color(0, 0, 0));
-        jButton9.setText("Agregar");
-        jButton9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelCli.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 20, 100, 30));
+        AgregarCliMP.setBackground(new java.awt.Color(146, 186, 255));
+        AgregarCliMP.setForeground(new java.awt.Color(0, 0, 0));
+        AgregarCliMP.setText("Agregar");
+        AgregarCliMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        AgregarCliMP.addActionListener(this::AgregarCliMPActionPerformed);
+        panelCli.add(AgregarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 100, 30));
 
-        jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setForeground(new java.awt.Color(0, 0, 0));
-        jButton10.setText("Buscar");
-        jButton10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelCli.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 100, 30));
+        BuscarCliMP.setBackground(new java.awt.Color(146, 186, 255));
+        BuscarCliMP.setForeground(new java.awt.Color(0, 0, 0));
+        BuscarCliMP.setText("Buscar");
+        BuscarCliMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BuscarCliMP.addActionListener(this::BuscarCliMPActionPerformed);
+        panelCli.add(BuscarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 100, 30));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Modificar");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelCli.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, 100, 30));
+        txtDomCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtDomCliente.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        txtDomCliente.setForeground(new java.awt.Color(0, 0, 0));
+        panelCli.add(txtDomCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 450, -1));
 
-        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField5.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(0, 0, 0));
-        panelCli.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 450, -1));
-
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
-        panelCli.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 450, -1));
+        txtNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombreCliente.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        txtNombreCliente.setForeground(new java.awt.Color(0, 0, 0));
+        panelCli.add(txtNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 450, -1));
 
         jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(255, 255, 255));
         jLabel43.setText("Domicilio:");
-        panelCli.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+        panelCli.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(0, 0, 0));
-        panelCli.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 320, -1));
+        txtCuitCliente.setBackground(new java.awt.Color(255, 255, 255));
+        txtCuitCliente.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
+        txtCuitCliente.setForeground(new java.awt.Color(0, 0, 0));
+        panelCli.add(txtCuitCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 320, -1));
 
         jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon-mp.png"))); // NOI18N
         jLabel41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
-        panelCli.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 80, 160, 160));
+        panelCli.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 160, 160));
 
         jLabel46.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel46.setText("Cliente:");
-        panelCli.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
+        jLabel46.setText("Nombre / R.S:");
+        panelCli.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
-        metodoPago.add(panelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 860, 290));
+        metodoPago.add(panelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 860, 290));
 
-        cancelarMP.setBackground(new java.awt.Color(255, 255, 255));
-        cancelarMP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cancelarMP.setForeground(new java.awt.Color(0, 0, 0));
-        cancelarMP.setText("Cancelar");
-        cancelarMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        cancelarMP.addActionListener(this::cancelarMPActionPerformed);
-        metodoPago.add(cancelarMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 670, 140, 40));
+        LimpiarMp.setBackground(new java.awt.Color(255, 255, 255));
+        LimpiarMp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        LimpiarMp.setForeground(new java.awt.Color(0, 0, 0));
+        LimpiarMp.setText("Limpiar");
+        LimpiarMp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        LimpiarMp.addActionListener(this::LimpiarMpActionPerformed);
+        metodoPago.add(LimpiarMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 670, 140, 40));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton7.setForeground(new java.awt.Color(0, 0, 0));
         jButton7.setText("Continuar");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        metodoPago.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 670, 140, 40));
+        metodoPago.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, 140, 40));
+
+        cancelarMP1.setBackground(new java.awt.Color(255, 255, 255));
+        cancelarMP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cancelarMP1.setForeground(new java.awt.Color(0, 0, 0));
+        cancelarMP1.setText("Cancelar");
+        cancelarMP1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        cancelarMP1.addActionListener(this::cancelarMP1ActionPerformed);
+        metodoPago.add(cancelarMP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 670, 140, 40));
 
         getContentPane().add(metodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 740));
 
@@ -1167,7 +1167,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                 String domicilio = txtDom.getText();
                 String mail = txtMail.getText();
                 String tipoCliente = "Cuenta Corriente";
-                String estado = "ACTIVO";
+                String estado = "Activo";
                 String tipoPersona;
                 if (!opc) {
                     tipoPersona = "Empresa";
@@ -1326,14 +1326,18 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     public void cargarCbCondIva() {
         cbCondIva.removeAllItems();
-
         NCondIVA nCondIVA = new NCondIVA();
-        DefaultComboBoxModel modelocb = new DefaultComboBoxModel();
-
         for (CondIVA c : nCondIVA.getLista()) {
             cbCondIva.addItem(c);
         }
+    }
 
+    public void cargarCbMpVentas() {
+        cbMpVentas.removeAllItems();
+        NMetodoPago nmp = new NMetodoPago();
+        for (MetodoPago mp : nmp.GetListActivo()) {
+            cbMpVentas.addItem(mp);
+        }
     }
     private void btnAContinuar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar1ActionPerformed
         // TODO add your handling code here:
@@ -1483,9 +1487,20 @@ public class PPanelAMP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnABuscar1ActionPerformed
 
+    //SECCION VENTAS
     private void btnAContinuar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar2ActionPerformed
+        cargarCbCondIva();
+        cargarCbMpVentas();
         metodoPago.setVisible(true);
         ventasPanel.setVisible(false);
+        cbCondIvaMp.removeAllItems();
+        NCondIVA nCondIVA = new NCondIVA();
+        for (CondIVA c : nCondIVA.getLista()) {
+            cbCondIvaMp.addItem(c);
+            if (c.getIdCondIva() == 3) {
+                cbCondIvaMp.setSelectedItem(c);
+    }
+        }
     }//GEN-LAST:event_btnAContinuar2ActionPerformed
 
     private void btnAModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAModificar1ActionPerformed
@@ -1500,12 +1515,137 @@ public class PPanelAMP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPre2ActionPerformed
 
-    private void cancelarMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarMPActionPerformed
+    private void LimpiarMpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarMpActionPerformed
         metodoPago.setVisible(false);
         ventasPanel.setVisible(true);
-    }//GEN-LAST:event_cancelarMPActionPerformed
+    }//GEN-LAST:event_LimpiarMpActionPerformed
 
-    //SECCION DE VENTAS
+    private void seleccionarFacturaA() {
+        labelFact.setText("A");
+        lblFact.setText("A");
+        factA.setBackground(new Color(16, 51, 89));
+        factA.setForeground(Color.WHITE);
+        factB.setBackground(Color.WHITE);
+        factB.setForeground(Color.BLACK);
+    }
+    private void seleccionarFacturaB(){
+        labelFact.setText("B");
+        lblFact.setText("B");
+        factA.setBackground(new Color(255, 255, 255));
+        factA.setForeground(new Color(0, 0, 0));
+        factB.setBackground(new Color(16, 51, 89));
+        factB.setForeground(new Color(255, 255, 255));
+    }
+    private void factAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factAActionPerformed
+        seleccionarFacturaA();
+
+    }//GEN-LAST:event_factAActionPerformed
+
+    private void factBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factBActionPerformed
+        seleccionarFacturaB();
+
+    }//GEN-LAST:event_factBActionPerformed
+
+    private void BuscarCliMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarCliMPActionPerformed
+        try {
+            String cuit = txtCuitCliente.getText().trim();
+            System.out.println("CUIT buscado: " + cuit);
+            NCliente negocio = new NCliente();
+            Cliente c = negocio.select(cuit);
+            System.out.println("Cliente obtenido: " + c);
+
+            if (c != null) {
+                txtNombreCliente.setText(c.getRazonSocial());
+                txtCuitCliente.setText(c.getCuit());
+                txtDomCliente.setText(c.getDomicilio());
+                int idCondIva = c.getIdCondIva();
+                for (int i = 0; i < cbCondIvaMp.getItemCount(); i++) {
+
+                    CondIVA cond = cbCondIvaMp.getItemAt(i);
+
+                    if (cond.getIdCondIva() == idCondIva) {
+                        cbCondIvaMp.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                CondIVA cond = (CondIVA) cbCondIvaMp.getSelectedItem();
+
+                if (cond != null && cond.getDescripcion().equals("Responsable Inscripto")) {
+                    seleccionarFacturaA();
+                    factB.setEnabled(false);
+                } else{
+                    seleccionarFacturaB();
+                    factA.setEnabled(false);
+                }
+
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Cliente no encontrado");
+            }
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_BuscarCliMPActionPerformed
+
+    private void cbMpVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMpVentasActionPerformed
+       MetodoPago mp = (MetodoPago) cbMpVentas.getSelectedItem();
+       if (mp != null && mp.getDescripcion().equals("Efectivo") || mp.getDescripcion().equals("Transferencia") || mp.getDescripcion().equals("Cheque") || mp.getDescripcion().equals("Débito")){
+           txtCuotas.setText("");
+           txtCuotas.setEnabled(false);        
+       } else{
+           txtCuotas.setEnabled(true);         
+       }      
+    }//GEN-LAST:event_cbMpVentasActionPerformed
+
+    private void AgregarCliMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCliMPActionPerformed
+         try {
+            if (txtNombreCliente.getText() != "" && txtCuitCliente.getText() != "" && txtDomCliente.getText() != "" ) {
+                String razonSocial = txtNombreCliente.getText();
+                String telefono="";
+                String cuit = txtCuitCliente.getText();
+                Date fchaIngreso = new Date();
+                String domicilio = txtDomCliente.getText();
+                String mail = "";
+                String tipoCliente = "Cliente";
+                String estado = "Activo";
+                String tipoPersona = "";
+                CondIVA cond = (CondIVA) cbCondIvaMp.getSelectedItem();
+                int idCondIva = cond.getIdCondIva();
+
+                Cliente cliente = new Cliente(
+                        razonSocial,
+                        telefono,
+                        cuit,
+                        fchaIngreso,
+                        domicilio,
+                        mail,
+                        tipoCliente,
+                        estado,
+                        tipoPersona,
+                        idCondIva
+                );
+
+                NCliente nuevaCuenta = new NCliente();
+                nuevaCuenta.create(cliente);
+                javax.swing.JOptionPane.showMessageDialog(this, "Registrado con éxito!");
+                txtRS.setText("");
+                txtTel.setText("");
+                txtDom.setText("");
+                txtCuit.setText("");
+                txtMail.setText("");
+                txtDate.setDate(null);
+
+            }
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_AgregarCliMPActionPerformed
+
+    private void cancelarMP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarMP1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelarMP1ActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> new PLogin().setVisible(true));
@@ -1513,8 +1653,11 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Agregar;
+    private javax.swing.JButton AgregarCliMP;
     private javax.swing.JPanel BtnsADM;
     private javax.swing.JPanel BtnsVNT1;
+    private javax.swing.JButton BuscarCliMP;
+    private javax.swing.JButton LimpiarMp;
     private javax.swing.JPanel ListaPanel;
     private javax.swing.JPanel administracionPanel;
     private javax.swing.JPanel autEmp;
@@ -1550,22 +1693,19 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnProveedores1;
     private javax.swing.JButton btnVentas;
     private javax.swing.JButton btnVentas1;
-    private javax.swing.JButton cancelarMP;
+    private javax.swing.JButton cancelarMP1;
     private javax.swing.JPanel cargaPanel;
     private javax.swing.JComboBox<CondIVA> cbCondIva;
+    private javax.swing.JComboBox<CondIVA> cbCondIvaMp;
+    private javax.swing.JComboBox<MetodoPago> cbMpVentas;
     private javax.swing.JComboBox<String> cbProductosV;
     private javax.swing.JComboBox<String> cbTipo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton factA;
+    private javax.swing.JButton factB;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1582,7 +1722,6 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1608,7 +1747,6 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1616,11 +1754,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel labelFact;
+    private javax.swing.JLabel lblFact;
     private javax.swing.JLabel lblimg;
     private javax.swing.JLabel lblimg1;
     private javax.swing.JPanel listaPanel;
@@ -1634,11 +1769,14 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtCant;
     private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtCuit;
+    private javax.swing.JTextField txtCuitCliente;
+    private javax.swing.JTextField txtCuotas;
     private javax.swing.JTextField txtDNIPago;
     private javax.swing.JTextField txtDNIRetiro;
     private javax.swing.JTextField txtDNIRetiro1;
     private com.toedter.calendar.JDateChooser txtDate;
     private javax.swing.JTextField txtDom;
+    private javax.swing.JTextField txtDomCliente;
     private javax.swing.JTextField txtFiltroCuit;
     private javax.swing.JTextField txtFiltroRS;
     private javax.swing.JTextField txtIVA;
@@ -1646,6 +1784,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomPago;
     private javax.swing.JTextField txtNomRetiro;
     private javax.swing.JTextField txtNomRetiro1;
+    private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtPre1;
     private javax.swing.JTextField txtPre2;
     private javax.swing.JTextField txtRS;

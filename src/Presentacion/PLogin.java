@@ -3,6 +3,7 @@ package Presentacion;
 import Modelos.Usuario;
 import Negocio.NUsuario;
 import javax.swing.JOptionPane;
+import Modelos.Rol;
 
 public class PLogin extends javax.swing.JFrame {
 
@@ -82,7 +83,7 @@ public class PLogin extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Bienvenido " + u.getUsuario() + "\nRol: " + u.getRol()
+                    "Bienvenido " + u.getUsuario()
             );
 
             PPanelAMP ventana = new PPanelAMP();
