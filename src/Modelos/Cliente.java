@@ -2,37 +2,42 @@ package Modelos;
 
 import java.util.Date;
 
-public class CuentaCorriente {
+public class Cliente {
 
-    private int id;
+    private int idCliente;
     private String razonSocial;
     private String telefono;
     private String cuit;
     private Date fchaIngreso;
     private String domicilio;
     private String mail;
-    private String tipo;
+    private String tipoCliente;
     private String estado;
+    private String tipoPersona;
+    private int idCondIva;
 
-    public CuentaCorriente(String razonSocial, String telefono, String cuit, Date fchaIngreso, String domicilio, String mail, String tipo) {
+    public Cliente(String razonSocial, String telefono, String cuit, Date fchaIngreso, String domicilio, String mail, String tipoCliente,String estado,String tipoPersona,int idCondIva) {
         this.razonSocial = razonSocial;
         this.telefono = telefono;
         this.cuit = cuit;
         this.fchaIngreso = fchaIngreso;
         this.domicilio = domicilio;
         this.mail = mail;
-        this.tipo = tipo;
+        this.tipoCliente = tipoCliente;
+        this.estado = estado;
+        this.tipoPersona = tipoPersona;
+        this.idCondIva = idCondIva;
     }
 
-    public CuentaCorriente() {
+    public Cliente() {
     }
 
-    public int getId() {
-        return id;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getRazonSocial() {
@@ -83,12 +88,12 @@ public class CuentaCorriente {
         this.mail = mail;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getTipoCliente() {
+        return tipoCliente;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipoCliente(String tipoCliente) {
+        this.tipoCliente = tipoCliente;
     }
     
     public String getEstado() {
@@ -98,5 +103,22 @@ public class CuentaCorriente {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getTipoPersona() {
+        return tipoPersona;
+    }
+
+    public void setTipoPersona(String tipoPersona) {
+        this.tipoPersona = tipoPersona;
+    }
+
+    public int getIdCondIva() {
+        return idCondIva;
+    }
+
+    public void setIdCondIva(int idCondIva) {
+        this.idCondIva = idCondIva;
+    }
+    
 
 }

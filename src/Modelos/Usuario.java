@@ -5,17 +5,23 @@ public class Usuario {
     private int id;
     private String usuario;
     private String contrasenia;
-    private String rol;
     private String estado;
+    private String telefono;
+    private String domicilio;
+    private String mail;
+    private int idRol;
 
     public Usuario() {
     }
 
-    public Usuario(String usuario, String contrasenia, String rol, String estado) {
+    public Usuario(String usuario, String contrasenia, String estado, String telefono, String domicilio, String mail, int idRol) {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
-        this.rol = rol;
         this.estado = estado;
+        this.telefono = telefono;
+        this.domicilio = domicilio;
+        this.mail = mail;
+        this.idRol = idRol;
     }
 
     public int getId() {
@@ -42,14 +48,6 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -57,4 +55,37 @@ public class Usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(String domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+    
 }
