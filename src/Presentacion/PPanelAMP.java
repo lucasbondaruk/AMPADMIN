@@ -19,6 +19,13 @@ public class PPanelAMP extends javax.swing.JFrame {
     private Cliente actual = null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PPanelAMP.class.getName());
 
+    private final Negocio.NCliente nCliente = new Negocio.NCliente();
+    private final Negocio.NMetodoPago nMetodoPago = new Negocio.NMetodoPago();
+    private final Negocio.NCobros nCobros = new Negocio.NCobros();
+    private java.util.List<Modelos.Cliente> listaClientesGlobal;
+    private java.util.List<Modelos.MetodoPago> listaMetodosPagoGlobal;
+    private java.util.Date fechaVentaOriginal;
+
     public PPanelAMP() {
         initComponents();
         setLocationRelativeTo(null);
@@ -28,6 +35,8 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         cargarTabla();
 
+        cargarClientes();
+        cargarMetodosPago();
         revalidate();
         repaint();
     }
@@ -112,6 +121,39 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        PagosPanel = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        PagosPanelCampos = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        cbNombre = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        txtCuil = new javax.swing.JTextField();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        date = new com.toedter.calendar.JDateChooser();
+        jLabel53 = new javax.swing.JLabel();
+        txtComprasTotales = new javax.swing.JTextField();
+        jLabel54 = new javax.swing.JLabel();
+        cbMetodosPagos = new javax.swing.JComboBox<>();
+        jLabel55 = new javax.swing.JLabel();
+        txtCuotasPagos = new javax.swing.JTextField();
+        btCalcularCuotas = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        PanelCalculo = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        txtUnidadCuota = new javax.swing.JTextField();
+        txtInteres = new javax.swing.JTextField();
+        txtSubtotal = new javax.swing.JTextField();
+        btCalcular = new javax.swing.JButton();
+        PanelBotones = new javax.swing.JPanel();
+        btnAContinuar4 = new javax.swing.JButton();
+        btnABuscar3 = new javax.swing.JButton();
+        jLabel50 = new javax.swing.JLabel();
+        txtMontoTotal = new javax.swing.JTextField();
+        cbDescuento = new javax.swing.JCheckBox();
+        btImprimir = new javax.swing.JButton();
         ventasPanel = new javax.swing.JPanel();
         navbarVNT = new javax.swing.JPanel();
         lblimg1 = new javax.swing.JLabel();
@@ -633,6 +675,120 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         administracionPanel.add(ListaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 640));
 
+        PagosPanel.setBackground(new java.awt.Color(255, 255, 255));
+        PagosPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel24.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 40)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(0, 66, 115));
+        jLabel24.setText("Pago de cuentas corrientes");
+        PagosPanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, -1, 60));
+
+        PagosPanelCampos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel44.setText("Razón Social/Nombre:");
+        PagosPanelCampos.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
+
+        cbNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbNombre.addItemListener(this::cbNombreItemStateChanged);
+        PagosPanelCampos.add(cbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 270, -1));
+
+        jLabel7.setText("Cuit-Cuil:");
+        PagosPanelCampos.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 137, -1));
+        PagosPanelCampos.add(txtCuil, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 77, 260, -1));
+
+        jLabel51.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
+        jLabel51.setText("Seleccione la empresa a la que se va a cobrar:");
+        PagosPanelCampos.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 259, -1));
+
+        jLabel52.setText("Fecha de pago:");
+        PagosPanelCampos.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
+
+        date.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        PagosPanelCampos.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 260, 30));
+
+        jLabel53.setText("Compras totales:");
+        PagosPanelCampos.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+        PagosPanelCampos.add(txtComprasTotales, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 165, 267, -1));
+
+        jLabel54.setText("Metodos de pagos:");
+        PagosPanelCampos.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        cbMetodosPagos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbMetodosPagos.addActionListener(this::cbMetodosPagosActionPerformed);
+        PagosPanelCampos.add(cbMetodosPagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 260, -1));
+
+        jLabel55.setText("Cantidad de Pagos:");
+        PagosPanelCampos.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+        PagosPanelCampos.add(txtCuotasPagos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 270, -1));
+
+        btCalcularCuotas.setText("Calcular Cuotas");
+        btCalcularCuotas.addActionListener(this::btCalcularCuotasActionPerformed);
+        PagosPanelCampos.add(btCalcularCuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 210, 20));
+
+        jButton1.setText("Un solo pago");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        PagosPanelCampos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 170, -1));
+
+        PagosPanel.add(PagosPanelCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 490, 350));
+
+        PanelCalculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel47.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel47.setText("Subtotal:");
+        PanelCalculo.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+
+        jLabel48.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel48.setText("Cada cuota se cobrará:");
+        PanelCalculo.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel49.setText("Intereses:");
+        PanelCalculo.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+        PanelCalculo.add(txtUnidadCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 130, 20));
+        PanelCalculo.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 130, 20));
+        PanelCalculo.add(txtSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, 20));
+
+        btCalcular.setText("Volver a calcular");
+        btCalcular.addActionListener(this::btCalcularActionPerformed);
+        PanelCalculo.add(btCalcular, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 250, 20));
+
+        PagosPanel.add(PanelCalculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 360, 200));
+
+        PanelBotones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAContinuar4.setBackground(new java.awt.Color(22, 22, 22));
+        btnAContinuar4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAContinuar4.setForeground(new java.awt.Color(255, 255, 255));
+        btnAContinuar4.setText("<Registrar pago>");
+        btnAContinuar4.setBorderPainted(false);
+        btnAContinuar4.addActionListener(this::btnAContinuar4ActionPerformed);
+        PanelBotones.add(btnAContinuar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 230, 40));
+
+        btnABuscar3.setBackground(new java.awt.Color(22, 22, 22));
+        btnABuscar3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnABuscar3.setForeground(new java.awt.Color(255, 255, 255));
+        btnABuscar3.setText("<Buscar Cliente>");
+        btnABuscar3.setBorderPainted(false);
+        btnABuscar3.addActionListener(this::btnABuscar3ActionPerformed);
+        PanelBotones.add(btnABuscar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 180, 40));
+
+        jLabel50.setText("Monto total:");
+        PanelBotones.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 25, -1, -1));
+        PanelBotones.add(txtMontoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(621, 22, 247, -1));
+
+        cbDescuento.setText("Aplicar Descuento");
+        cbDescuento.addActionListener(this::cbDescuentoActionPerformed);
+        PanelBotones.add(cbDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(549, 70, 132, -1));
+
+        btImprimir.setText("Imprimir");
+        btImprimir.addActionListener(this::btImprimirActionPerformed);
+        PanelBotones.add(btImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(709, 69, 159, -1));
+
+        PagosPanel.add(PanelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 960, 110));
+
+        administracionPanel.add(PagosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 600));
+
         getContentPane().add(administracionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 976, 738));
 
         ventasPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -722,7 +878,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtStock.setText("Stock");
         cargaPanel.add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, 60, 30));
 
-        cbProductosV.setBackground(new java.awt.Color(255, 255, 255));
         cbProductosV.setEditable(true);
         cbProductosV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Data1", "Data2", "Data2", "Data3", "Data4" }));
         cbProductosV.setBorder(null);
@@ -732,8 +887,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Código ");
         cargaPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
-
-        txtCant.setBackground(new java.awt.Color(255, 255, 255));
         cargaPanel.add(txtCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, 60, 30));
 
         txtPre1.setEditable(false);
@@ -768,8 +921,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Descripción");
         cargaPanel.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
-
-        txtCod.setBackground(new java.awt.Color(255, 255, 255));
         cargaPanel.add(txtCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 50, 30));
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -783,8 +934,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtIVA.setText("IVA");
         cargaPanel.add(txtIVA, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 40, 30));
 
-        Agregar.setBackground(new java.awt.Color(255, 255, 255));
-        Agregar.setForeground(new java.awt.Color(0, 0, 0));
         Agregar.setText("Agregar");
         Agregar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cargaPanel.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 100, 30));
@@ -799,8 +948,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         listaPanel.setBackground(new java.awt.Color(255, 255, 255));
         listaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -840,12 +987,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         listaPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 480));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(0, 0, 0));
         jLabel32.setText("Total:");
         listaPanel.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(825, 510, -1, -1));
 
         jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(0, 0, 0));
         jLabel37.setText("Descuento:");
         listaPanel.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 490, -1, -1));
 
@@ -923,27 +1068,20 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         panelFact.setBackground(new java.awt.Color(19, 107, 116));
         panelFact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 98, 101), 5, true));
-        panelFact.setForeground(new java.awt.Color(0, 0, 0));
         panelFact.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbMpVentas.setBackground(new java.awt.Color(255, 255, 255));
         cbMpVentas.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        cbMpVentas.setForeground(new java.awt.Color(0, 0, 0));
         cbMpVentas.setBorder(null);
         cbMpVentas.addActionListener(this::cbMpVentasActionPerformed);
         panelFact.add(cbMpVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 340, 30));
 
-        factB.setBackground(new java.awt.Color(255, 255, 255));
         factB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        factB.setForeground(new java.awt.Color(0, 0, 0));
         factB.setText("B");
         factB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         factB.addActionListener(this::factBActionPerformed);
         panelFact.add(factB, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 160, 30));
 
-        factA.setBackground(new java.awt.Color(255, 255, 255));
         factA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        factA.setForeground(new java.awt.Color(0, 0, 0));
         factA.setText("A");
         factA.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         factA.addActionListener(this::factAActionPerformed);
@@ -964,9 +1102,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel38.setText("Cuotas:");
         panelFact.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, -1, -1));
 
-        txtCuotas.setBackground(new java.awt.Color(255, 255, 255));
         txtCuotas.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        txtCuotas.setForeground(new java.awt.Color(0, 0, 0));
         panelFact.add(txtCuotas, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 160, -1));
 
         labelFact.setFont(new java.awt.Font("Serif", 0, 90)); // NOI18N
@@ -992,34 +1128,26 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel39.setText("Cond. IVA:");
         panelCli.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
-        cbCondIvaMp.setBackground(new java.awt.Color(255, 255, 255));
         cbCondIvaMp.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        cbCondIvaMp.setForeground(new java.awt.Color(0, 0, 0));
         cbCondIvaMp.setBorder(null);
         panelCli.add(cbCondIvaMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 330, 30));
 
         AgregarCliMP.setBackground(new java.awt.Color(146, 186, 255));
-        AgregarCliMP.setForeground(new java.awt.Color(0, 0, 0));
         AgregarCliMP.setText("Agregar");
         AgregarCliMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         AgregarCliMP.addActionListener(this::AgregarCliMPActionPerformed);
         panelCli.add(AgregarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 100, 30));
 
         BuscarCliMP.setBackground(new java.awt.Color(146, 186, 255));
-        BuscarCliMP.setForeground(new java.awt.Color(0, 0, 0));
         BuscarCliMP.setText("Buscar");
         BuscarCliMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BuscarCliMP.addActionListener(this::BuscarCliMPActionPerformed);
         panelCli.add(BuscarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 100, 30));
 
-        txtDomCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtDomCliente.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        txtDomCliente.setForeground(new java.awt.Color(0, 0, 0));
         panelCli.add(txtDomCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 450, -1));
 
-        txtNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtNombreCliente.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        txtNombreCliente.setForeground(new java.awt.Color(0, 0, 0));
         panelCli.add(txtNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 450, -1));
 
         jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -1027,9 +1155,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel43.setText("Domicilio:");
         panelCli.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
-        txtCuitCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtCuitCliente.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        txtCuitCliente.setForeground(new java.awt.Color(0, 0, 0));
         panelCli.add(txtCuitCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 320, -1));
 
         jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1044,24 +1170,18 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         metodoPago.add(panelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 860, 290));
 
-        LimpiarMp.setBackground(new java.awt.Color(255, 255, 255));
         LimpiarMp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        LimpiarMp.setForeground(new java.awt.Color(0, 0, 0));
         LimpiarMp.setText("Limpiar");
         LimpiarMp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         LimpiarMp.addActionListener(this::LimpiarMpActionPerformed);
         metodoPago.add(LimpiarMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 670, 140, 40));
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
         jButton7.setText("Continuar");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         metodoPago.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 670, 140, 40));
 
-        cancelarMP1.setBackground(new java.awt.Color(255, 255, 255));
         cancelarMP1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cancelarMP1.setForeground(new java.awt.Color(0, 0, 0));
         cancelarMP1.setText("Cancelar");
         cancelarMP1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         cancelarMP1.addActionListener(this::cancelarMP1ActionPerformed);
@@ -1081,6 +1201,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         autEmp.setVisible(true);
         regEmp.setVisible(true);
         BtnsADM.setVisible(true);
+        PagosPanel.setVisible(false);
+        PagosPanelCampos.setVisible(false);
+        PanelCalculo.setVisible(false);
+        PanelBotones.setVisible(false);
     }
     //ADMINISTRACION - REGISTRO CUENTA CORRIENTE
 
@@ -1157,6 +1281,49 @@ public class PPanelAMP extends javax.swing.JFrame {
         return true;
     }
 
+    //CARGAR CHECKBOXS DE PAGOS
+    private void cargarClientes() {
+        try {
+            // 1. Obtener la lista de clientes desde la capa de negocio
+            listaClientesGlobal = nCliente.listar();
+
+            // 2. Crear el modelo para el ComboBox de Clientes
+            DefaultComboBoxModel<String> modeloClientes = new DefaultComboBoxModel<>();
+            modeloClientes.addElement("Seleccione un Cliente..."); // Elemento por defecto
+
+            // 3. Poblar el modelo con la Razón Social o Nombre del cliente
+            for (Modelos.Cliente cliente : listaClientesGlobal) {
+                modeloClientes.addElement(cliente.getRazonSocial());
+            }
+
+            // 4. ASIGNAR AL COMBOBOX CORRECTO (cbNombre)
+            cbNombre.setModel(modeloClientes);
+
+        } catch (Exception e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error al cargar clientes en el combobox", e);
+            JOptionPane.showMessageDialog(this, "Error al cargar el listado de clientes.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cargarMetodosPago() {
+        try {
+            // CAMBIAR AQUÍ: de nMetodoPago.listar() a nMetodoPago.GetList()
+            listaMetodosPagoGlobal = nMetodoPago.GetList();
+
+            DefaultComboBoxModel<String> modeloMetodos = new DefaultComboBoxModel<>();
+            modeloMetodos.addElement("Seleccione un método...");
+
+            for (Modelos.MetodoPago mp : listaMetodosPagoGlobal) {
+                modeloMetodos.addElement(mp.getDescripcion());
+            }
+
+            cbMetodosPagos.setModel(modeloMetodos);
+
+        } catch (Exception e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error al cargar métodos de pago en el combobox", e);
+            JOptionPane.showMessageDialog(this, "Error al cargar los métodos de pago.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     private void btnAContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuarActionPerformed
         try {
             if (verificarCampos()) {
@@ -1294,9 +1461,11 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnAListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAListasActionPerformed
         cargarTabla();
+        PagosPanel.setVisible(false);
         ListaPanel.setVisible(true);
         btnAListas.setBackground(new Color(30, 90, 142));
         btnAClientes.setBackground(new Color(20, 52, 83));
+        btnAPagos.setBackground(new Color(20, 52, 83));
         BtnsADM.setVisible(false);
         regEmp.setVisible(false);
         autEmp.setVisible(false);
@@ -1304,10 +1473,12 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAListasActionPerformed
 
     private void btnAClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAClientesActionPerformed
+        cargarTabla();
         ListaPanel.setVisible(false);
-
+        PagosPanel.setVisible(false);
         btnAListas.setBackground(new Color(20, 52, 83));
         btnAClientes.setBackground(new Color(30, 90, 142));
+        btnAPagos.setBackground(new Color(20, 52, 83));
 
         BtnsADM.setVisible(true);
         regEmp.setVisible(true);
@@ -1459,7 +1630,34 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnABorrarActionPerformed
 
     private void btnAPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAPagosActionPerformed
-        JOptionPane.showMessageDialog(this, "Módulo previsto para futuras iteraciones.");
+        navbarADM.setVisible(true);
+
+        btnAListas.setBackground(new Color(20, 52, 83));
+        btnAClientes.setBackground(new Color(20, 52, 83));
+        btnAPagos.setBackground(new Color(30, 90, 142));
+
+        // Mostrar panel de pagos
+        PagosPanel.setVisible(true);
+        PagosPanelCampos.setVisible(true);
+        PanelCalculo.setVisible(true);
+        PanelBotones.setVisible(true);
+
+        // Ocultar los demás
+        administracionPanel.setVisible(true);
+        ventasPanel.setVisible(false);
+        ListaPanel.setVisible(false);
+        metodoPago.setVisible(false);
+        autPers.setVisible(false);
+        autEmp.setVisible(false);
+        regEmp.setVisible(false);
+        BtnsADM.setVisible(false);
+
+        // Forzar actualización visual
+        PagosPanel.revalidate();
+        PagosPanel.repaint();
+
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }//GEN-LAST:event_btnAPagosActionPerformed
 
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
@@ -1499,7 +1697,7 @@ public class PPanelAMP extends javax.swing.JFrame {
             cbCondIvaMp.addItem(c);
             if (c.getIdCondIva() == 3) {
                 cbCondIvaMp.setSelectedItem(c);
-    }
+            }
         }
     }//GEN-LAST:event_btnAContinuar2ActionPerformed
 
@@ -1528,7 +1726,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         factB.setBackground(Color.WHITE);
         factB.setForeground(Color.BLACK);
     }
-    private void seleccionarFacturaB(){
+
+    private void seleccionarFacturaB() {
         labelFact.setText("B");
         lblFact.setText("B");
         factA.setBackground(new Color(255, 255, 255));
@@ -1574,7 +1773,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                 if (cond != null && cond.getDescripcion().equals("Responsable Inscripto")) {
                     seleccionarFacturaA();
                     factB.setEnabled(false);
-                } else{
+                } else {
                     seleccionarFacturaB();
                     factA.setEnabled(false);
                 }
@@ -1589,20 +1788,20 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_BuscarCliMPActionPerformed
 
     private void cbMpVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMpVentasActionPerformed
-       MetodoPago mp = (MetodoPago) cbMpVentas.getSelectedItem();
-       if (mp != null && mp.getDescripcion().equals("Efectivo") || mp.getDescripcion().equals("Transferencia") || mp.getDescripcion().equals("Cheque") || mp.getDescripcion().equals("Débito")){
-           txtCuotas.setText("");
-           txtCuotas.setEnabled(false);        
-       } else{
-           txtCuotas.setEnabled(true);         
-       }      
+        MetodoPago mp = (MetodoPago) cbMpVentas.getSelectedItem();
+        if (mp != null && mp.getDescripcion().equals("Efectivo") || mp.getDescripcion().equals("Transferencia") || mp.getDescripcion().equals("Cheque") || mp.getDescripcion().equals("Débito")) {
+            txtCuotas.setText("");
+            txtCuotas.setEnabled(false);
+        } else {
+            txtCuotas.setEnabled(true);
+        }
     }//GEN-LAST:event_cbMpVentasActionPerformed
 
     private void AgregarCliMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarCliMPActionPerformed
-         try {
-            if (txtNombreCliente.getText() != "" && txtCuitCliente.getText() != "" && txtDomCliente.getText() != "" ) {
+        try {
+            if (txtNombreCliente.getText() != "" && txtCuitCliente.getText() != "" && txtDomCliente.getText() != "") {
                 String razonSocial = txtNombreCliente.getText();
-                String telefono="";
+                String telefono = "";
                 String cuit = txtCuitCliente.getText();
                 Date fchaIngreso = new Date();
                 String domicilio = txtDomCliente.getText();
@@ -1646,6 +1845,358 @@ public class PPanelAMP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelarMP1ActionPerformed
 
+    private void btnAContinuar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar4ActionPerformed
+        // 1. Validaciones de seguridad en la interfaz gráfica
+        if (cbNombre.getSelectedItem() == null || cbNombre.getSelectedIndex() == 0) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione un cliente válido.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (date.getDate() == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione la fecha actual de pago.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtMontoTotal.getText().trim().isEmpty() || txtMontoTotal.getText().equals("0.00")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Primero debe calcular las cuotas y los montos a cobrar.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // 2. Obtener ID del Cliente seleccionado
+            String nombreSeleccionado = cbNombre.getSelectedItem().toString();
+            int idCliente = -1;
+            if (listaClientesGlobal != null) {
+                for (Modelos.Cliente c : listaClientesGlobal) {
+                    if (c.getRazonSocial().equals(nombreSeleccionado)) {
+                        idCliente = c.getIdCliente();
+                        break;
+                    }
+                }
+            }
+
+            // 3. Obtener ID del Método de Pago seleccionado mapeando con tu Modelo
+            String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
+                    ? cbMetodosPagos.getSelectedItem().toString()
+                    : "Efectivo";
+            int idMetodoPago = 1; // Por defecto: Efectivo
+
+            switch (metodoSeleccionado.toLowerCase().trim()) {
+                case "efectivo":
+                    idMetodoPago = 1;
+                    break;
+                case "débito":
+                case "debito":
+                    idMetodoPago = 2; // Asegurate de que coincida con el ID en tu tabla de SQL Server
+                    break;
+                case "crédito":
+                case "credito":
+                    idMetodoPago = 3;
+                    break;
+                case "transferencia":
+                    idMetodoPago = 4;
+                    break;
+                default:
+                    idMetodoPago = 1;
+                    break;
+            }
+
+            // 4. Capturar y parsear los montos numéricos calculados
+            double totalCompras = Double.parseDouble(txtComprasTotales.getText().trim().replace(",", "."));
+            int cuotas = Integer.parseInt(txtCuotasPagos.getText().trim());
+            double interes = Double.parseDouble(txtInteres.getText().trim().replace(",", "."));
+            boolean aplicarDescuento = cbDescuento.isSelected();
+            double totalFinal = Double.parseDouble(txtMontoTotal.getText().trim().replace(",", "."));
+
+            // 5. Llamar al método de tu capa de negocio NCobros con la firma exacta
+            boolean exito = nCobros.procesarCobro(idCliente, idMetodoPago, totalCompras, cuotas, interes, aplicarDescuento, totalFinal);
+
+            if (exito) {
+                javax.swing.JOptionPane.showMessageDialog(this, "El pago de la cuenta corriente fue registrado con éxito en la base de datos.", "Registro Exitoso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                // 6. Limpieza automática de la interfaz para el siguiente cobro
+                txtComprasTotales.setText("");
+                txtCuil.setText("");
+                txtSubtotal.setText("0.00");
+                txtInteres.setText("0.00");
+                txtUnidadCuota.setText("0.00");
+                txtMontoTotal.setText("0.00");
+                txtCuotasPagos.setText("1");
+                cbNombre.setSelectedIndex(0);
+                cbMetodosPagos.setSelectedIndex(0);
+                cbDescuento.setSelected(false);
+                date.setDate(null);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se pudo registrar el cobro. Verifique las reglas de negocio en la consola.", "Error de Almacenamiento", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error en el formato de los datos numéricos.", "Error de Datos", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAContinuar4ActionPerformed
+
+    private void btnABuscar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnABuscar3ActionPerformed
+        if (cbNombre.getSelectedItem() == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione un cliente de la lista.");
+            return;
+        }
+
+        String nombreSeleccionado = cbNombre.getSelectedItem().toString();
+        Modelos.Cliente clienteSeleccionado = null;
+
+        // Buscamos el objeto correspondiente en base al String seleccionado
+        if (listaClientesGlobal != null) {
+            for (Modelos.Cliente c : listaClientesGlobal) {
+                if (c.getRazonSocial().equals(nombreSeleccionado)) {
+                    clienteSeleccionado = c;
+                    break;
+                }
+            }
+        }
+
+        if (clienteSeleccionado != null) {
+            // 1. Autocompletamos los campos del panel izquierdo
+            txtCuil.setText(clienteSeleccionado.getCuit());
+
+            // 2. Traemos la deuda acumulada real
+            int idCli = clienteSeleccionado.getIdCliente();
+            double deudaTotal = nCobros.obtenerDeudaCliente(idCli);
+
+            // 3. Simulación de Fecha Vieja (Para probar el cálculo de intereses de 3 meses)
+            // Esto asume que la venta original ocurrió el 15 de Enero de 2026 de manera simulada
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.set(2026, java.util.Calendar.JANUARY, 15);
+            this.fechaVentaOriginal = cal.getTime();
+
+            // 4. Rellenamos montos de interfaz sin usar variables inexistentes
+            txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal));
+            txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal));
+            txtCuotasPagos.setText("1"); // Predeterminado
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Datos cargados para: " + nombreSeleccionado + "\nDeuda actual: $" + deudaTotal);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron los datos del cliente.");
+        }
+    }//GEN-LAST:event_btnABuscar3ActionPerformed
+
+    private void btCalcularCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularCuotasActionPerformed
+        calcularTotalesYCuotas();
+    }//GEN-LAST:event_btCalcularCuotasActionPerformed
+
+    private void calcularTotalesYCuotas() {
+        try {
+            // 1. Validar subtotal base
+            if (txtComprasTotales.getText().trim().isEmpty()) {
+                return;
+            }
+            double subtotal = Double.parseDouble(txtComprasTotales.getText().trim());
+
+            // 2. Lógica de Interés por Plazo Vencido (Límite Máximo de 3 Meses)
+            double interesCalculado = 0.0;
+
+            if (date.getDate() != null && this.fechaVentaOriginal != null) {
+                java.time.LocalDate fVenta = this.fechaVentaOriginal.toInstant()
+                        .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+                java.time.LocalDate fCobro = date.getDate().toInstant()
+                        .atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+                java.time.Period periodo = java.time.Period.between(fVenta, fCobro);
+                long totalMesesDiferencia = periodo.toTotalMonths();
+
+                if (totalMesesDiferencia >= 3) {
+                    double porcentajeInteres = 0.15;
+                    interesCalculado = subtotal * porcentajeInteres;
+                }
+            }
+
+            txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", subtotal));
+            txtInteres.setText(String.format(java.util.Locale.US, "%.2f", interesCalculado));
+
+            double montoConInteres = subtotal + interesCalculado;
+
+            // 3. Cálculo de cuotas
+            int cantidadCuotas = 1;
+            if (!txtCuotasPagos.getText().trim().isEmpty()) {
+                try {
+                    cantidadCuotas = Integer.parseInt(txtCuotasPagos.getText().trim());
+                    if (cantidadCuotas <= 0) {
+                        cantidadCuotas = 1;
+                    }
+                } catch (NumberFormatException e) {
+                    cantidadCuotas = 1;
+                }
+            }
+            double valorCuota = montoConInteres / cantidadCuotas;
+            txtUnidadCuota.setText(String.format(java.util.Locale.US, "%.2f", valorCuota));
+
+            // 4. Validación del Descuento (Solo Efectivo y 15%)
+            double montoFinal = montoConInteres;
+            if (cbDescuento.isSelected()) {
+                String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
+                        ? cbMetodosPagos.getSelectedItem().toString()
+                        : "";
+
+                if (metodoSeleccionado.equalsIgnoreCase("Efectivo")) {
+                    double porcentajeDescuento = 0.15;
+                    montoFinal = montoConInteres * (1 - porcentajeDescuento);
+                } else {
+                    cbDescuento.setSelected(false);
+                    JOptionPane.showMessageDialog(this,
+                            "El descuento del 15% solo puede aplicarse para pagos en Efectivo.",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // 5. Mostrar el monto total definitivo abajo
+            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", montoFinal));
+
+        } catch (NumberFormatException ex) {
+            txtMontoTotal.setText("0.00");
+        }
+    }
+    private void cbMetodosPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetodosPagosActionPerformed
+        if (cbNombre.getSelectedItem() != null && listaClientesGlobal != null) {
+            String nombreSeleccionado = cbNombre.getSelectedItem().toString();
+
+            // Buscamos el objeto cliente que coincida con el nombre del combo
+            Modelos.Cliente clienteSeleccionado = null;
+            for (Modelos.Cliente c : listaClientesGlobal) {
+                if (c.getRazonSocial().equals(nombreSeleccionado)) {
+                    clienteSeleccionado = c;
+                    break;
+                }
+            }
+
+            if (clienteSeleccionado != null) {
+                txtCuil.setText(clienteSeleccionado.getCuit());
+                int idCli = clienteSeleccionado.getIdCliente();
+                double deudaTotal = nCobros.obtenerDeudaCliente(idCli);
+
+                txtComprasTotales.setText(String.valueOf(deudaTotal));
+                txtSubtotal.setText(String.valueOf(deudaTotal));
+            }
+        }
+        // Si cambia el método de pago, validamos de inmediato que el descuento siga siendo legal
+        if (cbDescuento.isSelected()) {
+            calcularTotalesYCuotas();
+        }
+    }//GEN-LAST:event_cbMetodosPagosActionPerformed
+
+    private void calcularDescuentoFinal() {
+        if (txtMontoTotal.getText().isEmpty()) {
+            return;
+        }
+
+        double comprasTotales = Double.parseDouble(txtComprasTotales.getText());
+        int cuotas = txtCuotasPagos.getText().isEmpty() ? 1 : Integer.parseInt(txtCuotasPagos.getText());
+        double porcentajeInteres = (cuotas > 1) ? (cuotas * 5.0) : 0.0;
+        double totalConInteres = comprasTotales + (comprasTotales * (porcentajeInteres / 100.0));
+
+        // Si está seleccionado, restamos un 10%, sino dejamos el valor base con interés
+        if (cbDescuento.isSelected()) {
+            double descuento = totalConInteres * 0.10; // 10% Descuento
+            double totalFinal = totalConInteres - descuento;
+            txtMontoTotal.setText(String.format("%.2f", totalFinal).replace(",", "."));
+        } else {
+            txtMontoTotal.setText(String.format("%.2f", totalConInteres).replace(",", "."));
+        }
+    }
+    private void cbDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDescuentoActionPerformed
+        calcularTotalesYCuotas();
+    }//GEN-LAST:event_cbDescuentoActionPerformed
+
+    private void btCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcularActionPerformed
+        // Limpia los textfields del panel de cálculo para permitir una nueva operación
+        txtCuotasPagos.setText("");
+        txtUnidadCuota.setText("");
+        txtInteres.setText("");
+        txtSubtotal.setText("");
+        txtMontoTotal.setText("");
+
+        // Destilda el descuento por seguridad al reiniciar
+        cbDescuento.setSelected(false);
+
+        // Le devuelve el foco al campo de cuotas para comodidad del usuario
+        txtCuotasPagos.requestFocus();
+    }//GEN-LAST:event_btCalcularActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // 1. Fijamos la cantidad de pagos en 1 en la interfaz
+        txtCuotasPagos.setText("1");
+
+        // 2. Ejecutamos el método de cálculo para actualizar de forma automática
+        calcularTotalesYCuotas();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirActionPerformed
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "¡Impreso con éxito!",
+                "Impresión de Comprobante",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btImprimirActionPerformed
+
+    private void cbNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNombreItemStateChanged
+        // Validamos que el evento sea de SELECCIÓN
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+
+            // Ignoramos la opción por defecto
+            if (cbNombre.getSelectedIndex() == 0) {
+                return;
+            }
+
+            // Limpiamos espacios alrededor del nombre seleccionado
+            String nombreSeleccionado = cbNombre.getSelectedItem().toString().trim();
+            boolean esCuentaCorriente = false;
+
+            
+            switch (nombreSeleccionado) {
+                case "Maria Gomez":
+                case "Distribuidora Centro SRL":
+                case "Ferreteria Industrial SA":
+                case "Comercial Norte SRL":
+                case "Electro Hogar SA":
+                case "Mercado Central SRL":
+                case "Servicios Integrales SA":
+                case "Corralon del Sur":
+                case "Tecnologia Global SA":
+                case "Logistica Express SRL":
+                    esCuentaCorriente = true;
+                    break;
+
+                default:
+                    
+                    esCuentaCorriente = false;
+                    break;
+            }
+
+            // 2. Si NO es Cuenta Corriente, salta el cartel jeje
+            if (!esCuentaCorriente) {
+
+                // Mostramos el cartel de advertencia
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "El cliente '" + nombreSeleccionado + "' no está habilitado para operar en Cuenta Corriente.",
+                        "Validación de Cuenta",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+
+                
+                // Usamos invokeLater para evitar conflictos de hilos con el evento
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        cbNombre.setSelectedIndex(0);
+                        // Limpiamos los campos del formulario por seguridad
+                        txtCuil.setText("");
+                        txtComprasTotales.setText("");
+                        txtSubtotal.setText("0.00");
+                        txtInteres.setText("0.00");
+                        txtUnidadCuota.setText("0.00");
+                        txtMontoTotal.setText("0.00");
+                    }
+                });
+            }
+        }
+    }//GEN-LAST:event_cbNombreItemStateChanged
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> new PLogin().setVisible(true));
@@ -1659,18 +2210,27 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton BuscarCliMP;
     private javax.swing.JButton LimpiarMp;
     private javax.swing.JPanel ListaPanel;
+    private javax.swing.JPanel PagosPanel;
+    private javax.swing.JPanel PagosPanelCampos;
+    private javax.swing.JPanel PanelBotones;
+    private javax.swing.JPanel PanelCalculo;
     private javax.swing.JPanel administracionPanel;
     private javax.swing.JPanel autEmp;
     private javax.swing.JPanel autPers;
+    private javax.swing.JButton btCalcular;
+    private javax.swing.JButton btCalcularCuotas;
+    private javax.swing.JButton btImprimir;
     private javax.swing.JButton btnABorrar;
     private javax.swing.JButton btnABorrar1;
     private javax.swing.JButton btnABuscar;
     private javax.swing.JButton btnABuscar1;
+    private javax.swing.JButton btnABuscar3;
     private javax.swing.JButton btnAClientes;
     private javax.swing.JButton btnAContinuar;
     private javax.swing.JButton btnAContinuar1;
     private javax.swing.JButton btnAContinuar2;
     private javax.swing.JButton btnAContinuar3;
+    private javax.swing.JButton btnAContinuar4;
     private javax.swing.JButton btnAEmpresa;
     private javax.swing.JButton btnAListas;
     private javax.swing.JButton btnAModificar;
@@ -1697,11 +2257,16 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel cargaPanel;
     private javax.swing.JComboBox<CondIVA> cbCondIva;
     private javax.swing.JComboBox<CondIVA> cbCondIvaMp;
+    private javax.swing.JCheckBox cbDescuento;
+    private javax.swing.JComboBox<String> cbMetodosPagos;
     private javax.swing.JComboBox<MetodoPago> cbMpVentas;
+    private javax.swing.JComboBox<String> cbNombre;
     private javax.swing.JComboBox<String> cbProductosV;
     private javax.swing.JComboBox<String> cbTipo;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton factA;
     private javax.swing.JButton factB;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -1722,6 +2287,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -1743,10 +2309,21 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1768,9 +2345,12 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTable tablaLista;
     private javax.swing.JTextField txtCant;
     private javax.swing.JTextField txtCod;
+    private javax.swing.JTextField txtComprasTotales;
+    private javax.swing.JTextField txtCuil;
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtCuitCliente;
     private javax.swing.JTextField txtCuotas;
+    private javax.swing.JTextField txtCuotasPagos;
     private javax.swing.JTextField txtDNIPago;
     private javax.swing.JTextField txtDNIRetiro;
     private javax.swing.JTextField txtDNIRetiro1;
@@ -1780,7 +2360,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtFiltroCuit;
     private javax.swing.JTextField txtFiltroRS;
     private javax.swing.JTextField txtIVA;
+    private javax.swing.JTextField txtInteres;
     private javax.swing.JTextField txtMail;
+    private javax.swing.JTextField txtMontoTotal;
     private javax.swing.JTextField txtNomPago;
     private javax.swing.JTextField txtNomRetiro;
     private javax.swing.JTextField txtNomRetiro1;
@@ -1789,7 +2371,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtPre2;
     private javax.swing.JTextField txtRS;
     private javax.swing.JTextField txtStock;
+    private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTel;
+    private javax.swing.JTextField txtUnidadCuota;
     private javax.swing.JPanel ventasPanel;
     // End of variables declaration//GEN-END:variables
 }
