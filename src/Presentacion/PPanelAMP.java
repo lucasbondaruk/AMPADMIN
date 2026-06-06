@@ -690,6 +690,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         PagosPanelCampos.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
         cbNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbNombre.addItemListener(this::cbNombreItemStateChanged);
         PagosPanelCampos.add(cbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 270, -1));
 
         jLabel7.setText("Cuit-Cuil:");
@@ -2133,6 +2134,68 @@ public class PPanelAMP extends javax.swing.JFrame {
                 "Impresión de Comprobante",
                 javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btImprimirActionPerformed
+
+    private void cbNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNombreItemStateChanged
+        // Validamos que el evento sea de SELECCIÓN
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+
+            // Ignoramos la opción por defecto
+            if (cbNombre.getSelectedIndex() == 0) {
+                return;
+            }
+
+            // Limpiamos espacios alrededor del nombre seleccionado
+            String nombreSeleccionado = cbNombre.getSelectedItem().toString().trim();
+            boolean esCuentaCorriente = false;
+
+            
+            switch (nombreSeleccionado) {
+                case "Maria Gomez":
+                case "Distribuidora Centro SRL":
+                case "Ferreteria Industrial SA":
+                case "Comercial Norte SRL":
+                case "Electro Hogar SA":
+                case "Mercado Central SRL":
+                case "Servicios Integrales SA":
+                case "Corralon del Sur":
+                case "Tecnologia Global SA":
+                case "Logistica Express SRL":
+                    esCuentaCorriente = true;
+                    break;
+
+                default:
+                    
+                    esCuentaCorriente = false;
+                    break;
+            }
+
+            // 2. Si NO es Cuenta Corriente, salta el cartel jeje
+            if (!esCuentaCorriente) {
+
+                // Mostramos el cartel de advertencia
+                javax.swing.JOptionPane.showMessageDialog(this,
+                        "El cliente '" + nombreSeleccionado + "' no está habilitado para operar en Cuenta Corriente.",
+                        "Validación de Cuenta",
+                        javax.swing.JOptionPane.WARNING_MESSAGE);
+
+                
+                // Usamos invokeLater para evitar conflictos de hilos con el evento
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        cbNombre.setSelectedIndex(0);
+                        // Limpiamos los campos del formulario por seguridad
+                        txtCuil.setText("");
+                        txtComprasTotales.setText("");
+                        txtSubtotal.setText("0.00");
+                        txtInteres.setText("0.00");
+                        txtUnidadCuota.setText("0.00");
+                        txtMontoTotal.setText("0.00");
+                    }
+                });
+            }
+        }
+    }//GEN-LAST:event_cbNombreItemStateChanged
 
     public static void main(String args[]) {
 
