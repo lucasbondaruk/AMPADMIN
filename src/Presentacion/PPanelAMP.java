@@ -113,6 +113,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnAContinuar1 = new javax.swing.JButton();
         btnAContinuar3 = new javax.swing.JButton();
+        btnAContinuar5 = new javax.swing.JButton();
         txtFiltroCuit = new javax.swing.JTextField();
         txtFiltroRS = new javax.swing.JTextField();
         cbTipo = new javax.swing.JComboBox<>();
@@ -220,9 +221,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         cancelarMP1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(991, 777));
         setMinimumSize(new java.awt.Dimension(991, 777));
-        setPreferredSize(new java.awt.Dimension(991, 777));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -623,30 +622,42 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAContinuar3.setBackground(new java.awt.Color(22, 22, 22));
         btnAContinuar3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAContinuar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnAContinuar3.setText("<Ver detalle>");
+        btnAContinuar3.setText("<Exportar Excel>");
         btnAContinuar3.setToolTipText("");
         btnAContinuar3.setActionCommand("<Volver>");
         btnAContinuar3.setBorderPainted(false);
-        btnAContinuar3.addActionListener(this::btnAContinuar3ActionPerformed);
+        btnAContinuar3.addActionListener(this::btnExportarCliente);
+
+        btnAContinuar5.setBackground(new java.awt.Color(22, 22, 22));
+        btnAContinuar5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAContinuar5.setForeground(new java.awt.Color(255, 255, 255));
+        btnAContinuar5.setText("<Ver detalle>");
+        btnAContinuar5.setToolTipText("");
+        btnAContinuar5.setActionCommand("<Volver>");
+        btnAContinuar5.setBorderPainted(false);
+        btnAContinuar5.addActionListener(this::btnAContinuar5ActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(192, 192, 192)
+                .addGap(81, 81, 81)
                 .addComponent(btnAContinuar1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(158, 158, 158)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addComponent(btnAContinuar5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108)
                 .addComponent(btnAContinuar3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(64, 64, 64))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAContinuar1)
-                    .addComponent(btnAContinuar3))
-                .addGap(0, 4, Short.MAX_VALUE))
+                    .addComponent(btnAContinuar3)
+                    .addComponent(btnAContinuar5))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         ListaPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 980, 40));
@@ -1514,9 +1525,68 @@ public class PPanelAMP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAContinuar1ActionPerformed
 
-    private void btnAContinuar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAContinuar3ActionPerformed
+    private void btnExportarCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCliente
+        try {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setDialogTitle("Guardar listado");
+            chooser.setSelectedFile(new java.io.File("listado_cuentas_corrientes.xls"));
+
+            int opcion = chooser.showSaveDialog(this);
+
+            if (opcion != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+
+            java.io.File archivo = chooser.getSelectedFile();
+
+            if (!archivo.getName().toLowerCase().endsWith(".xls")) {
+                archivo = new java.io.File(archivo.getAbsolutePath() + ".xls");
+            }
+
+            DefaultTableModel modelo = (DefaultTableModel) tablaLista.getModel();
+
+            try (java.io.PrintWriter pw = new java.io.PrintWriter(
+                    new java.io.OutputStreamWriter(
+                            new java.io.FileOutputStream(archivo), "UTF-8"))) {
+
+                pw.println("<html>");
+                pw.println("<head>");
+                pw.println("<meta charset='UTF-8'>");
+                pw.println("</head>");
+                pw.println("<body>");
+                pw.println("<h2>Listado de Cuentas Corrientes</h2>");
+                pw.println("<table border='1'>");
+
+                pw.println("<tr style='font-weight:bold; background-color:#D9EAF7;'>");
+                for (int col = 0; col < modelo.getColumnCount(); col++) {
+                    pw.println("<td>" + modelo.getColumnName(col) + "</td>");
+                }
+                pw.println("</tr>");
+
+                for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+                    pw.println("<tr>");
+
+                    for (int col = 0; col < modelo.getColumnCount(); col++) {
+                        Object valor = modelo.getValueAt(fila, col);
+                        String texto = valor != null ? valor.toString() : "";
+
+                        pw.println("<td style='mso-number-format:\"\\@\";'>" + texto + "</td>");
+                    }
+
+                    pw.println("</tr>");
+                }
+
+                pw.println("</table>");
+                pw.println("</body>");
+                pw.println("</html>");
+            }
+
+            JOptionPane.showMessageDialog(this, "Listado Excel generado correctamente");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al generar Excel: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnExportarCliente
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         String rs = txtFiltroRS.getText().trim().toLowerCase();
@@ -2197,6 +2267,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbNombreItemStateChanged
 
+    private void btnAContinuar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAContinuar5ActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> new PLogin().setVisible(true));
@@ -2231,6 +2305,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnAContinuar2;
     private javax.swing.JButton btnAContinuar3;
     private javax.swing.JButton btnAContinuar4;
+    private javax.swing.JButton btnAContinuar5;
     private javax.swing.JButton btnAEmpresa;
     private javax.swing.JButton btnAListas;
     private javax.swing.JButton btnAModificar;
