@@ -66,9 +66,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabel58 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         administracionPanel = new javax.swing.JPanel();
         navbarADM = new javax.swing.JPanel();
         lblimg = new javax.swing.JLabel();
@@ -204,12 +204,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtCod = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         txtIVA = new javax.swing.JTextField();
-        Agregar = new javax.swing.JButton();
         jLabel36 = new javax.swing.JLabel();
-        Buscar = new javax.swing.JButton();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
-        Buscar1 = new javax.swing.JButton();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
         listaPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaVenta = new javax.swing.JTable();
@@ -283,20 +280,20 @@ public class PPanelAMP extends javax.swing.JFrame {
         jComboBox2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 110, 40));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Ingrese una descripción");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 20, 150, -1));
+        jLabel58.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel58.setText("Ingrese una descripción");
+        jPanel2.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 20, 150, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("🧹");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 50, 40));
-
-        jButton2.setBackground(new java.awt.Color(24, 116, 24));
+        jButton2.setBackground(new java.awt.Color(0, 153, 255));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton2.setText("+");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 50, 40));
+        jButton2.setText("🧹");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 30, 50, 40));
+
+        jButton5.setBackground(new java.awt.Color(24, 116, 24));
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton5.setText("+");
+        jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, 50, 40));
 
         javax.swing.GroupLayout PBuscarProductoVLayout = new javax.swing.GroupLayout(PBuscarProductoV.getContentPane());
         PBuscarProductoV.getContentPane().setLayout(PBuscarProductoVLayout);
@@ -988,7 +985,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setText("Código ");
         cargaPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, -1, -1));
-        cargaPanel.add(txtCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, 60, 30));
+        cargaPanel.add(txtCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 40, 60, 30));
 
         txtPre1.setEditable(false);
         txtPre1.setBackground(new java.awt.Color(204, 204, 204));
@@ -1023,8 +1020,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
         jLabel34.setText("Descripción");
-        cargaPanel.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
-        cargaPanel.add(txtCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 50, 30));
+        cargaPanel.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+        cargaPanel.add(txtCod, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 100, 30));
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
@@ -1038,46 +1035,27 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtIVA.setText("IVA");
         cargaPanel.add(txtIVA, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 60, 30));
 
-        Agregar.setText("Agregar");
-        Agregar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Agregar.addActionListener(this::AgregarActionPerformed);
-        cargaPanel.add(Agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 90, 40));
-
         jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(255, 255, 255));
         jLabel36.setText("Cantidad");
         cargaPanel.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
 
-        Buscar.setBackground(new java.awt.Color(84, 202, 188));
-        Buscar.setForeground(new java.awt.Color(8, 8, 29));
-        Buscar.setText("🔍");
-        Buscar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Buscar.addActionListener(this::BuscarActionPerformed);
-        cargaPanel.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 40, 40));
+        jLabel56.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel56.setText("%");
+        cargaPanel.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, -1, -1));
 
-        jLabel44.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel44.setText("%");
-        cargaPanel.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, -1, -1));
-
-        jLabel47.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel47.setText("$");
-        cargaPanel.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
-
-        Buscar1.setBackground(new java.awt.Color(84, 202, 188));
-        Buscar1.setForeground(new java.awt.Color(8, 8, 29));
-        Buscar1.setText("🔍");
-        Buscar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Buscar1.addActionListener(this::Buscar1ActionPerformed);
-        cargaPanel.add(Buscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(672, 30, 40, 40));
+        jLabel57.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel57.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel57.setText("$");
+        cargaPanel.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
 
         ventasPanel.add(cargaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 140));
 
         listaPanel.setBackground(new java.awt.Color(255, 255, 255));
         listaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -1106,11 +1084,11 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         listaPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 980, 450));
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel32.setText("Total:");
         listaPanel.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 510, -1, -1));
 
-        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel37.setText("Descuento:");
         listaPanel.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, -1, -1));
 
@@ -2424,15 +2402,13 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Agregar;
     private javax.swing.JButton AgregarCliMP;
     private javax.swing.JPanel BtnsADM;
     private javax.swing.JPanel BtnsVNT1;
-    private javax.swing.JButton Buscar;
-    private javax.swing.JButton Buscar1;
     private javax.swing.JButton BuscarCliMP;
     private javax.swing.JButton LimpiarMp;
     private javax.swing.JPanel ListaPanel;
+    private javax.swing.JFrame PBuscarProductoV;
     private javax.swing.JPanel PagosPanel;
     private javax.swing.JPanel PagosPanelCampos;
     private javax.swing.JPanel PanelBotones;
@@ -2491,8 +2467,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton factA;
     private javax.swing.JButton factB;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -2548,6 +2526,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
