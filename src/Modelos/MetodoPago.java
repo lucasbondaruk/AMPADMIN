@@ -1,14 +1,21 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Modelos;
 
+/**
+ *
+ * @author Tomas Alvarez
+ */
 public class MetodoPago {
-
     private int idMetodoPago;
     private String descripcion;
     private boolean activo;
 
-    public MetodoPago(){
+    public MetodoPago() {
     }
-    
+
     public MetodoPago(int idMetodoPago, String descripcion, boolean activo) {
         this.idMetodoPago = idMetodoPago;
         this.descripcion = descripcion;
@@ -38,10 +45,10 @@ public class MetodoPago {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    @Override
-    public String toString(){
-        return descripcion;
-    }
 
+    // Sobrescribimos el toString para que el JComboBox de NetBeans muestre el texto de la descripción
+    @Override
+    public String toString() {
+        return this.descripcion;
+    }
 }

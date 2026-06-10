@@ -12,18 +12,14 @@ public class DUsuario {
 
     public Usuario validarLogin(String usuario, String contrasenia) throws Exception {    //SI TIENEN PROBLEMAS PARA VALIDAR USUARIO, CAPAZ ES POR EL STRING DE CONEXIÓN
 
-        String sql = "SELECT id, usuario, estado, idRol "
+        String sql = "SELECT id, usuario, idRol, estado "
                 + "FROM dbo.Usuario "
-                + "WHERE usuario = ? "
-                + "AND contrasenia = ? "
-                + "AND estado = 'Activo' "
-                + "AND idRol = 1";
+                + "WHERE usuario = ? AND contrasenia = ? AND estado = 'Activo'";
 
         try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, usuario);
             ps.setString(2, contrasenia);
-
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
@@ -40,7 +36,9 @@ public class DUsuario {
             }
 
         } catch (Exception e) {
-            throw new Exception("Error, usuario inválido");
+            // ESTA LÍNEA ES CLAVE: Te va a mostrar el verdadero error en la consola de NetBeans
+            e.printStackTrace(); 
+            throw new Exception("Error, usuario inválido: " + e.getMessage());
         }
     }
 }
