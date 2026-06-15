@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class SqlConection {
                                                                                     
-    private static final String URL = "jdbc:sqlserver://WIN-1A306FL320H;databaseName=AMPADMIN;encrypt=true;trustServerCertificate=true;";
+    private static final String URL = "jdbc:sqlserver://localhost;databaseName=AMPADMIN;encrypt=true;trustServerCertificate=true;";
     private static final String USER = "sa";
     private static final String PASSWORD = "Admin123";
 

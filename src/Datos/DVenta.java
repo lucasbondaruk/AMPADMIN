@@ -4,8 +4,13 @@ import Conexiones.SqlConection;
 import Modelos.Venta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class DVenta {
+
     private SqlConection conexion = new SqlConection();
 
     public boolean Insertar(Venta venta) {
@@ -36,5 +41,44 @@ public class DVenta {
             System.out.println("Error al registrar venta: " + e.getMessage());
             return false;
         }
+    }
+
+    public List<Venta> listarVentasCliente(int idCliente) throws Exception {
+
+        List<Venta> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM Venta WHERE idCliente = ?";
+
+        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idCliente);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    Venta v = new Venta();
+
+                    v.setIdVenta(rs.getInt("idVenta"));
+                    v.setNumVenta(rs.getInt("numVenta"));
+                    v.setFecha(rs.getDate("fecha"));
+                    v.setTotal(rs.getFloat("total"));
+                    v.setCuotas(rs.getInt("cuotas"));
+                    v.setInteres(rs.getFloat("interes"));
+                    v.setTipoComprobante(rs.getString("tipoComprobante"));
+                    v.setIdMetodoPago(rs.getInt("idMetodoPago"));
+                    v.setIdIVA(rs.getInt("idIVA"));
+                    v.setIdCliente(rs.getInt("idCliente"));
+                    v.setIdVendedor(rs.getInt("idVendedor"));
+
+                    lista.add(v);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new Exception("Error al listar ventas del cliente");
+        }
+
+        return lista;
     }
 }
