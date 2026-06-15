@@ -1,5 +1,5 @@
-
 package Datos;
+
 import Modelos.DetalleVenta;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,9 +7,10 @@ import Conexiones.SqlConection;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet; 
-        
+import java.sql.ResultSet;
+
 public class DDetalleVenta {
+
     private SqlConection conexion = new SqlConection();
 
     public boolean insertar(DetalleVenta dv) throws Exception {
@@ -26,6 +27,41 @@ public class DDetalleVenta {
 
             return ps.executeUpdate() > 0;
         }
+    }
+
+    public List<DetalleVenta> listarPorVenta(int idVenta) throws Exception {
+
+        List<DetalleVenta> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM DetalleVenta WHERE idVenta = ?";
+
+        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idVenta);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    DetalleVenta d = new DetalleVenta();
+
+                    d.setIdDetalleVenta(rs.getInt("idDetalleVenta"));
+                    d.setIdVenta(rs.getInt("idVenta"));
+                    d.setIdProducto(rs.getInt("idProducto"));
+                    d.setCantidad(rs.getInt("cantidad"));
+                    d.setPrecioUnitario(rs.getFloat("precioUnitario"));
+                    d.setImporte(rs.getFloat("importe"));
+                    d.setDescuento(rs.getFloat("descuento"));
+
+                    lista.add(d);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new Exception("Error al listar detalles de la venta");
+        }
+
+        return lista;
     }
 
 }

@@ -1,5 +1,7 @@
 package Presentacion;
 
+import Datos.DCliente;
+import Datos.DProducto;
 import java.util.Date;
 import java.awt.Color;
 import Modelos.Cliente;
@@ -12,14 +14,27 @@ import Negocio.NCondIVA;
 import Modelos.CondIVA;
 import Modelos.IVA;
 import Modelos.MetodoPago;
+import Modelos.Venta;
 import Negocio.NIVA;
 import Negocio.NMetodoPago;
+import Negocio.NVenta;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -47,7 +62,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         opc = false;
 
         cargarTabla();
-
+        cargarCbCondIva();
         cargarClientes();
         cargarMetodosPago();
         revalidate();
@@ -69,6 +84,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel58 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
         administracionPanel = new javax.swing.JPanel();
         navbarADM = new javax.swing.JPanel();
         lblimg = new javax.swing.JLabel();
@@ -134,9 +150,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaLista = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnAContinuar1 = new javax.swing.JButton();
+        btnAGestionarCC = new javax.swing.JButton();
         btnAContinuar3 = new javax.swing.JButton();
-        btnAContinuar5 = new javax.swing.JButton();
+        btnADetalleCC = new javax.swing.JButton();
         txtFiltroCuit = new javax.swing.JTextField();
         txtFiltroRS = new javax.swing.JTextField();
         cbTipo = new javax.swing.JComboBox<>();
@@ -178,6 +194,17 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtMontoTotal = new javax.swing.JTextField();
         cbDescuento = new javax.swing.JCheckBox();
         btImprimir = new javax.swing.JButton();
+        verDetallePanel = new javax.swing.JPanel();
+        txtSaldo1 = new javax.swing.JLabel();
+        txtSaldoT = new javax.swing.JLabel();
+        txtNomCC = new javax.swing.JLabel();
+        lblCC = new javax.swing.JLabel();
+        ScrollDetalle = new javax.swing.JScrollPane();
+        tarjetaDetalle = new javax.swing.JPanel();
+        BtnDetalleCC = new javax.swing.JPanel();
+        btnAVolver = new javax.swing.JButton();
+        btnAExportar = new javax.swing.JButton();
+        btnACobrar = new javax.swing.JButton();
         ventasPanel = new javax.swing.JPanel();
         navbarVNT = new javax.swing.JPanel();
         lblimg1 = new javax.swing.JLabel();
@@ -306,8 +333,20 @@ public class PPanelAMP extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(991, 777));
+        setPreferredSize(new java.awt.Dimension(980, 738));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -697,13 +736,13 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(22, 22, 22));
 
-        btnAContinuar1.setBackground(new java.awt.Color(22, 22, 22));
-        btnAContinuar1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnAContinuar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAContinuar1.setText("<Gestionar>");
-        btnAContinuar1.setActionCommand("<Volver>");
-        btnAContinuar1.setBorderPainted(false);
-        btnAContinuar1.addActionListener(this::btnAContinuar1ActionPerformed);
+        btnAGestionarCC.setBackground(new java.awt.Color(22, 22, 22));
+        btnAGestionarCC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAGestionarCC.setForeground(new java.awt.Color(255, 255, 255));
+        btnAGestionarCC.setText("<Gestionar>");
+        btnAGestionarCC.setActionCommand("<Volver>");
+        btnAGestionarCC.setBorderPainted(false);
+        btnAGestionarCC.addActionListener(this::btnAGestionarCCActionPerformed);
 
         btnAContinuar3.setBackground(new java.awt.Color(22, 22, 22));
         btnAContinuar3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -714,14 +753,14 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAContinuar3.setBorderPainted(false);
         btnAContinuar3.addActionListener(this::btnExportarCliente);
 
-        btnAContinuar5.setBackground(new java.awt.Color(22, 22, 22));
-        btnAContinuar5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnAContinuar5.setForeground(new java.awt.Color(255, 255, 255));
-        btnAContinuar5.setText("<Ver detalle>");
-        btnAContinuar5.setToolTipText("");
-        btnAContinuar5.setActionCommand("<Volver>");
-        btnAContinuar5.setBorderPainted(false);
-        btnAContinuar5.addActionListener(this::btnAContinuar5ActionPerformed);
+        btnADetalleCC.setBackground(new java.awt.Color(22, 22, 22));
+        btnADetalleCC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnADetalleCC.setForeground(new java.awt.Color(255, 255, 255));
+        btnADetalleCC.setText("<Ver detalle>");
+        btnADetalleCC.setToolTipText("");
+        btnADetalleCC.setActionCommand("<Volver>");
+        btnADetalleCC.setBorderPainted(false);
+        btnADetalleCC.addActionListener(this::btnADetalleCCActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -729,9 +768,9 @@ public class PPanelAMP extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(81, 81, 81)
-                .addComponent(btnAContinuar1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAGestionarCC, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                .addComponent(btnAContinuar5, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnADetalleCC, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(108, 108, 108)
                 .addComponent(btnAContinuar3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
@@ -740,9 +779,9 @@ public class PPanelAMP extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAContinuar1)
+                    .addComponent(btnAGestionarCC)
                     .addComponent(btnAContinuar3)
-                    .addComponent(btnAContinuar5))
+                    .addComponent(btnADetalleCC))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -885,6 +924,99 @@ public class PPanelAMP extends javax.swing.JFrame {
         PagosPanel.add(PanelBotones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 500, 960, 110));
 
         administracionPanel.add(PagosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 600));
+
+        verDetallePanel.setBackground(new java.awt.Color(255, 255, 255));
+        verDetallePanel.setForeground(new java.awt.Color(0, 0, 0));
+        verDetallePanel.setMaximumSize(new java.awt.Dimension(980, 738));
+        verDetallePanel.setMinimumSize(new java.awt.Dimension(980, 738));
+        verDetallePanel.setPreferredSize(new java.awt.Dimension(980, 738));
+        verDetallePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtSaldo1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
+        txtSaldo1.setForeground(new java.awt.Color(0, 0, 0));
+        txtSaldo1.setText("Saldo total: $");
+        verDetallePanel.add(txtSaldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, -1, -1));
+
+        txtSaldoT.setBackground(new java.awt.Color(255, 255, 255));
+        txtSaldoT.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        txtSaldoT.setForeground(new java.awt.Color(0, 0, 238));
+        txtSaldoT.setText("<saldo>");
+        verDetallePanel.add(txtSaldoT, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 633, 710, 30));
+
+        txtNomCC.setBackground(new java.awt.Color(255, 255, 255));
+        txtNomCC.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        txtNomCC.setForeground(new java.awt.Color(0, 0, 238));
+        txtNomCC.setText("<NombreCC>");
+        verDetallePanel.add(txtNomCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 540, -1));
+
+        lblCC.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
+        lblCC.setForeground(new java.awt.Color(0, 0, 0));
+        lblCC.setText("Cuenta Corriente:");
+        verDetallePanel.add(lblCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        tarjetaDetalle.setBackground(new java.awt.Color(219, 246, 255));
+        tarjetaDetalle.setMaximumSize(new java.awt.Dimension(100, 100));
+        tarjetaDetalle.setMinimumSize(new java.awt.Dimension(100, 100));
+        tarjetaDetalle.setName(""); // NOI18N
+        tarjetaDetalle.setPreferredSize(new java.awt.Dimension(100, 100));
+        tarjetaDetalle.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        ScrollDetalle.setViewportView(tarjetaDetalle);
+
+        verDetallePanel.add(ScrollDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 890, 460));
+
+        BtnDetalleCC.setBackground(new java.awt.Color(22, 22, 22));
+
+        btnAVolver.setBackground(new java.awt.Color(22, 22, 22));
+        btnAVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnAVolver.setText("<Volver>");
+        btnAVolver.setBorderPainted(false);
+        btnAVolver.addActionListener(this::btnAVolverActionPerformed);
+
+        btnAExportar.setBackground(new java.awt.Color(22, 22, 22));
+        btnAExportar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAExportar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAExportar.setText("<Exportar>");
+        btnAExportar.setToolTipText("");
+        btnAExportar.setActionCommand("<Volver>");
+        btnAExportar.setBorderPainted(false);
+        btnAExportar.addActionListener(this::btnAExportarbtnExportarCliente);
+
+        btnACobrar.setBackground(new java.awt.Color(22, 22, 22));
+        btnACobrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnACobrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnACobrar.setText("<Proceder al Cobro>");
+        btnACobrar.setToolTipText("");
+        btnACobrar.setActionCommand("<Volver>");
+        btnACobrar.setBorderPainted(false);
+        btnACobrar.addActionListener(this::btnACobrarActionPerformed);
+
+        javax.swing.GroupLayout BtnDetalleCCLayout = new javax.swing.GroupLayout(BtnDetalleCC);
+        BtnDetalleCC.setLayout(BtnDetalleCCLayout);
+        BtnDetalleCCLayout.setHorizontalGroup(
+            BtnDetalleCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BtnDetalleCCLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(btnAVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(156, 156, 156)
+                .addComponent(btnACobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addComponent(btnAExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
+        );
+        BtnDetalleCCLayout.setVerticalGroup(
+            BtnDetalleCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BtnDetalleCCLayout.createSequentialGroup()
+                .addGroup(BtnDetalleCCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAVolver)
+                    .addComponent(btnAExportar)
+                    .addComponent(btnACobrar))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        verDetallePanel.add(BtnDetalleCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 700, 980, 40));
+
+        administracionPanel.add(verDetallePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 738));
 
         getContentPane().add(administracionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 976, 738));
 
@@ -1483,7 +1615,6 @@ public class PPanelAMP extends javax.swing.JFrame {
     private void btnABuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnABuscarActionPerformed
         try {
             String cuit = txtCuit.getText().trim();
-
             NCliente negocio = new NCliente();
             Cliente c = negocio.select(cuit);
 
@@ -1564,6 +1695,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnAListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAListasActionPerformed
         cargarTabla();
+
         PagosPanel.setVisible(false);
         ListaPanel.setVisible(true);
         btnAListas.setBackground(new Color(30, 90, 142));
@@ -1573,17 +1705,21 @@ public class PPanelAMP extends javax.swing.JFrame {
         regEmp.setVisible(false);
         autEmp.setVisible(false);
         autPers.setVisible(false);
+        jScrollPane1.setVisible(true);
+        verDetallePanel.setVisible(false);
     }//GEN-LAST:event_btnAListasActionPerformed
 
     private void btnAClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAClientesActionPerformed
         cargarTabla();
         ListaPanel.setVisible(false);
+        verDetallePanel.setVisible(false);
         PagosPanel.setVisible(false);
         btnAListas.setBackground(new Color(20, 52, 83));
         btnAClientes.setBackground(new Color(30, 90, 142));
         btnAPagos.setBackground(new Color(20, 52, 83));
 
         BtnsADM.setVisible(true);
+        jScrollPane1.setVisible(false);
         regEmp.setVisible(true);
 
         if (opc) {
@@ -1613,9 +1749,75 @@ public class PPanelAMP extends javax.swing.JFrame {
             cbMpVentas.addItem(mp);
         }
     }
-    private void btnAContinuar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAContinuar1ActionPerformed
+
+    private void btnAGestionarCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAGestionarCCActionPerformed
+        int fila = tablaLista.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione una cuenta corriente");
+            return;
+        }
+
+        try {
+
+            String cuit = tablaLista.getValueAt(fila, 2).toString();
+            DCliente dCliente = new DCliente();
+            Cliente c = dCliente.select(cuit);
+
+            if (c != null) {
+
+                txtRS.setText(c.getRazonSocial());
+                txtTel.setText(c.getTelefono());
+                txtCuit.setText(c.getCuit());
+                txtDom.setText(c.getDomicilio());
+                txtMail.setText(c.getMail());
+
+                String tipoPersona = c.getTipoPersona();
+
+                if ("Persona".equals(tipoPersona)) {
+                    btnAPersonaActionPerformed(null);
+                } else {
+                    btnAEmpresaActionPerformed(null);
+                }
+
+                txtDate.setDate(c.getfchaIngreso());
+
+                int idCondIva = c.getIdCondIva();
+
+                for (int i = 0; i < cbCondIva.getItemCount(); i++) {
+
+                    CondIVA cond = cbCondIva.getItemAt(i);
+
+                    if (cond.getIdCondIva() == idCondIva) {
+                        cbCondIva.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                ListaPanel.setVisible(false);
+                jScrollPane1.setVisible(false);
+                regEmp.setVisible(true);
+
+                if ("Empresa".equals(tipoPersona)) {
+                    autEmp.setVisible(true);
+                    autPers.setVisible(false);
+                } else {
+                    autEmp.setVisible(false);
+                    autPers.setVisible(true);
+                }
+
+                BtnsADM.setVisible(true);
+                btnAListas.setBackground(new Color(20, 52, 83));
+                btnAClientes.setBackground(new Color(30, 90, 142));
+                btnAPagos.setBackground(new Color(20, 52, 83));
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+
+    }//GEN-LAST:event_btnAGestionarCCActionPerformed
 
     private void btnExportarCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCliente
         try {
@@ -1905,7 +2107,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         factB.setEnabled(true);
     }//GEN-LAST:event_LimpiarMpActionPerformed
 
-    private void noSeleccionFactura(){
+    private void noSeleccionFactura() {
         labelFact.setText("X");
         lblFact.setText("X");
         factA.setBackground(Color.WHITE);
@@ -1913,6 +2115,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         factB.setBackground(Color.WHITE);
         factB.setForeground(Color.BLACK);
     }
+
     private void seleccionarFacturaA() {
         labelFact.setText("A");
         lblFact.setText("A");
@@ -2056,7 +2259,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         }
 
         try {
-            // 2. Obtener ID del Cliente seleccionado
+
             String nombreSeleccionado = cbNombre.getSelectedItem().toString();
             int idCliente = -1;
             if (listaClientesGlobal != null) {
@@ -2068,11 +2271,10 @@ public class PPanelAMP extends javax.swing.JFrame {
                 }
             }
 
-            // 3. Obtener ID del Método de Pago seleccionado mapeando con tu Modelo
             String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
                     ? cbMetodosPagos.getSelectedItem().toString()
                     : "Efectivo";
-            int idMetodoPago = 1; // Por defecto: Efectivo
+            int idMetodoPago = 1;
 
             switch (metodoSeleccionado.toLowerCase().trim()) {
                 case "efectivo":
@@ -2080,7 +2282,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                     break;
                 case "débito":
                 case "debito":
-                    idMetodoPago = 2; // Asegurate de que coincida con el ID en tu tabla de SQL Server
+                    idMetodoPago = 2;
                     break;
                 case "crédito":
                 case "credito":
@@ -2094,20 +2296,17 @@ public class PPanelAMP extends javax.swing.JFrame {
                     break;
             }
 
-            // 4. Capturar y parsear los montos numéricos calculados
             double totalCompras = Double.parseDouble(txtComprasTotales.getText().trim().replace(",", "."));
             int cuotas = Integer.parseInt(txtCuotasPagos.getText().trim());
             double interes = Double.parseDouble(txtInteres.getText().trim().replace(",", "."));
             boolean aplicarDescuento = cbDescuento.isSelected();
             double totalFinal = Double.parseDouble(txtMontoTotal.getText().trim().replace(",", "."));
 
-            // 5. Llamar al método de tu capa de negocio NCobros con la firma exacta
             boolean exito = nCobros.procesarCobro(idCliente, idMetodoPago, totalCompras, cuotas, interes, aplicarDescuento, totalFinal);
 
             if (exito) {
                 javax.swing.JOptionPane.showMessageDialog(this, "El pago de la cuenta corriente fue registrado con éxito en la base de datos.", "Registro Exitoso", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
-                // 6. Limpieza automática de la interfaz para el siguiente cobro
                 txtComprasTotales.setText("");
                 txtCuil.setText("");
                 txtSubtotal.setText("0.00");
@@ -2343,7 +2542,6 @@ public class PPanelAMP extends javax.swing.JFrame {
             String nombreSeleccionado = cbNombre.getSelectedItem().toString().trim();
             boolean esCuentaCorriente = false;
 
-            
             switch (nombreSeleccionado) {
                 case "Maria Gomez":
                 case "Distribuidora Centro SRL":
@@ -2359,7 +2557,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                     break;
 
                 default:
-                    
+
                     esCuentaCorriente = false;
                     break;
             }
@@ -2373,7 +2571,6 @@ public class PPanelAMP extends javax.swing.JFrame {
                         "Validación de Cuenta",
                         javax.swing.JOptionPane.WARNING_MESSAGE);
 
-                
                 // Usamos invokeLater para evitar conflictos de hilos con el evento
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     @Override
@@ -2392,9 +2589,214 @@ public class PPanelAMP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbNombreItemStateChanged
 
-    private void btnAContinuar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar5ActionPerformed
+    private void btnADetalleCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnADetalleCCActionPerformed
+
+        ListaPanel.setVisible(false);
+        verDetallePanel.setVisible(true);
+
+        int fila = tablaLista.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al seleccionar una cuenta corriente");
+            return;
+        }
+
+        String rs = tablaLista.getValueAt(fila, 0).toString();
+        txtNomCC.setText(rs);
+
+        try {
+
+            String cuit = tablaLista.getValueAt(fila, 2).toString();
+
+            DCliente dCliente = new DCliente();
+            Cliente cliente = dCliente.select(cuit);
+
+            if (cliente != null) {
+                cargarCardsVentas(cliente.getIdCliente());
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnADetalleCCActionPerformed
+
+    private void cargarCardsVentas(int idCliente) {
+
+        tarjetaDetalle.removeAll();
+
+        tarjetaDetalle.setLayout(new FlowLayout(
+                FlowLayout.LEFT,
+                10,
+                10
+        ));
+
+        NVenta nVenta = new NVenta();
+        NDetalleVenta nDetalle = new NDetalleVenta();
+
+        List<Venta> ventas = nVenta.listarVentasCliente(idCliente);
+        double saldoTotal = 0;
+
+        for (Venta venta : ventas) {
+
+            saldoTotal += venta.getTotal();
+
+            List<DetalleVenta> detalles
+                    = nDetalle.listarPorVenta(venta.getIdVenta());
+
+            int cantidadProductos = 0;
+
+            for (DetalleVenta d : detalles) {
+                cantidadProductos += d.getCantidad();
+            }
+
+            JPanel card = crearCardVenta(venta, cantidadProductos);
+
+            tarjetaDetalle.add(card);
+        }
+        txtSaldoT.setText(
+                String.format("%,.2f", saldoTotal)
+                        .replace(",", "X")
+                        .replace(".", ",")
+                        .replace("X", ".")
+        );
+        tarjetaDetalle.revalidate();
+        tarjetaDetalle.repaint();
+    }
+
+    private JPanel crearCardVenta(Venta venta, int cantidadProductos) {
+
+        JPanel card = new JPanel();
+
+        card.setPreferredSize(new Dimension(280, 140));
+        card.setBackground(Color.WHITE);
+        card.setLayout(new BorderLayout());
+
+        card.setBorder(BorderFactory.createLineBorder(
+                new Color(200, 200, 200), 1));
+
+        // HEADER
+        JPanel header = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        header.setBackground(new Color(30, 90, 142));
+        header.setPreferredSize(new Dimension(280, 35));
+
+        JLabel lblVenta = new JLabel("Venta #" + venta.getNumVenta());
+        lblVenta.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        lblVenta.setForeground(Color.WHITE);
+
+        header.add(lblVenta);
+
+        // CONTENIDO
+        JPanel contenido = new JPanel();
+        contenido.setBackground(Color.WHITE);
+        contenido.setLayout(new BoxLayout(contenido, BoxLayout.Y_AXIS));
+        contenido.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel lblFecha = new JLabel("Fecha: " + venta.getFecha());
+        lblFecha.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+
+        JLabel lblProductos = new JLabel(
+                "Productos: " + cantidadProductos);
+        lblProductos.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+
+        JLabel lblSubtotal = new JLabel(
+                "Subtotal: $" + venta.getTotal());
+        lblSubtotal.setFont(new Font("Segoe UI", Font.BOLD, 16));
+
+        lblFecha.setAlignmentX(Component.LEFT_ALIGNMENT);
+        lblProductos.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        // PANEL INFERIOR
+        JPanel panelInferior = new JPanel(new BorderLayout());
+        panelInferior.setBackground(Color.WHITE);
+        panelInferior.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JButton btnVer = new JButton("Ver");
+        btnVer.addActionListener(e -> {
+
+            try {
+
+                NDetalleVenta nDetalle = new NDetalleVenta();
+
+                DProducto dProducto = new DProducto();
+
+                List<DetalleVenta> detalles
+                        = nDetalle.listarPorVenta(venta.getIdVenta());
+
+                StringBuilder mensaje = new StringBuilder();
+
+                mensaje.append("Venta N°: ")
+                        .append(venta.getNumVenta())
+                        .append("\n");
+
+                mensaje.append("Fecha: ")
+                        .append(venta.getFecha())
+                        .append("\n");
+                mensaje.append("/////////////////////////////////////////////////\n");
+                mensaje.append("DETALLES\n");
+                mensaje.append("/////////////////////////////////////////////////\n");
+
+                for (DetalleVenta d : detalles) {
+
+                    Producto p = dProducto.buscarPorId(d.getIdProducto());
+
+                    mensaje.append(p.getDescripcion())
+                            .append(" - Cant: ")
+                            .append(d.getCantidad())
+                            .append("\n");
+                }
+
+                mensaje.append("\n/////////////////////////////////////////////////\n");
+                mensaje.append("Subtotal: $")
+                        .append(venta.getTotal());
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        mensaje.toString(),
+                        "Detalle de Venta",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        ex.getMessage()
+                );
+            }
+        });
+        btnVer.setFocusPainted(false);
+
+        panelInferior.add(lblSubtotal, BorderLayout.WEST);
+        panelInferior.add(btnVer, BorderLayout.EAST);
+
+        // ARMADO
+        contenido.add(lblFecha);
+        contenido.add(Box.createVerticalStrut(5));
+        contenido.add(lblProductos);
+        contenido.add(Box.createVerticalStrut(10));
+        contenido.add(panelInferior);
+
+        card.add(header, BorderLayout.NORTH);
+        card.add(contenido, BorderLayout.CENTER);
+
+        return card;
+    }
+
+
+    private void btnAVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAVolverActionPerformed
+        verDetallePanel.setVisible(false);
+        ListaPanel.setVisible(true);
+
+    }//GEN-LAST:event_btnAVolverActionPerformed
+
+    private void btnAExportarbtnExportarCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAExportarbtnExportarCliente
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAContinuar5ActionPerformed
+    }//GEN-LAST:event_btnAExportarbtnExportarCliente
+
+    private void btnACobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnACobrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnACobrarActionPerformed
 
     public static void main(String args[]) {
 
@@ -2403,6 +2805,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AgregarCliMP;
+    private javax.swing.JPanel BtnDetalleCC;
     private javax.swing.JPanel BtnsADM;
     private javax.swing.JPanel BtnsVNT1;
     private javax.swing.JButton BuscarCliMP;
@@ -2413,6 +2816,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel PagosPanelCampos;
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelCalculo;
+    private javax.swing.JScrollPane ScrollDetalle;
     private javax.swing.JPanel administracionPanel;
     private javax.swing.JPanel autEmp;
     private javax.swing.JPanel autPers;
@@ -2425,18 +2829,21 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnABuscar1;
     private javax.swing.JButton btnABuscar3;
     private javax.swing.JButton btnAClientes;
+    private javax.swing.JButton btnACobrar;
     private javax.swing.JButton btnAContinuar;
-    private javax.swing.JButton btnAContinuar1;
     private javax.swing.JButton btnAContinuar2;
     private javax.swing.JButton btnAContinuar3;
     private javax.swing.JButton btnAContinuar4;
-    private javax.swing.JButton btnAContinuar5;
+    private javax.swing.JButton btnADetalleCC;
     private javax.swing.JButton btnAEmpresa;
+    private javax.swing.JButton btnAExportar;
+    private javax.swing.JButton btnAGestionarCC;
     private javax.swing.JButton btnAListas;
     private javax.swing.JButton btnAModificar;
     private javax.swing.JButton btnAModificar1;
     private javax.swing.JButton btnAPagos;
     private javax.swing.JButton btnAPersona;
+    private javax.swing.JButton btnAVolver;
     private javax.swing.JButton btnAdministracion;
     private javax.swing.JButton btnAdministracion1;
     private javax.swing.JButton btnCaja;
@@ -2534,6 +2941,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2542,6 +2950,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelFact;
+    private javax.swing.JLabel lblCC;
     private javax.swing.JLabel lblFact;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblimg;
@@ -2555,6 +2964,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel regEmp;
     private javax.swing.JTable tablaLista;
     private javax.swing.JTable tablaVenta;
+    private javax.swing.JPanel tarjetaDetalle;
     private javax.swing.JTextField txtCant;
     private javax.swing.JTextField txtCod;
     private javax.swing.JTextField txtComprasTotales;
@@ -2575,6 +2985,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtInteres;
     private javax.swing.JTextField txtMail;
     private javax.swing.JTextField txtMontoTotal;
+    private javax.swing.JLabel txtNomCC;
     private javax.swing.JTextField txtNomPago;
     private javax.swing.JTextField txtNomRetiro;
     private javax.swing.JTextField txtNomRetiro1;
@@ -2582,10 +2993,13 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtPre1;
     private javax.swing.JTextField txtPre2;
     private javax.swing.JTextField txtRS;
+    private javax.swing.JLabel txtSaldo1;
+    private javax.swing.JLabel txtSaldoT;
     private javax.swing.JTextField txtStock;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTel;
     private javax.swing.JTextField txtUnidadCuota;
     private javax.swing.JPanel ventasPanel;
+    private javax.swing.JPanel verDetallePanel;
     // End of variables declaration//GEN-END:variables
 }
