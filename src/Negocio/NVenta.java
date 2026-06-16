@@ -23,4 +23,23 @@ public class NVenta {
         }
     }
 
+    public int obtenerCantidadVentasPendientes(int idCliente) {
+        DVenta dVenta = new DVenta();
+        try {
+            return dVenta.obtenerCantidadVentasPendientes(idCliente);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public double obtenerMontoVentasPendientes(int idCliente) {
+        DVenta dVenta = new DVenta();
+        try {
+            return dVenta.obtenerMontoVentasPendientes(idCliente);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0.0;
+        }
+    }
 }
