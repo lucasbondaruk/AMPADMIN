@@ -622,7 +622,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAContinuar3.setBackground(new java.awt.Color(22, 22, 22));
         btnAContinuar3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAContinuar3.setForeground(new java.awt.Color(255, 255, 255));
-        btnAContinuar3.setText("<Exportar Excel>");
+        btnAContinuar3.setText("<Exportar>");
         btnAContinuar3.setToolTipText("");
         btnAContinuar3.setActionCommand("<Volver>");
         btnAContinuar3.setBorderPainted(false);
@@ -662,6 +662,8 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         ListaPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 600, 980, 40));
         ListaPanel.add(txtFiltroCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 110, -1));
+
+        txtFiltroRS.addActionListener(this::txtFiltroRSActionPerformed);
         ListaPanel.add(txtFiltroRS, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 110, -1));
 
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Persona", "Empresa" }));
@@ -1526,16 +1528,32 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAContinuar1ActionPerformed
 
     private void btnExportarCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCliente
+        String formato = (String) JOptionPane.showInputDialog(
+        this,
+        "Seleccione el formato de exportación:",
+        "Exportar listado",
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        new String[]{"Excel (.xls)", "PDF (.pdf)"},
+        "Excel (.xls)"
+        );
+
+        if (formato == null) return;
+
+        if (formato.startsWith("Excel")) {
+            exportarExcel();
+        } else {
+            exportarPDF();
+        }
+    }//GEN-LAST:event_btnExportarCliente
+
+    private void exportarExcel() {
         try {
             javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
             chooser.setDialogTitle("Guardar listado");
             chooser.setSelectedFile(new java.io.File("listado_cuentas_corrientes.xls"));
 
-            int opcion = chooser.showSaveDialog(this);
-
-            if (opcion != javax.swing.JFileChooser.APPROVE_OPTION) {
-                return;
-            }
+            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) return;
 
             java.io.File archivo = chooser.getSelectedFile();
 
@@ -1543,17 +1561,14 @@ public class PPanelAMP extends javax.swing.JFrame {
                 archivo = new java.io.File(archivo.getAbsolutePath() + ".xls");
             }
 
-            DefaultTableModel modelo = (DefaultTableModel) tablaLista.getModel();
+            javax.swing.table.DefaultTableModel modelo =
+                    (javax.swing.table.DefaultTableModel) tablaLista.getModel();
 
             try (java.io.PrintWriter pw = new java.io.PrintWriter(
                     new java.io.OutputStreamWriter(
                             new java.io.FileOutputStream(archivo), "UTF-8"))) {
 
-                pw.println("<html>");
-                pw.println("<head>");
-                pw.println("<meta charset='UTF-8'>");
-                pw.println("</head>");
-                pw.println("<body>");
+                pw.println("<html><head><meta charset='UTF-8'></head><body>");
                 pw.println("<h2>Listado de Cuentas Corrientes</h2>");
                 pw.println("<table border='1'>");
 
@@ -1565,20 +1580,15 @@ public class PPanelAMP extends javax.swing.JFrame {
 
                 for (int fila = 0; fila < modelo.getRowCount(); fila++) {
                     pw.println("<tr>");
-
                     for (int col = 0; col < modelo.getColumnCount(); col++) {
                         Object valor = modelo.getValueAt(fila, col);
                         String texto = valor != null ? valor.toString() : "";
-
                         pw.println("<td style='mso-number-format:\"\\@\";'>" + texto + "</td>");
                     }
-
                     pw.println("</tr>");
                 }
 
-                pw.println("</table>");
-                pw.println("</body>");
-                pw.println("</html>");
+                pw.println("</table></body></html>");
             }
 
             JOptionPane.showMessageDialog(this, "Listado Excel generado correctamente");
@@ -1586,8 +1596,83 @@ public class PPanelAMP extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al generar Excel: " + e.getMessage());
         }
-    }//GEN-LAST:event_btnExportarCliente
+    }
 
+    private void exportarPDF() {
+        try {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setDialogTitle("Guardar listado");
+            chooser.setSelectedFile(new java.io.File("listado_cuentas_corrientes.pdf"));
+
+            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) return;
+
+            java.io.File archivo = chooser.getSelectedFile();
+
+            if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
+                archivo = new java.io.File(archivo.getAbsolutePath() + ".pdf");
+            }
+
+            javax.swing.table.DefaultTableModel modelo =
+                    (javax.swing.table.DefaultTableModel) tablaLista.getModel();
+
+            com.itextpdf.text.Document documento =
+                    new com.itextpdf.text.Document(com.itextpdf.text.PageSize.A4.rotate());
+
+            com.itextpdf.text.pdf.PdfWriter.getInstance(
+                    documento,
+                    new java.io.FileOutputStream(archivo)
+            );
+
+            documento.open();
+
+            com.itextpdf.text.Font tituloFont =
+                    new com.itextpdf.text.Font(
+                            com.itextpdf.text.Font.FontFamily.HELVETICA,
+                            16,
+                            com.itextpdf.text.Font.BOLD
+                    );
+
+            com.itextpdf.text.Paragraph titulo =
+                    new com.itextpdf.text.Paragraph("Listado de Cuentas Corrientes", tituloFont);
+
+            titulo.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            titulo.setSpacingAfter(15);
+            documento.add(titulo);
+
+            com.itextpdf.text.pdf.PdfPTable tablaPDF =
+                    new com.itextpdf.text.pdf.PdfPTable(modelo.getColumnCount());
+
+            tablaPDF.setWidthPercentage(100);
+
+            for (int col = 0; col < modelo.getColumnCount(); col++) {
+                com.itextpdf.text.pdf.PdfPCell celda =
+                        new com.itextpdf.text.pdf.PdfPCell(
+                                new com.itextpdf.text.Phrase(modelo.getColumnName(col))
+                        );
+                celda.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tablaPDF.addCell(celda);
+            }
+
+            for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+                for (int col = 0; col < modelo.getColumnCount(); col++) {
+                    Object valor = modelo.getValueAt(fila, col);
+                    String texto = valor != null ? valor.toString() : "";
+                    tablaPDF.addCell(new com.itextpdf.text.Phrase(texto));
+                }
+            }
+
+            documento.add(tablaPDF);
+            documento.close();
+
+            JOptionPane.showMessageDialog(this, "Listado PDF generado correctamente");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage());
+        }
+    }
+    
+    
+    
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         String rs = txtFiltroRS.getText().trim().toLowerCase();
         String cuit = txtFiltroCuit.getText().trim();
@@ -2270,6 +2355,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private void btnAContinuar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuar5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAContinuar5ActionPerformed
+
+    private void txtFiltroRSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroRSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFiltroRSActionPerformed
 
     public static void main(String args[]) {
 

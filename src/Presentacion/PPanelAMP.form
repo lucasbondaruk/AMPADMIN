@@ -1213,7 +1213,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;Exportar Excel&gt;"/>
+                    <Property name="text" type="java.lang.String" value="&lt;Exportar&gt;"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                     <Property name="actionCommand" type="java.lang.String" value="&lt;Volver&gt;"/>
                     <Property name="borderPainted" type="boolean" value="false"/>
@@ -1252,6 +1252,9 @@
               </Constraints>
             </Component>
             <Component class="javax.swing.JTextField" name="txtFiltroRS">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFiltroRSActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="170" y="40" width="110" height="-1"/>
