@@ -81,4 +81,46 @@ public class DVenta {
 
         return lista;
     }
+
+    public int obtenerCantidadVentasPendientes(int idCliente) throws Exception {
+        int cantidadPendientes = 0;
+        // Cuenta la cantidad de registros de venta que no han sido pagados
+        String sql = "SELECT COUNT(*) AS Cantidad FROM Venta WHERE idCliente = ? AND estado <> 'Pagada'";
+
+        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idCliente);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cantidadPendientes = rs.getInt("Cantidad");
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al contar las ventas pendientes del cliente: " + e.getMessage());
+        }
+
+        return cantidadPendientes;
+    }
+
+    public double obtenerMontoVentasPendientes(int idCliente) throws Exception {
+        double saldoPendiente = 0;
+        // Suma el total de las ventas que no han sido pagadas aún
+        String sql = "SELECT SUM(total) AS TotalPendiente FROM Venta WHERE idCliente = ? AND estado <> 'Pagada'";
+
+        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idCliente);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    saldoPendiente = rs.getDouble("TotalPendiente");
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error al obtener la suma de ventas pendientes del cliente: " + e.getMessage());
+        }
+
+        return saldoPendiente;
+    }
 }

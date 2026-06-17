@@ -277,7 +277,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jTable1.setBackground(new java.awt.Color(204, 204, 204));
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -293,22 +292,17 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 660, 470));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
         jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 40, 280, 30));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 110, 40));
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 110, 40));
 
         jLabel58.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel58.setForeground(new java.awt.Color(0, 0, 0));
         jLabel58.setText("Ingrese una descripción");
         jPanel2.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 20, 150, -1));
 
@@ -926,14 +920,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         administracionPanel.add(PagosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 600));
 
         verDetallePanel.setBackground(new java.awt.Color(255, 255, 255));
-        verDetallePanel.setForeground(new java.awt.Color(0, 0, 0));
         verDetallePanel.setMaximumSize(new java.awt.Dimension(980, 738));
         verDetallePanel.setMinimumSize(new java.awt.Dimension(980, 738));
         verDetallePanel.setPreferredSize(new java.awt.Dimension(980, 738));
         verDetallePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtSaldo1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 24)); // NOI18N
-        txtSaldo1.setForeground(new java.awt.Color(0, 0, 0));
         txtSaldo1.setText("Saldo total: $");
         verDetallePanel.add(txtSaldo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, -1, -1));
 
@@ -950,7 +942,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         verDetallePanel.add(txtNomCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 540, -1));
 
         lblCC.setFont(new java.awt.Font("Serif", 1, 36)); // NOI18N
-        lblCC.setForeground(new java.awt.Color(0, 0, 0));
         lblCC.setText("Cuenta Corriente:");
         verDetallePanel.add(lblCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
@@ -1122,7 +1113,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtPre1.setEditable(false);
         txtPre1.setBackground(new java.awt.Color(204, 204, 204));
         txtPre1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtPre1.setForeground(new java.awt.Color(0, 0, 0));
         txtPre1.setText("Precio Unitario");
         cargaPanel.add(txtPre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 140, 30));
 
@@ -1134,7 +1124,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtPre2.setEditable(false);
         txtPre2.setBackground(new java.awt.Color(204, 204, 204));
         txtPre2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtPre2.setForeground(new java.awt.Color(0, 0, 0));
         txtPre2.setText("Precio Oferta");
         txtPre2.addActionListener(this::txtPre2ActionPerformed);
         cargaPanel.add(txtPre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 140, 30));
@@ -1163,7 +1152,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtIVA.setEditable(false);
         txtIVA.setBackground(new java.awt.Color(204, 204, 204));
         txtIVA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtIVA.setForeground(new java.awt.Color(0, 0, 0));
         txtIVA.setText("IVA");
         cargaPanel.add(txtIVA, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 60, 30));
 
@@ -1225,7 +1213,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         listaPanel.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, -1, -1));
 
         lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblTotal.setForeground(new java.awt.Color(0, 0, 0));
         lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         listaPanel.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 510, 170, 20));
 
@@ -2336,7 +2323,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         String nombreSeleccionado = cbNombre.getSelectedItem().toString();
         Modelos.Cliente clienteSeleccionado = null;
 
-        // Buscamos el objeto correspondiente en base al String seleccionado
         if (listaClientesGlobal != null) {
             for (Modelos.Cliente c : listaClientesGlobal) {
                 if (c.getRazonSocial().equals(nombreSeleccionado)) {
@@ -2347,25 +2333,32 @@ public class PPanelAMP extends javax.swing.JFrame {
         }
 
         if (clienteSeleccionado != null) {
-            // 1. Autocompletamos los campos del panel izquierdo
             txtCuil.setText(clienteSeleccionado.getCuit());
 
-            // 2. Traemos la deuda acumulada real
             int idCli = clienteSeleccionado.getIdCliente();
-            double deudaTotal = nCobros.obtenerDeudaCliente(idCli);
+            NVenta nVenta = new NVenta();
 
-            // 3. Simulación de Fecha Vieja (Para probar el cálculo de intereses de 3 meses)
-            // Esto asume que la venta original ocurrió el 15 de Enero de 2026 de manera simulada
+            // 1. Traemos AMBOS datos de la base de datos
+            int ventasPendientes = nVenta.obtenerCantidadVentasPendientes(idCli);
+            double deudaPendiente = nVenta.obtenerMontoVentasPendientes(idCli);
+
+            // 2. Simulación de Fecha Vieja
             java.util.Calendar cal = java.util.Calendar.getInstance();
             cal.set(2026, java.util.Calendar.JANUARY, 15);
             this.fechaVentaOriginal = cal.getTime();
 
-            // 4. Rellenamos montos de interfaz sin usar variables inexistentes
-            txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal));
-            txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal));
+            // 3. CORRECCIÓN: Compras totales DEBE ser el monto en dinero para que las operaciones matemáticas no rompan
+            txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+            txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
             txtCuotasPagos.setText("1"); // Predeterminado
 
-            javax.swing.JOptionPane.showMessageDialog(this, "Datos cargados para: " + nombreSeleccionado + "\nDeuda actual: $" + deudaTotal);
+            // 4. El cartel le informa al usuario de manera clara e inequívoca las dos métricas
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Datos cargados para: " + nombreSeleccionado
+                    + "\nCantidad de ventas pendientes: " + ventasPendientes
+                    + "\nMonto total de la deuda: $" + String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "No se encontraron los datos del cliente.");
         }
@@ -2377,7 +2370,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void calcularTotalesYCuotas() {
         try {
-            // 1. Validar subtotal base
+            // 1. Validar subtotal base desde el monto de dinero real
             if (txtComprasTotales.getText().trim().isEmpty()) {
                 return;
             }
@@ -2452,7 +2445,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         if (cbNombre.getSelectedItem() != null && listaClientesGlobal != null) {
             String nombreSeleccionado = cbNombre.getSelectedItem().toString();
 
-            // Buscamos el objeto cliente que coincida con el nombre del combo
             Modelos.Cliente clienteSeleccionado = null;
             for (Modelos.Cliente c : listaClientesGlobal) {
                 if (c.getRazonSocial().equals(nombreSeleccionado)) {
@@ -2464,13 +2456,17 @@ public class PPanelAMP extends javax.swing.JFrame {
             if (clienteSeleccionado != null) {
                 txtCuil.setText(clienteSeleccionado.getCuit());
                 int idCli = clienteSeleccionado.getIdCliente();
-                double deudaTotal = nCobros.obtenerDeudaCliente(idCli);
 
-                txtComprasTotales.setText(String.valueOf(deudaTotal));
-                txtSubtotal.setText(String.valueOf(deudaTotal));
+                // CORRECCIÓN INTEGRAL: Cambiado nCobros.obtenerDeudaCliente por nVenta.obtenerMontoVentasPendientes
+                // para que no se pisen ni se mezclen los números al interactuar con el combo de métodos de pago
+                NVenta nVenta = new NVenta();
+                double deudaPendiente = nVenta.obtenerMontoVentasPendientes(idCli);
+
+                txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
             }
         }
-        // Si cambia el método de pago, validamos de inmediato que el descuento siga siendo legal
+
         if (cbDescuento.isSelected()) {
             calcularTotalesYCuotas();
         }
@@ -2613,6 +2609,7 @@ public class PPanelAMP extends javax.swing.JFrame {
             Cliente cliente = dCliente.select(cuit);
 
             if (cliente != null) {
+                this.actual = cliente;
                 cargarCardsVentas(cliente.getIdCliente());
             }
 
@@ -2795,7 +2792,65 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAExportarbtnExportarCliente
 
     private void btnACobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnACobrarActionPerformed
-        // TODO add your handling code here:
+        // 1. Validar que exista una cuenta corriente activa en el detalle
+        if (this.actual == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No hay ninguna cuenta corriente seleccionada para proceder al cobro.",
+                    "Advertencia",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            // 2. Redirección visual a la sección de pagos (ocultar detalle, mostrar pagos)
+            verDetallePanel.setVisible(false);
+            PagosPanel.setVisible(true);
+            PagosPanelCampos.setVisible(true);
+            PanelCalculo.setVisible(true);
+            PanelBotones.setVisible(true);
+
+            // Ajustar estéticamente los botones del Navbar de Administración para simular el click en "Pagos"
+            btnAPagos.setBackground(new Color(38, 90, 142)); // Color activo [cite: 824]
+            btnAListas.setBackground(new Color(20, 52, 83)); // Color inactivo [cite: 825]
+            btnAClientes.setBackground(new Color(20, 52, 83)); // Color inactivo
+
+            // 3. Forzar la selección del cliente en el ComboBox de la sección Pagos
+            cbNombre.setSelectedItem(this.actual.getRazonSocial());
+
+            // 4. Autocompletar el resto de campos imitando la búsqueda manual por Razón Social
+            txtCuil.setText(this.actual.getCuit()); // 
+            int idCli = this.actual.getIdCliente(); // 
+
+            // Obtener la deuda real histórica/actual registrada en la CC mediante las capas de negocio
+            double deudaTotal = nCobros.obtenerDeudaCliente(idCli); // [cite: 580]
+
+            // Rellenar montos base e inicializar el formulario de cobro
+            txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal)); // [cite: 581]
+            txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal)); // [cite: 581]
+            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", deudaTotal));
+            txtCuotasPagos.setText("1"); // Predeterminado 
+            date.setDate(new java.util.Date()); // Setea la fecha actual para el cobro por defecto
+
+            // Intereses y cuotas en cero/vacío hasta que se ejecute un cálculo específico si fuera necesario
+            txtInteres.setText("0.00"); // 
+            txtUnidadCuota.setText("0.00"); // 
+
+            // 5. Mostrar cartel informativo tal como se solicitó
+            JOptionPane.showMessageDialog(this,
+                    "Se transfirieron los datos correctamente.\n"
+                    + "Cliente: " + this.actual.getRazonSocial() + "\n"
+                    + "CUIT/CUIL: " + this.actual.getCuit() + "\n"
+                    + "Saldo de Cuenta Corriente cargado: $" + String.format(java.util.Locale.US, "%.2f", deudaTotal),
+                    "Sección Pagos Autocompletada",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error al redireccionar y autocompletar cobro de CC", e);
+            JOptionPane.showMessageDialog(this,
+                    "Ocurrió un error al procesar el recorrido del cobro automatizado.",
+                    "Error de Navegación",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnACobrarActionPerformed
 
     public static void main(String args[]) {
