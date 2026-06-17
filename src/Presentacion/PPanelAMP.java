@@ -58,12 +58,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         iniciarPaneles();
-
         opc = false;
-
-        cargarTabla();
         cargarCbCondIva();
         cargarClientes();
+        cargarTabla();
         cargarMetodosPago();
         revalidate();
         repaint();
@@ -1463,14 +1461,17 @@ public class PPanelAMP extends javax.swing.JFrame {
         NCliente nc = new NCliente();
 
         for (Cliente c : nc.listar()) {
-            modelo.addRow(new Object[]{
-                c.getRazonSocial(),
-                c.getTelefono(),
-                c.getCuit(),
-                c.getDomicilio(),
-                c.getMail(),
-                c.getTipoPersona()
-            });
+            System.out.println("Tipo: [" + c.getTipoCliente() + "]");
+            if ("Cuenta Corriente".equals(c.getTipoCliente())) {
+                modelo.addRow(new Object[]{
+                    c.getRazonSocial(),
+                    c.getTelefono(),
+                    c.getCuit(),
+                    c.getDomicilio(),
+                    c.getMail(),
+                    c.getTipoPersona()
+                });
+            }
         }
 
         tablaLista.setModel(modelo);
@@ -1810,16 +1811,18 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnExportarCliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarCliente
         String formato = (String) JOptionPane.showInputDialog(
-        this,
-        "Seleccione el formato de exportación:",
-        "Exportar listado",
-        JOptionPane.QUESTION_MESSAGE,
-        null,
-        new String[]{"Excel (.xls)", "PDF (.pdf)"},
-        "Excel (.xls)"
+                this,
+                "Seleccione el formato de exportación:",
+                "Exportar listado",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new String[]{"Excel (.xls)", "PDF (.pdf)"},
+                "Excel (.xls)"
         );
 
-        if (formato == null) return;
+        if (formato == null) {
+            return;
+        }
 
         if (formato.startsWith("Excel")) {
             exportarExcel();
@@ -1834,7 +1837,9 @@ public class PPanelAMP extends javax.swing.JFrame {
             chooser.setDialogTitle("Guardar listado");
             chooser.setSelectedFile(new java.io.File("listado_cuentas_corrientes.xls"));
 
-            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) return;
+            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return;
+            }
 
             java.io.File archivo = chooser.getSelectedFile();
 
@@ -1842,8 +1847,8 @@ public class PPanelAMP extends javax.swing.JFrame {
                 archivo = new java.io.File(archivo.getAbsolutePath() + ".xls");
             }
 
-            javax.swing.table.DefaultTableModel modelo =
-                    (javax.swing.table.DefaultTableModel) tablaLista.getModel();
+            javax.swing.table.DefaultTableModel modelo
+                    = (javax.swing.table.DefaultTableModel) tablaLista.getModel();
 
             try (java.io.PrintWriter pw = new java.io.PrintWriter(
                     new java.io.OutputStreamWriter(
@@ -1885,7 +1890,9 @@ public class PPanelAMP extends javax.swing.JFrame {
             chooser.setDialogTitle("Guardar listado");
             chooser.setSelectedFile(new java.io.File("listado_cuentas_corrientes.pdf"));
 
-            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) return;
+            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return;
+            }
 
             java.io.File archivo = chooser.getSelectedFile();
 
@@ -1893,11 +1900,11 @@ public class PPanelAMP extends javax.swing.JFrame {
                 archivo = new java.io.File(archivo.getAbsolutePath() + ".pdf");
             }
 
-            javax.swing.table.DefaultTableModel modelo =
-                    (javax.swing.table.DefaultTableModel) tablaLista.getModel();
+            javax.swing.table.DefaultTableModel modelo
+                    = (javax.swing.table.DefaultTableModel) tablaLista.getModel();
 
-            com.itextpdf.text.Document documento =
-                    new com.itextpdf.text.Document(com.itextpdf.text.PageSize.A4.rotate());
+            com.itextpdf.text.Document documento
+                    = new com.itextpdf.text.Document(com.itextpdf.text.PageSize.A4.rotate());
 
             com.itextpdf.text.pdf.PdfWriter.getInstance(
                     documento,
@@ -1906,28 +1913,28 @@ public class PPanelAMP extends javax.swing.JFrame {
 
             documento.open();
 
-            com.itextpdf.text.Font tituloFont =
-                    new com.itextpdf.text.Font(
+            com.itextpdf.text.Font tituloFont
+                    = new com.itextpdf.text.Font(
                             com.itextpdf.text.Font.FontFamily.HELVETICA,
                             16,
                             com.itextpdf.text.Font.BOLD
                     );
 
-            com.itextpdf.text.Paragraph titulo =
-                    new com.itextpdf.text.Paragraph("Listado de Cuentas Corrientes", tituloFont);
+            com.itextpdf.text.Paragraph titulo
+                    = new com.itextpdf.text.Paragraph("Listado de Cuentas Corrientes", tituloFont);
 
             titulo.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             titulo.setSpacingAfter(15);
             documento.add(titulo);
 
-            com.itextpdf.text.pdf.PdfPTable tablaPDF =
-                    new com.itextpdf.text.pdf.PdfPTable(modelo.getColumnCount());
+            com.itextpdf.text.pdf.PdfPTable tablaPDF
+                    = new com.itextpdf.text.pdf.PdfPTable(modelo.getColumnCount());
 
             tablaPDF.setWidthPercentage(100);
 
             for (int col = 0; col < modelo.getColumnCount(); col++) {
-                com.itextpdf.text.pdf.PdfPCell celda =
-                        new com.itextpdf.text.pdf.PdfPCell(
+                com.itextpdf.text.pdf.PdfPCell celda
+                        = new com.itextpdf.text.pdf.PdfPCell(
                                 new com.itextpdf.text.Phrase(modelo.getColumnName(col))
                         );
                 celda.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
@@ -1951,9 +1958,8 @@ public class PPanelAMP extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage());
         }
     }
-    
-    
-    
+
+
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         String rs = txtFiltroRS.getText().trim().toLowerCase();
         String cuit = txtFiltroCuit.getText().trim();
@@ -1974,6 +1980,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         boolean hayResultados = false;
 
         for (Cliente c : lista) {
+            if (!"Cuenta Corriente".equalsIgnoreCase(c.getTipoCliente())) {
+                continue;
+            }
 
             boolean coincide = true;
 
@@ -2718,6 +2727,12 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         List<Venta> ventas = nVenta.listarVentasCliente(idCliente);
         double saldoTotal = 0;
+        
+        if (ventas.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "El cliente no tiene ventas registradas.");
+            return;
+        }
 
         for (Venta venta : ventas) {
 

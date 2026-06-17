@@ -143,6 +143,7 @@ public class DCliente {
                 c.setDomicilio(rs.getString("domicilio"));
                 c.setMail(rs.getString("mail"));
                 c.setTipoPersona(rs.getString("tipoPersona"));
+                c.setTipoCliente(rs.getString("tipoCliente"));
 
                 lista.add(c);
             }
