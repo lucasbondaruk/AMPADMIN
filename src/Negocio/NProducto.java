@@ -6,6 +6,7 @@ package Negocio;
 
 import Modelos.Producto;
 import Datos.DProducto;
+import java.util.List;
 
 public class NProducto {
 
@@ -35,6 +36,10 @@ public class NProducto {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<Producto> listar() {
+        return dProducto.listar();
     }
 
 }

@@ -40,4 +40,9 @@ public class IVA {
         this.porcentaje = porcentaje;
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(porcentaje);
+    }
+
 }

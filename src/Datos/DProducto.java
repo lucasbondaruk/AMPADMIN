@@ -8,6 +8,11 @@ import Modelos.Producto;
 import java.util.List;
 import java.util.ArrayList;
 import Conexiones.SqlConection;
+import Modelos.IVA;
+import Modelos.Proveedor;
+import Modelos.RubroProducto;
+import Modelos.StockProducto;
+import Modelos.TipoProducto;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,62 +24,223 @@ public class DProducto {
 
     public Producto buscarPorCodigo(String codigo) throws Exception {
 
-        String sql = "SELECT * FROM Producto WHERE codigo = ?";
+        String sql = """
+           SELECT p.*,
+           rp.descripcion AS rubro,
+           i.descripcion AS iva,
+           i.porcentaje,
+           tp.descripcion AS tipo,
+           tp.unidad,
+           pr.nombre,
+           sp.stockAct,
+           sp.stockMin,
+           sp.stockMax
+           FROM Producto p
+           INNER JOIN RubroProducto rp ON p.idRubroProducto = rp.idRubroProducto
+           INNER JOIN IVA i ON p.idIVA = i.idIVA
+           INNER JOIN TipoProducto tp ON p.idTipoProducto = tp.idTipoProducto
+           INNER JOIN Proveedor pr ON p.idProveedor = pr.idProveedor
+           INNER JOIN StockProducto sp ON p.idStockProducto = sp.idStockProducto
+           WHERE p.codigo = ?
+           """;
+
         try (Connection conn = conexion.getConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, codigo);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+
                 Producto p = new Producto();
+
                 p.setIdProducto(rs.getInt("idProducto"));
                 p.setCodigo(rs.getInt("codigo"));
                 p.setDescripcion(rs.getString("descripcion"));
                 p.setPrecioUnitario(rs.getFloat("precioUnitario"));
-                p.setIdRubroProducto(rs.getInt("idRubroProducto"));
-                p.setIdIVA(rs.getInt("idIVA"));
-                p.setIdStockProducto(rs.getInt("idStockProducto"));
-                p.setIdTipoProducto(rs.getInt("idTipoProducto"));
-                p.setIdProveedor(rs.getInt("idProveedor"));
+
+                StockProducto stock = new StockProducto();
+                stock.setIdStockProducto(rs.getInt("idStockProducto"));
+                stock.setStockAct(rs.getInt("stockAct"));
+                stock.setStockMin(rs.getInt("stockMin"));
+                stock.setStockMax(rs.getInt("stockMax"));
+
+                p.setIdStockProducto(stock);
+
+                RubroProducto rp = new RubroProducto();
+                rp.setIdRubroProducto(rs.getInt("idRubroProducto"));
+                rp.setDescripcion(rs.getString("rubro"));
+                p.setRubroProducto(rp);
+
+                IVA iva = new IVA();
+                iva.setIdIVA(rs.getInt("idIVA"));
+                iva.setDescripcion(rs.getString("iva"));
+                iva.setPorcentaje(rs.getFloat("porcentaje"));
+                p.setIva(iva);
+
+                TipoProducto tp = new TipoProducto();
+                tp.setIdTipoProducto(rs.getInt("idTipoProducto"));
+                tp.setDescripcion(rs.getString("tipo"));
+                tp.setUnidad(rs.getString("unidad"));
+                p.setTipoProducto(tp);
+
+                Proveedor prov = new Proveedor();
+                prov.setIdProveedor(rs.getInt("idProveedor"));
+                prov.setNombre(rs.getString("nombre"));
+                p.setProveedor(prov);
+
                 return p;
             }
-            return null; // no encontrado
+
+            return null;
         }
     }
 
     public Producto buscarPorId(int idProducto) throws Exception {
 
-        String sql = "SELECT * FROM Producto WHERE idProducto = ?";
+        String sql = """
+    SELECT p.*,
+           rp.descripcion AS rubro,
+           i.descripcion AS iva,
+           i.porcentaje,
+           tp.descripcion AS tipo,
+           tp.unidad,
+           pr.nombre,
+           sp.stockAct,
+           sp.stockMin,
+           sp.stockMax
+    FROM Producto p
+    INNER JOIN RubroProducto rp ON p.idRubroProducto = rp.idRubroProducto
+    INNER JOIN IVA i ON p.idIVA = i.idIVA
+    INNER JOIN TipoProducto tp ON p.idTipoProducto = tp.idTipoProducto
+    INNER JOIN Proveedor pr ON p.idProveedor = pr.idProveedor
+    INNER JOIN StockProducto sp ON p.idStockProducto = sp.idStockProducto
+    WHERE p.idProducto = ?
+    """;
 
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection conn = conexion.getConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, idProducto);
 
-            try (ResultSet rs = ps.executeQuery()) {
+            ResultSet rs = ps.executeQuery();
 
-                if (rs.next()) {
+            if (rs.next()) {
 
-                    Producto p = new Producto();
+                Producto p = new Producto();
 
-                    p.setIdProducto(rs.getInt("idProducto"));
-                    p.setCodigo(rs.getInt("codigo"));
-                    p.setDescripcion(rs.getString("descripcion"));
-                    p.setPrecioUnitario(rs.getFloat("precioUnitario"));
-                    p.setIdRubroProducto(rs.getInt("idRubroProducto"));
-                    p.setIdIVA(rs.getInt("idIVA"));
-                    p.setIdStockProducto(rs.getInt("idStockProducto"));
-                    p.setIdTipoProducto(rs.getInt("idTipoProducto"));
-                    p.setIdProveedor(rs.getInt("idProveedor"));
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setCodigo(rs.getInt("codigo"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioUnitario(rs.getFloat("precioUnitario"));
 
-                    return p;
-                }
+                StockProducto stock = new StockProducto();
+                stock.setIdStockProducto(rs.getInt("idStockProducto"));
+                stock.setStockAct(rs.getInt("stockAct"));
+                stock.setStockMin(rs.getInt("stockMin"));
+                stock.setStockMax(rs.getInt("stockMax"));
 
-                return null;
+                p.setIdStockProducto(stock);
+
+                RubroProducto rp = new RubroProducto();
+                rp.setIdRubroProducto(rs.getInt("idRubroProducto"));
+                rp.setDescripcion(rs.getString("rubro"));
+                p.setRubroProducto(rp);
+
+                IVA iva = new IVA();
+                iva.setIdIVA(rs.getInt("idIVA"));
+                iva.setDescripcion(rs.getString("iva"));
+                iva.setPorcentaje(rs.getFloat("porcentaje"));
+                p.setIva(iva);
+
+                TipoProducto tp = new TipoProducto();
+                tp.setIdTipoProducto(rs.getInt("idTipoProducto"));
+                tp.setDescripcion(rs.getString("tipo"));
+                tp.setUnidad(rs.getString("unidad"));
+                p.setTipoProducto(tp);
+
+                Proveedor prov = new Proveedor();
+                prov.setIdProveedor(rs.getInt("idProveedor"));
+                prov.setNombre(rs.getString("nombre"));
+                p.setProveedor(prov);
+
+                return p;
             }
 
-        } catch (SQLException e) {
-            throw new Exception("Error al buscar el producto");
+            return null;
         }
+    }
+
+    public List<Producto> listar() {
+
+        List<Producto> lista = new ArrayList<>();
+
+        String sql = """
+    SELECT p.*,
+           rp.descripcion AS rubro,
+           i.descripcion AS iva,
+           i.porcentaje,
+           tp.descripcion AS tipo,
+           tp.unidad,
+           pr.nombre,
+           sp.stockAct,
+           sp.stockMin,
+           sp.stockMax
+    FROM Producto p
+    INNER JOIN RubroProducto rp ON p.idRubroProducto = rp.idRubroProducto
+    INNER JOIN IVA i ON p.idIVA = i.idIVA
+    INNER JOIN TipoProducto tp ON p.idTipoProducto = tp.idTipoProducto
+    INNER JOIN Proveedor pr ON p.idProveedor = pr.idProveedor
+    INNER JOIN StockProducto sp ON p.idStockProducto = sp.idStockProducto
+    """;
+
+        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                Producto p = new Producto();
+
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setCodigo(rs.getInt("codigo"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioUnitario(rs.getFloat("precioUnitario"));
+
+                StockProducto stock = new StockProducto();
+                stock.setIdStockProducto(rs.getInt("idStockProducto"));
+                stock.setStockAct(rs.getInt("stockAct"));
+                stock.setStockMin(rs.getInt("stockMin"));
+                stock.setStockMax(rs.getInt("stockMax"));
+
+                p.setIdStockProducto(stock);
+
+                RubroProducto rp = new RubroProducto();
+                rp.setIdRubroProducto(rs.getInt("idRubroProducto"));
+                rp.setDescripcion(rs.getString("rubro"));
+                p.setRubroProducto(rp);
+
+                IVA iva = new IVA();
+                iva.setIdIVA(rs.getInt("idIVA"));
+                iva.setDescripcion(rs.getString("iva"));
+                iva.setPorcentaje(rs.getFloat("porcentaje"));
+                p.setIva(iva);
+
+                TipoProducto tp = new TipoProducto();
+                tp.setIdTipoProducto(rs.getInt("idTipoProducto"));
+                tp.setDescripcion(rs.getString("tipo"));
+                tp.setUnidad(rs.getString("unidad"));
+                p.setTipoProducto(tp);
+
+                Proveedor prov = new Proveedor();
+                prov.setIdProveedor(rs.getInt("idProveedor"));
+                prov.setNombre(rs.getString("nombre"));
+                p.setProveedor(prov);
+
+                lista.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
 }

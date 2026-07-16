@@ -1,30 +1,35 @@
 package Modelos;
 
+
 public class Producto {
 
     private int idProducto;
     private int codigo;
     private String descripcion;
     private float precioUnitario;
-    private int idRubroProducto;
-    private int idIVA;
-    private int idStockProducto;
-    private int idTipoProducto;
-    private int idProveedor;
+    private RubroProducto rubroProducto;
+    private IVA iva;
+    private StockProducto idStockProducto;
+    private TipoProducto tipoProducto;
+    private Proveedor proveedor;
 
     public Producto() {
     }
 
-    public Producto(int idProducto, int codigo, String descripcion, float precioUnitario, int idRubroProducto, int idIVA, int idStockProducto, int idTipoProducto, int idProveedor) {
+    public Producto(int idProducto, int codigo, String descripcion,
+            float precioUnitario, RubroProducto rubroProducto,
+            IVA iva, StockProducto idStockProducto,
+            TipoProducto tipoProducto, Proveedor proveedor) {
+
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.precioUnitario = precioUnitario;
-        this.idRubroProducto = idRubroProducto;
-        this.idIVA = idIVA;
+        this.rubroProducto = rubroProducto;
+        this.iva = iva;
         this.idStockProducto = idStockProducto;
-        this.idTipoProducto = idTipoProducto;
-        this.idProveedor = idProveedor;
+        this.tipoProducto = tipoProducto;
+        this.proveedor = proveedor;
     }
 
     public int getIdProducto() {
@@ -59,44 +64,43 @@ public class Producto {
         this.precioUnitario = precioUnitario;
     }
 
-    public int getIdRubroProducto() {
-        return idRubroProducto;
+    public RubroProducto getRubroProducto() {
+        return rubroProducto;
     }
 
-    public void setIdRubroProducto(int idRubroProducto) {
-        this.idRubroProducto = idRubroProducto;
+    public void setRubroProducto(RubroProducto rubroProducto) {
+        this.rubroProducto = rubroProducto;
     }
 
-    public int getIdIVA() {
-        return idIVA;
+    public IVA getIva() {
+        return iva;
     }
 
-    public void setIdIVA(int idIVA) {
-        this.idIVA = idIVA;
+    public void setIva(IVA iva) {
+        this.iva = iva;
     }
 
-    public int getIdStockProducto() {
+    public StockProducto getIdStockProducto() {
         return idStockProducto;
     }
 
-    public void setIdStockProducto(int idStockProducto) {
+    public void setIdStockProducto(StockProducto idStockProducto) {
         this.idStockProducto = idStockProducto;
     }
 
-    public int getIdTipoProducto() {
-        return idTipoProducto;
+    public TipoProducto getTipoProducto() {
+        return tipoProducto;
     }
 
-    public void setIdTipoProducto(int idTipoProducto) {
-        this.idTipoProducto = idTipoProducto;
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
     }
 
-    public int getIdProveedor() {
-        return idProveedor;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
-
 }
