@@ -1632,6 +1632,21 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     //CARGAR CHECKBOXS DE PAGOS
+    private void cargarClientesEnCombo() {
+        cbNombre.removeAllItems();
+        cbNombre.addItem("-- Seleccione un Cliente --");
+
+        Negocio.NCliente nCliente = new Negocio.NCliente();
+        java.util.List<Modelos.Cliente> listaTodos = nCliente.listar();
+
+        for (Modelos.Cliente c : listaTodos) {
+            if ("Activo".equalsIgnoreCase(c.getEstado()) && "Cuenta Corriente".equalsIgnoreCase(c.getTipoCliente())) {
+                
+                cbNombre.addItem(c.getRazonSocial());
+            }
+        }
+    }
+
     private void cargarClientes() {
         try {
             // 1. Obtener la lista de clientes desde la capa de negocio
@@ -2816,51 +2831,33 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btImprimirActionPerformed
 
     private void cbNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNombreItemStateChanged
-        // Validamos que el evento sea de SELECCIÓN
+        // Validamos que sea un evento de selección
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
 
-            // Ignoramos la opción por defecto ("-- Seleccione un Cliente --")
+            // Si seleccionó la opción por defecto, no hacemos nada
             if (cbNombre.getSelectedIndex() == 0) {
                 return;
             }
 
-            // Recuperamos el objeto seleccionado directamente
+            // Recuperamos el objeto seleccionado
             Object seleccionado = cbNombre.getSelectedItem();
 
-            if (seleccionado instanceof Cliente) {
-                Cliente clienteSeleccionado = (Cliente) seleccionado;
+            // Validamos que efectivamente sea un objeto Cliente
+            if (seleccionado instanceof Modelos.Cliente) {
+                Modelos.Cliente clienteSeleccionado = (Modelos.Cliente) seleccionado;
 
-                // VALIDACIÓN DESDE LA CAPA DE NEGOCIO (NCliente)
-                boolean esCuentaCorriente = nCliente.isHabilitadoCuentaCorriente(clienteSeleccionado);
+                // Seteamos la interfaz directamente usando los métodos del objeto
+                txtCuil.setText(clienteSeleccionado.getCuit());
 
-                // Si NO está habilitado para Cuenta Corriente, salta la advertencia
-                if (!esCuentaCorriente) {
+                // Aquí ya podés disparar la búsqueda de sus deudas o lo que necesites
+                int idCli = clienteSeleccionado.getIdCliente();
+                NVenta nVenta = new NVenta();
+                int ventasPendientes = nVenta.obtenerCantidadVentasPendientes(idCli);
+                double deudaPendiente = nVenta.obtenerMontoVentasPendientes(idCli);
 
-                    // Mostramos el cartel dinámico con el toString() del objeto
-                    javax.swing.JOptionPane.showMessageDialog(this,
-                            "El cliente '" + clienteSeleccionado + "' no está habilitado para operar en Cuenta Corriente.",
-                            "Validación de Cuenta",
-                            javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                    // Usamos invokeLater para evitar conflictos con el hilo de Swing
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            cbNombre.setSelectedIndex(0);
-                            // Limpiamos los campos del formulario
-                            txtCuil.setText("");
-                            txtComprasTotales.setText("");
-                            txtSubtotal.setText("0.00");
-                            txtInteres.setText("0.00");
-                            txtUnidadCuota.setText("0.00");
-                            txtMontoTotal.setText("0.00");
-                        }
-                    });
-                } else {
-                    // Si es válido, autocompletamos los campos con los getters del objeto
-                    txtCuil.setText(clienteSeleccionado.getCuit());
-                    // txtComprasTotales.setText(String.valueOf(clienteSeleccionado.getComprasTotales()));
-                }
+                txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
             }
         }
     }//GEN-LAST:event_cbNombreItemStateChanged
