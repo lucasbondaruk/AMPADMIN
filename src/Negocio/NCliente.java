@@ -52,4 +52,11 @@ public class NCliente {
         return dcc.listar();
     }
 
+    public boolean isHabilitadoCuentaCorriente(Cliente cliente) {
+        if (cliente == null) {
+            return false;
+        }
+        return "Cuenta Corriente".equalsIgnoreCase(cliente.getTipoCliente())
+                && "Activo".equalsIgnoreCase(cliente.getEstado());
+    }
 }

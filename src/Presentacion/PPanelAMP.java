@@ -2830,8 +2830,8 @@ public class PPanelAMP extends javax.swing.JFrame {
             if (seleccionado instanceof Cliente) {
                 Cliente clienteSeleccionado = (Cliente) seleccionado;
 
-                // Validamos dinámicamente con las propiedades reales del objeto
-                boolean esCuentaCorriente = clienteSeleccionado.isHabilitadoCuentaCorriente();
+                // VALIDACIÓN DESDE LA CAPA DE NEGOCIO (NCliente)
+                boolean esCuentaCorriente = nCliente.isHabilitadoCuentaCorriente(clienteSeleccionado);
 
                 // Si NO está habilitado para Cuenta Corriente, salta la advertencia
                 if (!esCuentaCorriente) {
@@ -2857,7 +2857,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                         }
                     });
                 } else {
-                    // OPCIONAL: Si es válido, podés autocompletar el CUIL y compras del objeto directamente
+                    // Si es válido, autocompletamos los campos con los getters del objeto
                     txtCuil.setText(clienteSeleccionado.getCuit());
                     // txtComprasTotales.setText(String.valueOf(clienteSeleccionado.getComprasTotales()));
                 }

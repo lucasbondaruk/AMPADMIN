@@ -120,8 +120,5 @@ public class Cliente {
         this.idCondIva = idCondIva;
     }
 
-    public boolean isHabilitadoCuentaCorriente() {
-        return "Cuenta Corriente".equalsIgnoreCase(this.tipoCliente)
-                && "Activo".equalsIgnoreCase(this.estado);
-    }
+    
 }
