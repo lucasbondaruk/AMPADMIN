@@ -16,7 +16,7 @@ public class Cliente {
     private String tipoPersona;
     private int idCondIva;
 
-    public Cliente(String razonSocial, String telefono, String cuit, Date fchaIngreso, String domicilio, String mail, String tipoCliente,String estado,String tipoPersona,int idCondIva) {
+    public Cliente(String razonSocial, String telefono, String cuit, Date fchaIngreso, String domicilio, String mail, String tipoCliente, String estado, String tipoPersona, int idCondIva) {
         this.razonSocial = razonSocial;
         this.telefono = telefono;
         this.cuit = cuit;
@@ -95,9 +95,9 @@ public class Cliente {
     public void setTipoCliente(String tipoCliente) {
         this.tipoCliente = tipoCliente;
     }
-    
+
     public String getEstado() {
-    return estado;
+        return estado;
     }
 
     public void setEstado(String estado) {
@@ -119,6 +119,9 @@ public class Cliente {
     public void setIdCondIva(int idCondIva) {
         this.idCondIva = idCondIva;
     }
-    
 
+    public boolean isHabilitadoCuentaCorriente() {
+        return "Cuenta Corriente".equalsIgnoreCase(this.tipoCliente)
+                && "Activo".equalsIgnoreCase(this.estado);
+    }
 }
