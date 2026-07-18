@@ -294,9 +294,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tablaProductosV.setBackground(new java.awt.Color(255, 255, 255));
         tablaProductosV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tablaProductosV.setForeground(new java.awt.Color(0, 0, 0));
         tablaProductosV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -309,22 +307,16 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 870, 300));
 
-        txtDescBP.setBackground(new java.awt.Color(255, 255, 255));
         txtDescBP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtDescBP.setForeground(new java.awt.Color(0, 0, 0));
-        txtDescBP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ingrese una descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtDescBP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ingrese una descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel2.add(txtDescBP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 230, 50));
 
-        cbTipoV.setBackground(new java.awt.Color(255, 255, 255));
         cbTipoV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbTipoV.setForeground(new java.awt.Color(0, 0, 0));
-        cbTipoV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        cbTipoV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         jPanel2.add(cbTipoV, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 170, 50));
 
-        cbRubroV.setBackground(new java.awt.Color(255, 255, 255));
         cbRubroV.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbRubroV.setForeground(new java.awt.Color(0, 0, 0));
-        cbRubroV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rubro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        cbRubroV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rubro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
         cbRubroV.addActionListener(this::cbRubroVActionPerformed);
         jPanel2.add(cbRubroV, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 210, 50));
 
@@ -358,7 +350,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 30));
 
         jPanel7.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel7.setForeground(new java.awt.Color(0, 0, 0));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 870, 50));
 
@@ -875,6 +866,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         cbNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbNombre.addItemListener(this::cbNombreItemStateChanged);
+        cbNombre.addActionListener(this::cbNombreActionPerformed);
         PagosPanelCampos.add(cbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 270, -1));
 
         jLabel7.setText("Cuit-Cuil:");
@@ -929,6 +921,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel49.setText("Intereses:");
         PanelCalculo.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        txtUnidadCuota.addActionListener(this::txtUnidadCuotaActionPerformed);
         PanelCalculo.add(txtUnidadCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 130, 20));
         PanelCalculo.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 130, 20));
         PanelCalculo.add(txtSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, 20));
@@ -1132,13 +1126,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         ventasPanel.add(navbarVNT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, -1));
 
         detPanel.setBackground(new java.awt.Color(255, 255, 255));
-        detPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.darkGray), "Datos del producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        detPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, java.awt.Color.darkGray), "Datos del producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         detPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtStock.setEditable(false);
         txtStock.setBackground(new java.awt.Color(255, 255, 255));
         txtStock.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtStock.setForeground(new java.awt.Color(0, 0, 0));
         txtStock.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtStock.setText("Stock ");
         txtStock.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1147,7 +1140,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         txtPre1.setEditable(false);
         txtPre1.setBackground(new java.awt.Color(255, 255, 255));
         txtPre1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtPre1.setForeground(new java.awt.Color(0, 0, 0));
         txtPre1.setText("Precio Unitario");
         txtPre1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         detPanel.add(txtPre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 120, 50));
@@ -1206,7 +1198,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         ventasPanel.add(detPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 290, 300));
 
         listaPanel.setBackground(new java.awt.Color(255, 255, 255));
-        listaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)), " Lista de productos ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        listaPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)), " Lista de productos ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         listaPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaVenta.setModel(new javax.swing.table.DefaultTableModel(
@@ -1325,13 +1317,13 @@ public class PPanelAMP extends javax.swing.JFrame {
         ventasPanel.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 30));
 
         buscarPanel.setBackground(new java.awt.Color(255, 255, 255));
-        buscarPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray), "Buscar Producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        buscarPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.darkGray), "Buscar Producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         buscarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtDescV.setEditable(false);
         txtDescV.setBackground(new java.awt.Color(255, 255, 255));
         txtDescV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtDescV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descripción", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtDescV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descripción", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
         buscarPanel.add(txtDescV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 220, 60));
 
         BuscarDescV.setBackground(new java.awt.Color(219, 229, 253));
@@ -1362,45 +1354,39 @@ public class PPanelAMP extends javax.swing.JFrame {
         AgregarV.addActionListener(this::AgregarVActionPerformed);
         buscarPanel.add(AgregarV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 80, 40));
 
-        txtCantV.setBackground(new java.awt.Color(255, 255, 255));
         txtCantV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtCantV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cantidad", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtCantV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Cantidad", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
         buscarPanel.add(txtCantV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 250, 50));
 
-        txtCodV.setBackground(new java.awt.Color(255, 255, 255));
         txtCodV.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtCodV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Código", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtCodV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Código", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
         buscarPanel.add(txtCodV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 250, 50));
 
         ventasPanel.add(buscarPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 290, 250));
 
         resumenPanel.setBackground(new java.awt.Color(255, 255, 255));
-        resumenPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)), "Resumen de la venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        resumenPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)), "Resumen de la venta", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         resumenPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TotalV.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        TotalV.setForeground(new java.awt.Color(0, 0, 0));
         TotalV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TotalV.setText("$");
         TotalV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "TOTAL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(20, 52, 83))); // NOI18N
         resumenPanel.add(TotalV, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 140, 80));
 
         SubtotalV.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        SubtotalV.setForeground(new java.awt.Color(0, 0, 0));
         SubtotalV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         SubtotalV.setText("$");
         SubtotalV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "SUBTOTAL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(20, 52, 83))); // NOI18N
         resumenPanel.add(SubtotalV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 140, 80));
 
         DescuentoV.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        DescuentoV.setForeground(new java.awt.Color(0, 0, 0));
         DescuentoV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DescuentoV.setText("$");
         DescuentoV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "DESCUENTO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(20, 52, 83))); // NOI18N
         resumenPanel.add(DescuentoV, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 140, 80));
 
         IvaV.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        IvaV.setForeground(new java.awt.Color(0, 0, 0));
         IvaV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         IvaV.setText("$");
         IvaV.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), "IVA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(20, 52, 83))); // NOI18N
@@ -1418,28 +1404,22 @@ public class PPanelAMP extends javax.swing.JFrame {
         metodoPago.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelFact.setBackground(new java.awt.Color(255, 255, 255));
-        panelFact.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)), "Detalles del pago", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
-        panelFact.setForeground(new java.awt.Color(0, 0, 0));
+        panelFact.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)), "Detalles del pago", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
         panelFact.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbMpVentas.setBackground(new java.awt.Color(255, 255, 255));
         cbMpVentas.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         cbMpVentas.setForeground(new java.awt.Color(1, 25, 48));
         cbMpVentas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         cbMpVentas.addActionListener(this::cbMpVentasActionPerformed);
         panelFact.add(cbMpVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 260, 30));
 
-        factB.setBackground(new java.awt.Color(255, 255, 255));
         factB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        factB.setForeground(new java.awt.Color(0, 0, 0));
         factB.setText("B");
         factB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         factB.addActionListener(this::factBActionPerformed);
         panelFact.add(factB, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 120, 30));
 
-        factA.setBackground(new java.awt.Color(255, 255, 255));
         factA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        factA.setForeground(new java.awt.Color(0, 0, 0));
         factA.setText("A");
         factA.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         factA.addActionListener(this::factAActionPerformed);
@@ -1461,7 +1441,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel38.setText("Cuotas");
         panelFact.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 360, -1, -1));
 
-        txtCuotas.setBackground(new java.awt.Color(255, 255, 255));
         txtCuotas.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
         txtCuotas.setForeground(new java.awt.Color(1, 25, 48));
         txtCuotas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1478,13 +1457,11 @@ public class PPanelAMP extends javax.swing.JFrame {
         metodoPago.add(panelFact, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, 320, 460));
 
         panelCli.setBackground(new java.awt.Color(255, 255, 255));
-        panelCli.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)), "Información del cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        panelCli.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)), "Información del cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
         panelCli.setForeground(new java.awt.Color(255, 255, 255));
         panelCli.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cbCondIvaMp.setBackground(new java.awt.Color(255, 255, 255));
         cbCondIvaMp.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        cbCondIvaMp.setForeground(new java.awt.Color(0, 0, 0));
         cbCondIvaMp.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Condición frente al IVA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(20, 52, 83))); // NOI18N
         cbCondIvaMp.addActionListener(this::cbCondIvaMpActionPerformed);
         panelCli.add(cbCondIvaMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 540, 60));
@@ -1506,21 +1483,15 @@ public class PPanelAMP extends javax.swing.JFrame {
         BuscarCliMP.addActionListener(this::BuscarCliMPActionPerformed);
         panelCli.add(BuscarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 140, 40));
 
-        txtDomCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtDomCliente.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        txtDomCliente.setForeground(new java.awt.Color(0, 0, 0));
         txtDomCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Domicilio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(20, 52, 83))); // NOI18N
         panelCli.add(txtDomCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 540, -1));
 
-        txtNombreCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtNombreCliente.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        txtNombreCliente.setForeground(new java.awt.Color(0, 0, 0));
         txtNombreCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Nombre/Razón Social", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(20, 52, 83))); // NOI18N
         panelCli.add(txtNombreCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 350, -1));
 
-        txtCuitCliente.setBackground(new java.awt.Color(255, 255, 255));
         txtCuitCliente.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
-        txtCuitCliente.setForeground(new java.awt.Color(0, 0, 0));
         txtCuitCliente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "CUIT/CUIL", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(20, 52, 83))); // NOI18N
         panelCli.add(txtCuitCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 350, -1));
 
@@ -1532,7 +1503,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         LimpiarMp.setBackground(new java.awt.Color(219, 229, 253));
         LimpiarMp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        LimpiarMp.setForeground(new java.awt.Color(0, 0, 0));
         LimpiarMp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rehacer.png"))); // NOI18N
         LimpiarMp.setText("Limpiar");
         LimpiarMp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1541,7 +1511,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jButton7.setBackground(new java.awt.Color(189, 247, 255));
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
         jButton7.setText("Continuar →");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton7.addActionListener(this::jButton7ActionPerformed);
@@ -1663,6 +1632,21 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     //CARGAR CHECKBOXS DE PAGOS
+    private void cargarClientesEnCombo() {
+        cbNombre.removeAllItems();
+        cbNombre.addItem("-- Seleccione un Cliente --");
+
+        Negocio.NCliente nCliente = new Negocio.NCliente();
+        java.util.List<Modelos.Cliente> listaTodos = nCliente.listar();
+
+        for (Modelos.Cliente c : listaTodos) {
+            if ("Activo".equalsIgnoreCase(c.getEstado()) && "Cuenta Corriente".equalsIgnoreCase(c.getTipoCliente())) {
+                
+                cbNombre.addItem(c.getRazonSocial());
+            }
+        }
+    }
+
     private void cargarClientes() {
         try {
             // 1. Obtener la lista de clientes desde la capa de negocio
@@ -2372,7 +2356,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         NCondIVA nCondIVA = new NCondIVA();
         for (CondIVA c : nCondIVA.getLista()) {
             cbCondIvaMp.addItem(c);
-            if (c.getIdCondIva() == 3) {
+            // Buscamos dinámicamente por descripción para evitar depender de un ID rígido
+            if ("Consumidor Final".equalsIgnoreCase(c.getDescripcion())) {
                 cbCondIvaMp.setSelectedItem(c);
             }
         }
@@ -2594,29 +2579,11 @@ public class PPanelAMP extends javax.swing.JFrame {
                 }
             }
 
-            String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
-                    ? cbMetodosPagos.getSelectedItem().toString()
-                    : "Efectivo";
-            int idMetodoPago = 1;
+            int indexSeleccionado = cbMetodosPagos.getSelectedIndex() - 1;
+            int idMetodoPago = 1; // Valor por defecto seguro
 
-            switch (metodoSeleccionado.toLowerCase().trim()) {
-                case "efectivo":
-                    idMetodoPago = 1;
-                    break;
-                case "débito":
-                case "debito":
-                    idMetodoPago = 2;
-                    break;
-                case "crédito":
-                case "credito":
-                    idMetodoPago = 3;
-                    break;
-                case "transferencia":
-                    idMetodoPago = 4;
-                    break;
-                default:
-                    idMetodoPago = 1;
-                    break;
+            if (indexSeleccionado >= 0 && listaMetodosPagoGlobal != null && indexSeleccionado < listaMetodosPagoGlobal.size()) {
+                idMetodoPago = listaMetodosPagoGlobal.get(indexSeleccionado).getIdMetodoPago(); // Usamos el ID real de la BD
             }
 
             double totalCompras = Double.parseDouble(txtComprasTotales.getText().trim().replace(",", "."));
@@ -2680,7 +2647,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
             // 2. Simulación de Fecha Vieja
             java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.set(2026, java.util.Calendar.JANUARY, 15);
+            cal.add(java.util.Calendar.MONTH, -3);
             this.fechaVentaOriginal = cal.getTime();
 
             // 3. CORRECCIÓN: Compras totales DEBE ser el monto en dinero para que las operaciones matemáticas no rompan
@@ -2734,9 +2701,31 @@ public class PPanelAMP extends javax.swing.JFrame {
             txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", subtotal));
             txtInteres.setText(String.format(java.util.Locale.US, "%.2f", interesCalculado));
 
-            double montoConInteres = subtotal + interesCalculado;
+            // 3. Validación del Descuento (Aplicado estrictamente sobre el SUBTOTAL base)
+            double descuentoCalculado = 0.0;
 
-            // 3. Cálculo de cuotas
+            if (cbDescuento.isSelected()) {
+                String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
+                        ? cbMetodosPagos.getSelectedItem().toString()
+                        : "";
+
+                if (metodoSeleccionado.equalsIgnoreCase("Efectivo")) {
+                    double porcentajeDescuento = 0.15;
+                    descuentoCalculado = subtotal * porcentajeDescuento;
+                } else {
+                    cbDescuento.setSelected(false);
+                    javax.swing.JOptionPane.showMessageDialog(this,
+                            "El descuento del 15% solo puede aplicarse para pagos en Efectivo.",
+                            "Advertencia",
+                            javax.swing.JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // 4. Calcular el monto total definitivo de forma sana y segura
+            double montoFinal = subtotal - descuentoCalculado + interesCalculado;
+            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", montoFinal));
+
+            // 5. Cálculo de cuotas sobre el valor definitivo real
             int cantidadCuotas = 1;
             if (!txtCuotasPagos.getText().trim().isEmpty()) {
                 try {
@@ -2748,33 +2737,13 @@ public class PPanelAMP extends javax.swing.JFrame {
                     cantidadCuotas = 1;
                 }
             }
-            double valorCuota = montoConInteres / cantidadCuotas;
+
+            double valorCuota = montoFinal / cantidadCuotas;
             txtUnidadCuota.setText(String.format(java.util.Locale.US, "%.2f", valorCuota));
-
-            // 4. Validación del Descuento (Solo Efectivo y 15%)
-            double montoFinal = montoConInteres;
-            if (cbDescuento.isSelected()) {
-                String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
-                        ? cbMetodosPagos.getSelectedItem().toString()
-                        : "";
-
-                if (metodoSeleccionado.equalsIgnoreCase("Efectivo")) {
-                    double porcentajeDescuento = 0.15;
-                    montoFinal = montoConInteres * (1 - porcentajeDescuento);
-                } else {
-                    cbDescuento.setSelected(false);
-                    JOptionPane.showMessageDialog(this,
-                            "El descuento del 15% solo puede aplicarse para pagos en Efectivo.",
-                            "Advertencia",
-                            JOptionPane.WARNING_MESSAGE);
-                }
-            }
-
-            // 5. Mostrar el monto total definitivo abajo
-            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", montoFinal));
 
         } catch (NumberFormatException ex) {
             txtMontoTotal.setText("0.00");
+            txtUnidadCuota.setText("0.00");
         }
     }
     private void cbMetodosPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetodosPagosActionPerformed
@@ -2862,61 +2831,33 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btImprimirActionPerformed
 
     private void cbNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNombreItemStateChanged
-        // Validamos que el evento sea de SELECCIÓN
+        // Validamos que sea un evento de selección
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
 
-            // Ignoramos la opción por defecto
+            // Si seleccionó la opción por defecto, no hacemos nada
             if (cbNombre.getSelectedIndex() == 0) {
                 return;
             }
 
-            // Limpiamos espacios alrededor del nombre seleccionado
-            String nombreSeleccionado = cbNombre.getSelectedItem().toString().trim();
-            boolean esCuentaCorriente = false;
+            // Recuperamos el objeto seleccionado
+            Object seleccionado = cbNombre.getSelectedItem();
 
-            switch (nombreSeleccionado) {
-                case "Maria Gomez":
-                case "Distribuidora Centro SRL":
-                case "Ferreteria Industrial SA":
-                case "Comercial Norte SRL":
-                case "Electro Hogar SA":
-                case "Mercado Central SRL":
-                case "Servicios Integrales SA":
-                case "Corralon del Sur":
-                case "Tecnologia Global SA":
-                case "Logistica Express SRL":
-                    esCuentaCorriente = true;
-                    break;
+            // Validamos que efectivamente sea un objeto Cliente
+            if (seleccionado instanceof Modelos.Cliente) {
+                Modelos.Cliente clienteSeleccionado = (Modelos.Cliente) seleccionado;
 
-                default:
+                // Seteamos la interfaz directamente usando los métodos del objeto
+                txtCuil.setText(clienteSeleccionado.getCuit());
 
-                    esCuentaCorriente = false;
-                    break;
-            }
+                // Aquí ya podés disparar la búsqueda de sus deudas o lo que necesites
+                int idCli = clienteSeleccionado.getIdCliente();
+                NVenta nVenta = new NVenta();
+                int ventasPendientes = nVenta.obtenerCantidadVentasPendientes(idCli);
+                double deudaPendiente = nVenta.obtenerMontoVentasPendientes(idCli);
 
-            // 2. Si NO es Cuenta Corriente, salta el cartel jeje
-            if (!esCuentaCorriente) {
-
-                // Mostramos el cartel de advertencia
-                javax.swing.JOptionPane.showMessageDialog(this,
-                        "El cliente '" + nombreSeleccionado + "' no está habilitado para operar en Cuenta Corriente.",
-                        "Validación de Cuenta",
-                        javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                // Usamos invokeLater para evitar conflictos de hilos con el evento
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        cbNombre.setSelectedIndex(0);
-                        // Limpiamos los campos del formulario por seguridad
-                        txtCuil.setText("");
-                        txtComprasTotales.setText("");
-                        txtSubtotal.setText("0.00");
-                        txtInteres.setText("0.00");
-                        txtUnidadCuota.setText("0.00");
-                        txtMontoTotal.setText("0.00");
-                    }
-                });
+                txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
             }
         }
     }//GEN-LAST:event_cbNombreItemStateChanged
@@ -3589,6 +3530,14 @@ public class PPanelAMP extends javax.swing.JFrame {
         ventasPanel.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void cbNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNombreActionPerformed
+
+    private void txtUnidadCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUnidadCuotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUnidadCuotaActionPerformed
+
     private void calcularDescuento() {
         Locale localeAR = new Locale("es", "AR");
         NumberFormat formato = NumberFormat.getCurrencyInstance(localeAR);
@@ -3602,9 +3551,9 @@ public class PPanelAMP extends javax.swing.JFrame {
             float descuentoUnitario = 0;
             float precioFinal = precioOriginal;
             if (aplicaDescuento) {
-                descuentoUnitario = precioOriginal * 0.10f; 
+                descuentoUnitario = precioOriginal * 0.10f;
                 precioFinal = precioOriginal - descuentoUnitario;
-                descuentoTotal += descuentoUnitario * dv.getCantidad(); 
+                descuentoTotal += descuentoUnitario * dv.getCantidad();
             }
             dv.setDescuento(descuentoUnitario);
             dv.setImporte(precioFinal * dv.getCantidad());
