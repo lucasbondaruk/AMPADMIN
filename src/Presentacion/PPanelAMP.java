@@ -906,6 +906,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         cbNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbNombre.addItemListener(this::cbNombreItemStateChanged);
+        cbNombre.addActionListener(this::cbNombreActionPerformed);
         PagosPanelCampos.add(cbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 270, -1));
 
         jLabel7.setText("Cuit-Cuil:");
@@ -960,6 +961,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel49.setText("Intereses:");
         PanelCalculo.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        txtUnidadCuota.addActionListener(this::txtUnidadCuotaActionPerformed);
         PanelCalculo.add(txtUnidadCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 130, 20));
         PanelCalculo.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 130, 20));
         PanelCalculo.add(txtSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, 20));
@@ -2022,6 +2025,21 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     //CARGAR CHECKBOXS DE PAGOS
+    private void cargarClientesEnCombo() {
+        cbNombre.removeAllItems();
+        cbNombre.addItem("-- Seleccione un Cliente --");
+
+        Negocio.NCliente nCliente = new Negocio.NCliente();
+        java.util.List<Modelos.Cliente> listaTodos = nCliente.listar();
+
+        for (Modelos.Cliente c : listaTodos) {
+            if ("Activo".equalsIgnoreCase(c.getEstado()) && "Cuenta Corriente".equalsIgnoreCase(c.getTipoCliente())) {
+                
+                cbNombre.addItem(c.getRazonSocial());
+            }
+        }
+    }
+
     private void cargarClientes() {
         try {
             // 1. Obtener la lista de clientes desde la capa de negocio
@@ -2735,7 +2753,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         NCondIVA nCondIVA = new NCondIVA();
         for (CondIVA c : nCondIVA.getLista()) {
             cbCondIvaMp.addItem(c);
-            if (c.getIdCondIva() == 3) {
+            // Buscamos dinámicamente por descripción para evitar depender de un ID rígido
+            if ("Consumidor Final".equalsIgnoreCase(c.getDescripcion())) {
                 cbCondIvaMp.setSelectedItem(c);
             }
         }
@@ -2957,29 +2976,11 @@ public class PPanelAMP extends javax.swing.JFrame {
                 }
             }
 
-            String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
-                    ? cbMetodosPagos.getSelectedItem().toString()
-                    : "Efectivo";
-            int idMetodoPago = 1;
+            int indexSeleccionado = cbMetodosPagos.getSelectedIndex() - 1;
+            int idMetodoPago = 1; // Valor por defecto seguro
 
-            switch (metodoSeleccionado.toLowerCase().trim()) {
-                case "efectivo":
-                    idMetodoPago = 1;
-                    break;
-                case "débito":
-                case "debito":
-                    idMetodoPago = 2;
-                    break;
-                case "crédito":
-                case "credito":
-                    idMetodoPago = 3;
-                    break;
-                case "transferencia":
-                    idMetodoPago = 4;
-                    break;
-                default:
-                    idMetodoPago = 1;
-                    break;
+            if (indexSeleccionado >= 0 && listaMetodosPagoGlobal != null && indexSeleccionado < listaMetodosPagoGlobal.size()) {
+                idMetodoPago = listaMetodosPagoGlobal.get(indexSeleccionado).getIdMetodoPago(); // Usamos el ID real de la BD
             }
 
             double totalCompras = Double.parseDouble(txtComprasTotales.getText().trim().replace(",", "."));
@@ -3043,7 +3044,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
             // 2. Simulación de Fecha Vieja
             java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.set(2026, java.util.Calendar.JANUARY, 15);
+            cal.add(java.util.Calendar.MONTH, -3);
             this.fechaVentaOriginal = cal.getTime();
 
             // 3. CORRECCIÓN: Compras totales DEBE ser el monto en dinero para que las operaciones matemáticas no rompan
@@ -3097,9 +3098,31 @@ public class PPanelAMP extends javax.swing.JFrame {
             txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", subtotal));
             txtInteres.setText(String.format(java.util.Locale.US, "%.2f", interesCalculado));
 
-            double montoConInteres = subtotal + interesCalculado;
+            // 3. Validación del Descuento (Aplicado estrictamente sobre el SUBTOTAL base)
+            double descuentoCalculado = 0.0;
 
-            // 3. Cálculo de cuotas
+            if (cbDescuento.isSelected()) {
+                String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
+                        ? cbMetodosPagos.getSelectedItem().toString()
+                        : "";
+
+                if (metodoSeleccionado.equalsIgnoreCase("Efectivo")) {
+                    double porcentajeDescuento = 0.15;
+                    descuentoCalculado = subtotal * porcentajeDescuento;
+                } else {
+                    cbDescuento.setSelected(false);
+                    javax.swing.JOptionPane.showMessageDialog(this,
+                            "El descuento del 15% solo puede aplicarse para pagos en Efectivo.",
+                            "Advertencia",
+                            javax.swing.JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            // 4. Calcular el monto total definitivo de forma sana y segura
+            double montoFinal = subtotal - descuentoCalculado + interesCalculado;
+            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", montoFinal));
+
+            // 5. Cálculo de cuotas sobre el valor definitivo real
             int cantidadCuotas = 1;
             if (!txtCuotasPagos.getText().trim().isEmpty()) {
                 try {
@@ -3111,33 +3134,13 @@ public class PPanelAMP extends javax.swing.JFrame {
                     cantidadCuotas = 1;
                 }
             }
-            double valorCuota = montoConInteres / cantidadCuotas;
+
+            double valorCuota = montoFinal / cantidadCuotas;
             txtUnidadCuota.setText(String.format(java.util.Locale.US, "%.2f", valorCuota));
-
-            // 4. Validación del Descuento (Solo Efectivo y 15%)
-            double montoFinal = montoConInteres;
-            if (cbDescuento.isSelected()) {
-                String metodoSeleccionado = (cbMetodosPagos.getSelectedItem() != null)
-                        ? cbMetodosPagos.getSelectedItem().toString()
-                        : "";
-
-                if (metodoSeleccionado.equalsIgnoreCase("Efectivo")) {
-                    double porcentajeDescuento = 0.15;
-                    montoFinal = montoConInteres * (1 - porcentajeDescuento);
-                } else {
-                    cbDescuento.setSelected(false);
-                    JOptionPane.showMessageDialog(this,
-                            "El descuento del 15% solo puede aplicarse para pagos en Efectivo.",
-                            "Advertencia",
-                            JOptionPane.WARNING_MESSAGE);
-                }
-            }
-
-            // 5. Mostrar el monto total definitivo abajo
-            txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", montoFinal));
 
         } catch (NumberFormatException ex) {
             txtMontoTotal.setText("0.00");
+            txtUnidadCuota.setText("0.00");
         }
     }
     private void cbMetodosPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetodosPagosActionPerformed
@@ -3225,61 +3228,33 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btImprimirActionPerformed
 
     private void cbNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNombreItemStateChanged
-        // Validamos que el evento sea de SELECCIÓN
+        // Validamos que sea un evento de selección
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
 
-            // Ignoramos la opción por defecto
+            // Si seleccionó la opción por defecto, no hacemos nada
             if (cbNombre.getSelectedIndex() == 0) {
                 return;
             }
 
-            // Limpiamos espacios alrededor del nombre seleccionado
-            String nombreSeleccionado = cbNombre.getSelectedItem().toString().trim();
-            boolean esCuentaCorriente = false;
+            // Recuperamos el objeto seleccionado
+            Object seleccionado = cbNombre.getSelectedItem();
 
-            switch (nombreSeleccionado) {
-                case "Maria Gomez":
-                case "Distribuidora Centro SRL":
-                case "Ferreteria Industrial SA":
-                case "Comercial Norte SRL":
-                case "Electro Hogar SA":
-                case "Mercado Central SRL":
-                case "Servicios Integrales SA":
-                case "Corralon del Sur":
-                case "Tecnologia Global SA":
-                case "Logistica Express SRL":
-                    esCuentaCorriente = true;
-                    break;
+            // Validamos que efectivamente sea un objeto Cliente
+            if (seleccionado instanceof Modelos.Cliente) {
+                Modelos.Cliente clienteSeleccionado = (Modelos.Cliente) seleccionado;
 
-                default:
+                // Seteamos la interfaz directamente usando los métodos del objeto
+                txtCuil.setText(clienteSeleccionado.getCuit());
 
-                    esCuentaCorriente = false;
-                    break;
-            }
+                // Aquí ya podés disparar la búsqueda de sus deudas o lo que necesites
+                int idCli = clienteSeleccionado.getIdCliente();
+                NVenta nVenta = new NVenta();
+                int ventasPendientes = nVenta.obtenerCantidadVentasPendientes(idCli);
+                double deudaPendiente = nVenta.obtenerMontoVentasPendientes(idCli);
 
-            // 2. Si NO es Cuenta Corriente, salta el cartel jeje
-            if (!esCuentaCorriente) {
-
-                // Mostramos el cartel de advertencia
-                javax.swing.JOptionPane.showMessageDialog(this,
-                        "El cliente '" + nombreSeleccionado + "' no está habilitado para operar en Cuenta Corriente.",
-                        "Validación de Cuenta",
-                        javax.swing.JOptionPane.WARNING_MESSAGE);
-
-                // Usamos invokeLater para evitar conflictos de hilos con el evento
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        cbNombre.setSelectedIndex(0);
-                        // Limpiamos los campos del formulario por seguridad
-                        txtCuil.setText("");
-                        txtComprasTotales.setText("");
-                        txtSubtotal.setText("0.00");
-                        txtInteres.setText("0.00");
-                        txtUnidadCuota.setText("0.00");
-                        txtMontoTotal.setText("0.00");
-                    }
-                });
+                txtComprasTotales.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtSubtotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
+                txtMontoTotal.setText(String.format(java.util.Locale.US, "%.2f", deudaPendiente));
             }
         }
     }//GEN-LAST:event_cbNombreItemStateChanged
@@ -4034,9 +4009,9 @@ public class PPanelAMP extends javax.swing.JFrame {
             float descuentoUnitario = 0;
             float precioFinal = precioOriginal;
             if (aplicaDescuento) {
-                descuentoUnitario = precioOriginal * 0.10f; 
+                descuentoUnitario = precioOriginal * 0.10f;
                 precioFinal = precioOriginal - descuentoUnitario;
-                descuentoTotal += descuentoUnitario * dv.getCantidad(); 
+                descuentoTotal += descuentoUnitario * dv.getCantidad();
             }
             dv.setDescuento(descuentoUnitario);
             dv.setImporte(precioFinal * dv.getCantidad());
