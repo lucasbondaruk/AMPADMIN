@@ -49,6 +49,28 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.Timer;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import java.util.Map;
+import java.awt.Dimension;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
+import org.jfree.chart.axis.NumberAxis;
+import java.text.NumberFormat;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import Utilidades.GeneradorPDF;
+import com.itextpdf.text.DocumentException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.IOException;
 
 public class PPanelAMP extends javax.swing.JFrame {
 
@@ -64,6 +86,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private List<DetalleVenta> ListaVentas = new ArrayList<>();
     private final DEstadistica dEstadistica = new DEstadistica();
     private Timer timerEstadisticas;
+    private JFreeChart graficoVentas;
+    private JFreeChart graficoMetodosPago;
+    private JFreeChart graficoClientesTipo;
+    private JFreeChart graficoClientesIVA;
 
     private final Negocio.NCliente nCliente = new Negocio.NCliente();
     private final Negocio.NMetodoPago nMetodoPago = new Negocio.NMetodoPago();
@@ -307,7 +333,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformeVentas = new javax.swing.JButton();
         btnInformeClientes = new javax.swing.JButton();
         btnInformeStock = new javax.swing.JButton();
-        panelInformeVentas = new javax.swing.JPanel();
+        panelInformePDF = new javax.swing.JPanel();
         lblTituloInformeVentas = new javax.swing.JLabel();
         cantidadPanel = new javax.swing.JPanel();
         lblCantVentas = new javax.swing.JLabel();
@@ -319,11 +345,32 @@ public class PPanelAMP extends javax.swing.JFrame {
         lblTicketProm = new javax.swing.JLabel();
         lblTicketPromedio = new javax.swing.JLabel();
         evolucionPanel = new javax.swing.JPanel();
+        panelGraficoVentas = new javax.swing.JPanel();
         metodosPanel = new javax.swing.JPanel();
+        panelGraficoMetodos = new javax.swing.JPanel();
         actPanel = new javax.swing.JPanel();
         lblUltimaAct = new javax.swing.JLabel();
         lblUltimaActualizacion = new javax.swing.JLabel();
-        btnExportarInformeVentas = new javax.swing.JButton();
+        btnExportarInformePDF = new javax.swing.JButton();
+        panelInformeClientes = new javax.swing.JPanel();
+        lblTituloInformeVentas1 = new javax.swing.JLabel();
+        totClientesPanel = new javax.swing.JPanel();
+        lblCantClientes = new javax.swing.JLabel();
+        lblCantidadClientes = new javax.swing.JLabel();
+        totEmpresasPanel = new javax.swing.JPanel();
+        lblCantEmpresas = new javax.swing.JLabel();
+        lblCantidadEmpresas = new javax.swing.JLabel();
+        totPersonasPanel = new javax.swing.JPanel();
+        lblCantPersonas = new javax.swing.JLabel();
+        lblCantidadPersonas = new javax.swing.JLabel();
+        actPanel1 = new javax.swing.JPanel();
+        lblUltimaAct1 = new javax.swing.JLabel();
+        lblUltimaActualizacion1 = new javax.swing.JLabel();
+        tipoPanel = new javax.swing.JPanel();
+        panelGraficoClientesTipo = new javax.swing.JPanel();
+        IVAPanel = new javax.swing.JPanel();
+        panelGraficoClientesIVA = new javax.swing.JPanel();
+        btnExportarInformePDF1 = new javax.swing.JButton();
         panelInformeStock = new javax.swing.JPanel();
 
         PBuscarProductoV.setMinimumSize(new java.awt.Dimension(870, 464));
@@ -421,7 +468,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(991, 777));
-        setPreferredSize(new java.awt.Dimension(980, 738));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1090,7 +1136,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                     .addComponent(btnAVolver)
                     .addComponent(btnAExportar)
                     .addComponent(btnACobrar))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
         verDetallePanel.add(BtnDetalleCC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 700, 980, 40));
@@ -1624,7 +1670,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProductos2.addActionListener(this::btnProductos2ActionPerformed);
 
         panelContenidoEstadisticas.setBackground(new java.awt.Color(0, 0, 0));
-        panelContenidoEstadisticas.setPreferredSize(new java.awt.Dimension(976, 50));
+        panelContenidoEstadisticas.setPreferredSize(new java.awt.Dimension(980, 50));
 
         btnInformeVentas.setBackground(new java.awt.Color(38, 90, 142));
         btnInformeVentas.setForeground(new java.awt.Color(255, 255, 255));
@@ -1653,7 +1699,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addComponent(btnInformeClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnInformeStock, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
         panelContenidoEstadisticasLayout.setVerticalGroup(
             panelContenidoEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1662,7 +1708,7 @@ public class PPanelAMP extends javax.swing.JFrame {
             .addComponent(btnInformeStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        panelInformeVentas.setBackground(new java.awt.Color(255, 255, 255));
+        panelInformePDF.setBackground(new java.awt.Color(255, 255, 255));
 
         lblTituloInformeVentas.setBackground(new java.awt.Color(255, 255, 255));
         lblTituloInformeVentas.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 40)); // NOI18N
@@ -1758,28 +1804,60 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         evolucionPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Evolución de ventas"));
 
+        javax.swing.GroupLayout panelGraficoVentasLayout = new javax.swing.GroupLayout(panelGraficoVentas);
+        panelGraficoVentas.setLayout(panelGraficoVentasLayout);
+        panelGraficoVentasLayout.setHorizontalGroup(
+            panelGraficoVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 478, Short.MAX_VALUE)
+        );
+        panelGraficoVentasLayout.setVerticalGroup(
+            panelGraficoVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 322, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout evolucionPanelLayout = new javax.swing.GroupLayout(evolucionPanel);
         evolucionPanel.setLayout(evolucionPanelLayout);
         evolucionPanelLayout.setHorizontalGroup(
             evolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 463, Short.MAX_VALUE)
+            .addGroup(evolucionPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         evolucionPanelLayout.setVerticalGroup(
             evolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGroup(evolucionPanelLayout.createSequentialGroup()
+                .addComponent(panelGraficoVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         metodosPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Métodos de pago"));
+
+        javax.swing.GroupLayout panelGraficoMetodosLayout = new javax.swing.GroupLayout(panelGraficoMetodos);
+        panelGraficoMetodos.setLayout(panelGraficoMetodosLayout);
+        panelGraficoMetodosLayout.setHorizontalGroup(
+            panelGraficoMetodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 347, Short.MAX_VALUE)
+        );
+        panelGraficoMetodosLayout.setVerticalGroup(
+            panelGraficoMetodosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 237, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout metodosPanelLayout = new javax.swing.GroupLayout(metodosPanel);
         metodosPanel.setLayout(metodosPanelLayout);
         metodosPanelLayout.setHorizontalGroup(
             metodosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGroup(metodosPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoMetodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         metodosPanelLayout.setVerticalGroup(
             metodosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 328, Short.MAX_VALUE)
+            .addGroup(metodosPanelLayout.createSequentialGroup()
+                .addComponent(panelGraficoMetodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         lblUltimaAct.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1809,58 +1887,295 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        btnExportarInformeVentas.setText("Exportar informe PDF");
+        btnExportarInformePDF.setText("Exportar informe PDF");
+        btnExportarInformePDF.addActionListener(this::btnExportarInformePDFActionPerformed);
 
-        javax.swing.GroupLayout panelInformeVentasLayout = new javax.swing.GroupLayout(panelInformeVentas);
-        panelInformeVentas.setLayout(panelInformeVentasLayout);
-        panelInformeVentasLayout.setHorizontalGroup(
-            panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInformeVentasLayout.createSequentialGroup()
-                .addGroup(panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInformeVentasLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(actPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelInformeVentasLayout.createSequentialGroup()
-                        .addGap(348, 348, 348)
-                        .addComponent(lblTituloInformeVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        javax.swing.GroupLayout panelInformePDFLayout = new javax.swing.GroupLayout(panelInformePDF);
+        panelInformePDF.setLayout(panelInformePDFLayout);
+        panelInformePDFLayout.setHorizontalGroup(
+            panelInformePDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformePDFLayout.createSequentialGroup()
+                .addGap(277, 277, 277)
+                .addComponent(lblTituloInformeVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformeVentasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformeVentasLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformePDFLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(panelInformePDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformePDFLayout.createSequentialGroup()
                         .addComponent(cantidadPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87)
+                        .addGap(127, 127, 127)
                         .addComponent(ingresosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96)
+                        .addGap(132, 132, 132)
                         .addComponent(promedioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(237, 237, 237))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformeVentasLayout.createSequentialGroup()
+                        .addGap(149, 149, 149))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformePDFLayout.createSequentialGroup()
                         .addComponent(evolucionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExportarInformeVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(metodosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6))))
+                        .addGap(26, 26, 26)
+                        .addGroup(panelInformePDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(actPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(metodosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExportarInformePDF, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23))))
         );
-        panelInformeVentasLayout.setVerticalGroup(
-            panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInformeVentasLayout.createSequentialGroup()
+        panelInformePDFLayout.setVerticalGroup(
+            panelInformePDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformePDFLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblTituloInformeVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelInformePDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(ingresosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cantidadPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(promedioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
-                .addGroup(panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelInformePDFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(evolucionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(metodosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(panelInformeVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(actPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExportarInformeVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addGroup(panelInformePDFLayout.createSequentialGroup()
+                        .addComponent(metodosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(actPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExportarInformePDF, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+
+        panelInformeClientes.setBackground(new java.awt.Color(255, 255, 255));
+        panelInformeClientes.setPreferredSize(new java.awt.Dimension(980, 740));
+
+        lblTituloInformeVentas1.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloInformeVentas1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 40)); // NOI18N
+        lblTituloInformeVentas1.setForeground(new java.awt.Color(0, 66, 115));
+        lblTituloInformeVentas1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloInformeVentas1.setText("Estadísticas de Clientes");
+        lblTituloInformeVentas1.setToolTipText("");
+        lblTituloInformeVentas1.setMaximumSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeVentas1.setMinimumSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeVentas1.setPreferredSize(new java.awt.Dimension(554, 54));
+
+        lblCantClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCantClientes.setText("TOTAL DE CLIENTES");
+
+        lblCantidadClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCantidadClientes.setText("0");
+
+        javax.swing.GroupLayout totClientesPanelLayout = new javax.swing.GroupLayout(totClientesPanel);
+        totClientesPanel.setLayout(totClientesPanelLayout);
+        totClientesPanelLayout.setHorizontalGroup(
+            totClientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totClientesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(totClientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantClientes)
+                    .addGroup(totClientesPanelLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(lblCantidadClientes)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        totClientesPanelLayout.setVerticalGroup(
+            totClientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totClientesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCantClientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCantidadClientes)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblCantEmpresas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCantEmpresas.setText("EMPRESAS");
+
+        lblCantidadEmpresas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCantidadEmpresas.setText("0");
+
+        javax.swing.GroupLayout totEmpresasPanelLayout = new javax.swing.GroupLayout(totEmpresasPanel);
+        totEmpresasPanel.setLayout(totEmpresasPanelLayout);
+        totEmpresasPanelLayout.setHorizontalGroup(
+            totEmpresasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totEmpresasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(totEmpresasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantEmpresas)
+                    .addGroup(totEmpresasPanelLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(lblCantidadEmpresas)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        totEmpresasPanelLayout.setVerticalGroup(
+            totEmpresasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totEmpresasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCantEmpresas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCantidadEmpresas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblCantPersonas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCantPersonas.setText("PERSONAS");
+
+        lblCantidadPersonas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCantidadPersonas.setText("0");
+
+        javax.swing.GroupLayout totPersonasPanelLayout = new javax.swing.GroupLayout(totPersonasPanel);
+        totPersonasPanel.setLayout(totPersonasPanelLayout);
+        totPersonasPanelLayout.setHorizontalGroup(
+            totPersonasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totPersonasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(totPersonasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCantPersonas)
+                    .addGroup(totPersonasPanelLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(lblCantidadPersonas)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        totPersonasPanelLayout.setVerticalGroup(
+            totPersonasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totPersonasPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCantPersonas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCantidadPersonas)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblUltimaAct1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblUltimaAct1.setText("Última actualización:");
+
+        lblUltimaActualizacion1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblUltimaActualizacion1.setText("--");
+
+        javax.swing.GroupLayout actPanel1Layout = new javax.swing.GroupLayout(actPanel1);
+        actPanel1.setLayout(actPanel1Layout);
+        actPanel1Layout.setHorizontalGroup(
+            actPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(actPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUltimaAct1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUltimaActualizacion1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        actPanel1Layout.setVerticalGroup(
+            actPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(actPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(actPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUltimaAct1)
+                    .addComponent(lblUltimaActualizacion1))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        tipoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Clientes por Tipo"));
+
+        javax.swing.GroupLayout panelGraficoClientesTipoLayout = new javax.swing.GroupLayout(panelGraficoClientesTipo);
+        panelGraficoClientesTipo.setLayout(panelGraficoClientesTipoLayout);
+        panelGraficoClientesTipoLayout.setHorizontalGroup(
+            panelGraficoClientesTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
+        );
+        panelGraficoClientesTipoLayout.setVerticalGroup(
+            panelGraficoClientesTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 182, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout tipoPanelLayout = new javax.swing.GroupLayout(tipoPanel);
+        tipoPanel.setLayout(tipoPanelLayout);
+        tipoPanelLayout.setHorizontalGroup(
+            tipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tipoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoClientesTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        tipoPanelLayout.setVerticalGroup(
+            tipoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tipoPanelLayout.createSequentialGroup()
+                .addComponent(panelGraficoClientesTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        IVAPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Clientes por IVA"));
+
+        javax.swing.GroupLayout panelGraficoClientesIVALayout = new javax.swing.GroupLayout(panelGraficoClientesIVA);
+        panelGraficoClientesIVA.setLayout(panelGraficoClientesIVALayout);
+        panelGraficoClientesIVALayout.setHorizontalGroup(
+            panelGraficoClientesIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 520, Short.MAX_VALUE)
+        );
+        panelGraficoClientesIVALayout.setVerticalGroup(
+            panelGraficoClientesIVALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 292, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout IVAPanelLayout = new javax.swing.GroupLayout(IVAPanel);
+        IVAPanel.setLayout(IVAPanelLayout);
+        IVAPanelLayout.setHorizontalGroup(
+            IVAPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IVAPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGraficoClientesIVA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        IVAPanelLayout.setVerticalGroup(
+            IVAPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(IVAPanelLayout.createSequentialGroup()
+                .addComponent(panelGraficoClientesIVA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnExportarInformePDF1.setText("Exportar informe PDF");
+        btnExportarInformePDF1.addActionListener(this::btnExportarInformePDF1ActionPerformed);
+
+        javax.swing.GroupLayout panelInformeClientesLayout = new javax.swing.GroupLayout(panelInformeClientes);
+        panelInformeClientes.setLayout(panelInformeClientesLayout);
+        panelInformeClientesLayout.setHorizontalGroup(
+            panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformeClientesLayout.createSequentialGroup()
+                .addGroup(panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInformeClientesLayout.createSequentialGroup()
+                        .addGap(275, 275, 275)
+                        .addComponent(lblTituloInformeVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelInformeClientesLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelInformeClientesLayout.createSequentialGroup()
+                                .addComponent(btnExportarInformePDF1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(actPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelInformeClientesLayout.createSequentialGroup()
+                                .addComponent(tipoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addComponent(IVAPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(68, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInformeClientesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(totClientesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130)
+                .addComponent(totEmpresasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 130, 130)
+                .addComponent(totPersonasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(194, 194, 194))
+        );
+        panelInformeClientesLayout.setVerticalGroup(
+            panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelInformeClientesLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(lblTituloInformeVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(totEmpresasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totClientesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totPersonasPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tipoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IVAPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(panelInformeClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExportarInformePDF1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(actPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout panelInformeStockLayout = new javax.swing.GroupLayout(panelInformeStock);
@@ -1871,7 +2186,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         );
         panelInformeStockLayout.setVerticalGroup(
             panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 690, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout estadísticaPanelLayout = new javax.swing.GroupLayout(estadísticaPanel);
@@ -1880,7 +2195,7 @@ public class PPanelAMP extends javax.swing.JFrame {
             estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(estadísticaPanelLayout.createSequentialGroup()
                 .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(panelInformeVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelInformePDF, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(estadísticaPanelLayout.createSequentialGroup()
                         .addComponent(lblimg2)
                         .addGap(0, 0, 0)
@@ -1897,10 +2212,12 @@ public class PPanelAMP extends javax.swing.JFrame {
                         .addComponent(btnProveedores2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(btnCaja2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelContenidoEstadisticas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE))
+                    .addComponent(panelContenidoEstadisticas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
             .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelInformeStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelInformeStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelInformeClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         estadísticaPanelLayout.setVerticalGroup(
             estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1917,12 +2234,16 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(panelContenidoEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(panelInformeVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelInformePDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, estadísticaPanelLayout.createSequentialGroup()
-                    .addGap(0, 99, Short.MAX_VALUE)
+                    .addGap(0, 89, Short.MAX_VALUE)
                     .addComponent(panelInformeStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, estadísticaPanelLayout.createSequentialGroup()
+                    .addGap(0, 99, Short.MAX_VALUE)
+                    .addComponent(panelInformeClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         getContentPane().add(estadísticaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 740));
@@ -3946,15 +4267,26 @@ public class PPanelAMP extends javax.swing.JFrame {
         estadísticaPanel.setVisible(true);
         
         actualizarEstadisticasVentas();
+        mostrarGraficoVentasPorMes();
+        mostrarGraficoMetodosPago();
     }//GEN-LAST:event_btnEstadisticas2ActionPerformed
 
     private void btnInformeClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeClientesActionPerformed
-        // TODO add your handling code here:
+        cambiarColorBotonesEstadisticas(false);
+
+        panelInformePDF.setVisible(false);
+        panelInformeClientes.setVisible(true);
+        panelInformeStock.setVisible(false);
+
+        cargarKPIsClientes();
+        mostrarGraficoClientesTipo();
+        mostrarGraficoClientesIVA();
     }//GEN-LAST:event_btnInformeClientesActionPerformed
 
     private void btnInformeVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeVentasActionPerformed
         cambiarColorBotonesEstadisticas(true);
-        panelInformeVentas.setVisible(true);
+        panelInformePDF.setVisible(true);
+        panelInformeClientes.setVisible(false);
         panelInformeStock.setVisible(false);
     }//GEN-LAST:event_btnInformeVentasActionPerformed
 
@@ -3965,6 +4297,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         estadísticaPanel.setVisible(true);
         
         actualizarEstadisticasVentas();
+        mostrarGraficoVentasPorMes();
+        mostrarGraficoMetodosPago();
     }//GEN-LAST:event_btnEstadisticasActionPerformed
 
     private void btnAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministracionActionPerformed
@@ -3988,13 +4322,152 @@ public class PPanelAMP extends javax.swing.JFrame {
         estadísticaPanel.setVisible(true);
         
         actualizarEstadisticasVentas();
+        mostrarGraficoVentasPorMes();
+        mostrarGraficoMetodosPago();
     }//GEN-LAST:event_btnEstadisticas1ActionPerformed
 
     private void btnInformeStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeStockActionPerformed
         cambiarColorBotonesEstadisticas(false);
         panelInformeStock.setVisible(true);
-        panelInformeVentas.setVisible(false);
+        panelInformePDF.setVisible(false);
     }//GEN-LAST:event_btnInformeStockActionPerformed
+
+    private void btnExportarInformePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarInformePDFActionPerformed
+        JFileChooser selector = new JFileChooser();
+
+        selector.setDialogTitle("Guardar informe PDF");
+
+        selector.setSelectedFile(
+                new File("Informe_Estadisticas_Ventas.pdf")
+        );
+
+        selector.setFileFilter(
+                new FileNameExtensionFilter(
+                        "Documento PDF (*.pdf)",
+                        "pdf"
+                )
+        );
+
+        int opcion = selector.showSaveDialog(this);
+
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+
+            try {
+
+                File archivo = selector.getSelectedFile();
+
+                if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
+                    archivo = new File(
+                            archivo.getAbsolutePath() + ".pdf"
+                    );
+                }
+
+                GeneradorPDF.generarInformeVentas(
+                        archivo,
+                        lblCantidadVentas.getText(),
+                        lblIngresosTotales.getText(),
+                        lblTicketPromedio.getText(),
+                        graficoVentas,
+                        graficoMetodosPago,
+                        generarInterpretacionVentas(),
+                        generarInterpretacionMetodosPago()
+                );
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Informe exportado correctamente.",
+                        "PDF generado",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+
+            } catch (DocumentException | IOException ex) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Error al generar el PDF:\n" + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+
+            }
+
+        }
+    }//GEN-LAST:event_btnExportarInformePDFActionPerformed
+
+    private void btnExportarInformePDF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarInformePDF1ActionPerformed
+        JFileChooser selector = new JFileChooser();
+
+        selector.setDialogTitle(
+                "Guardar informe de clientes"
+        );
+
+        selector.setSelectedFile(
+                new File(
+                        "Informe_Estadisticas_Clientes.pdf"
+                )
+        );
+
+        selector.setFileFilter(
+                new FileNameExtensionFilter(
+                        "Documento PDF (*.pdf)",
+                        "pdf"
+                )
+        );
+
+        int opcion = selector.showSaveDialog(this);
+
+        if (opcion == JFileChooser.APPROVE_OPTION) {
+
+            try {
+
+                File archivo =
+                        selector.getSelectedFile();
+
+                if (!archivo.getName()
+                        .toLowerCase()
+                        .endsWith(".pdf")) {
+
+                    archivo = new File(
+                            archivo.getAbsolutePath()
+                            + ".pdf"
+                    );
+                }
+
+                if (graficoClientesTipo == null
+                        || graficoClientesIVA == null) {
+
+                    mostrarGraficoClientesTipo();
+                    mostrarGraficoClientesIVA();
+                }
+
+                GeneradorPDF.generarInformeClientes(
+                        archivo,
+                        lblCantidadClientes.getText(),
+                        lblCantidadEmpresas.getText(),
+                        lblCantidadPersonas.getText(),
+                        graficoClientesTipo,
+                        graficoClientesIVA,
+                        generarInterpretacionClientesTipo(),
+                        generarInterpretacionClientesIVA()
+                );
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Informe de clientes exportado correctamente."
+                );
+
+            } catch (DocumentException | IOException ex) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "No se pudo generar el informe:\n"
+                        + ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+    }//GEN-LAST:event_btnExportarInformePDF1ActionPerformed
 
     private void calcularDescuento() {
         Locale localeAR = new Locale("es", "AR");
@@ -4068,6 +4541,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         TotalV.setText(formato.format(totalVenta)); // <- reemplazar por tu campo real
     }
     
+    /* -- Bruno: Estadisticas Ventas --*/
+    
     private void cambiarColorBotonesEstadisticas(boolean ventasActivo) {
 
         Color activo = new Color(38, 90, 142);
@@ -4117,6 +4592,8 @@ public class PPanelAMP extends javax.swing.JFrame {
             lblUltimaActualizacion.setText(
                 LocalDateTime.now().format(formatoFecha)
             );
+            
+            mostrarGraficoVentasPorMes();
 
         } catch (Exception e) {
 
@@ -4134,13 +4611,591 @@ public class PPanelAMP extends javax.swing.JFrame {
         timerEstadisticas = new Timer(5000, e -> {
 
             if (estadísticaPanel.isVisible()
-                    && panelInformeVentas.isVisible()) {
+                    && panelInformePDF.isVisible()) {
 
                 actualizarEstadisticasVentas();
             }
         });
 
         timerEstadisticas.start();
+    }
+    
+    private void mostrarGraficoVentasPorMes() {
+
+        Map<String, Double> datos = dEstadistica.obtenerVentasPorDia();
+
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        for (Map.Entry<String, Double> dato : datos.entrySet()) {
+            dataset.addValue(
+                    dato.getValue(),
+                    "Ventas",
+                    dato.getKey()
+            );
+        }
+
+        graficoVentas = ChartFactory.createBarChart(
+                "Evolución diaria de ventas",
+                "Fecha",
+                "Ingresos",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                true,
+                false
+        );
+
+        CategoryPlot plot = graficoVentas.getCategoryPlot();
+
+        graficoVentas.setBackgroundPaint(Color.WHITE);
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setRangeGridlinePaint(new Color(220, 220, 220));
+        plot.setDomainGridlinesVisible(false);
+        plot.setOutlineVisible(false);
+
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setSeriesPaint(0, new Color(38, 90, 142));
+        renderer.setMaximumBarWidth(0.12);
+        renderer.setShadowVisible(false);
+
+        NumberFormat formatoMoneda =
+                NumberFormat.getCurrencyInstance(
+                        new Locale("es", "AR")
+                );
+
+        NumberAxis ejeIngresos =
+                (NumberAxis) plot.getRangeAxis();
+
+        ejeIngresos.setNumberFormatOverride(formatoMoneda);
+
+        ChartPanel chartPanel = new ChartPanel(graficoVentas, false);
+
+        chartPanel.setBorder(null);
+
+        Dimension tamañoGrafico = new Dimension(494, 322);
+
+        chartPanel.setPreferredSize(tamañoGrafico);
+        chartPanel.setMinimumSize(tamañoGrafico);
+        chartPanel.setMaximumSize(tamañoGrafico);
+
+        chartPanel.setMinimumDrawWidth(0);
+        chartPanel.setMinimumDrawHeight(0);
+        chartPanel.setMaximumDrawWidth(451);
+        chartPanel.setMaximumDrawHeight(322);
+
+        panelGraficoVentas.removeAll();
+        panelGraficoVentas.setLayout(new BorderLayout());
+
+        panelGraficoVentas.setPreferredSize(tamañoGrafico);
+        panelGraficoVentas.setMinimumSize(tamañoGrafico);
+        panelGraficoVentas.setMaximumSize(tamañoGrafico);
+
+        panelGraficoVentas.add(
+                chartPanel,
+                BorderLayout.CENTER
+        );
+
+        panelGraficoVentas.revalidate();
+        panelGraficoVentas.repaint();
+    }
+    
+    private String generarInterpretacionVentas() {
+
+        Map<String, Double> datos = dEstadistica.obtenerVentasPorDia();
+
+        if (datos.isEmpty()) {
+            return "No hay ventas registradas para interpretar.";
+        }
+
+        Map.Entry<String, Double> mayor = null;
+        Map.Entry<String, Double> menor = null;
+
+        for (Map.Entry<String, Double> dato : datos.entrySet()) {
+
+            if (mayor == null || dato.getValue() > mayor.getValue()) {
+                mayor = dato;
+            }
+
+            if (menor == null || dato.getValue() < menor.getValue()) {
+                menor = dato;
+            }
+        }
+
+        NumberFormat moneda =
+                NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
+
+        return "El día con mayores ingresos fue el "
+                + mayor.getKey()
+                + ", con "
+                + moneda.format(mayor.getValue())
+                + ". El menor ingreso se registró el "
+                + menor.getKey()
+                + ", con "
+                + moneda.format(menor.getValue())
+                + ".";
+    }
+    
+    private String generarInterpretacionMetodosPago() {
+
+        Map<String, Integer> datos =
+                dEstadistica.obtenerVentasPorMetodoPago();
+
+        if (datos.isEmpty()) {
+            return "No hay métodos de pago registrados para interpretar.";
+        }
+
+        int total = 0;
+        Map.Entry<String, Integer> masUsado = null;
+        Map.Entry<String, Integer> menosUsado = null;
+
+        for (Map.Entry<String, Integer> dato : datos.entrySet()) {
+
+            total += dato.getValue();
+
+            if (masUsado == null || dato.getValue() > masUsado.getValue()) {
+                masUsado = dato;
+            }
+
+            if (menosUsado == null || dato.getValue() < menosUsado.getValue()) {
+                menosUsado = dato;
+            }
+        }
+
+        double porcentajeMayor =
+                masUsado.getValue() * 100.0 / total;
+
+        double porcentajeMenor =
+                menosUsado.getValue() * 100.0 / total;
+
+        return String.format(
+                Locale.forLanguageTag("es-AR"),
+                "El método de pago más utilizado fue %s, con %d operaciones "
+                + "(%.0f%%). El menos utilizado fue %s, con %d operaciones "
+                + "(%.0f%%).",
+                masUsado.getKey(),
+                masUsado.getValue(),
+                porcentajeMayor,
+                menosUsado.getKey(),
+                menosUsado.getValue(),
+                porcentajeMenor
+        );
+    }
+    
+    private void mostrarGraficoMetodosPago() {
+
+        Map<String, Integer> datos =
+                dEstadistica.obtenerVentasPorMetodoPago();
+
+        DefaultPieDataset<String> dataset =
+                new DefaultPieDataset<>();
+
+        for (Map.Entry<String, Integer> dato : datos.entrySet()) {
+            dataset.setValue(
+                    dato.getKey(),
+                    dato.getValue()
+            );
+        }
+
+        graficoMetodosPago = ChartFactory.createPieChart(
+                "Métodos de pago",
+                dataset,
+                false,
+                true,
+                false
+        );
+
+        PiePlot<String> plot =
+        (PiePlot<String>) graficoMetodosPago.getPlot();
+
+        graficoMetodosPago.setBackgroundPaint(Color.WHITE);
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setOutlineVisible(false);
+        plot.setShadowPaint(null);
+        plot.setInteriorGap(0.02);
+
+        plot.setLabelGenerator(
+                new StandardPieSectionLabelGenerator(
+                        "{0}: {1} ({2})"
+                )
+        );
+
+        plot.setSectionPaint(
+                "Crédito",
+                new Color(38, 90, 142)
+        );
+
+        plot.setSectionPaint(
+                "Efectivo",
+                new Color(82, 140, 196)
+        );
+
+        plot.setSectionPaint(
+                "Débito",
+                new Color(163, 198, 226)
+        );
+
+        ChartPanel chartPanel =
+        new ChartPanel(graficoMetodosPago, false);
+
+        chartPanel.setBorder(null);
+
+        Dimension tamañoGrafico = new Dimension(347, 237);
+
+        chartPanel.setPreferredSize(tamañoGrafico);
+        chartPanel.setMinimumSize(tamañoGrafico);
+        chartPanel.setMaximumSize(tamañoGrafico);
+
+        chartPanel.setMinimumDrawWidth(0);
+        chartPanel.setMinimumDrawHeight(0);
+        chartPanel.setMaximumDrawWidth(465);
+        chartPanel.setMaximumDrawHeight(322);
+
+        panelGraficoMetodos.removeAll();
+        panelGraficoMetodos.setLayout(new BorderLayout());
+
+        panelGraficoMetodos.setPreferredSize(tamañoGrafico);
+        panelGraficoMetodos.setMinimumSize(tamañoGrafico);
+        panelGraficoMetodos.setMaximumSize(tamañoGrafico);
+
+        panelGraficoMetodos.add(
+                chartPanel,
+                BorderLayout.CENTER
+        );
+
+        panelGraficoMetodos.revalidate();
+        panelGraficoMetodos.repaint();
+    }
+    
+    /* -- Bruno: Estadisticas Clientes -- */
+    
+    private void cargarKPIsClientes() {
+
+        DEstadistica dEstadistica = new DEstadistica();
+
+        lblCantidadClientes.setText(
+                String.valueOf(
+                        dEstadistica.obtenerTotalClientes()
+                )
+        );
+
+        lblCantidadEmpresas.setText(
+                String.valueOf(
+                        dEstadistica.obtenerCantidadEmpresas()
+                )
+        );
+
+        lblCantidadPersonas.setText(
+                String.valueOf(
+                        dEstadistica.obtenerCantidadPersonas()
+                )
+        );
+
+        lblUltimaActualizacion1.setText(
+                LocalDateTime.now().format(
+                    DateTimeFormatter.ofPattern(
+                        "dd/MM/yyyy HH:mm:ss"
+                    )
+                )
+        );
+    }
+    
+    private void mostrarGraficoClientesTipo() {
+
+        Map<String, Integer> datos =
+                dEstadistica.obtenerClientesPorTipo();
+
+        DefaultPieDataset<String> dataset =
+                new DefaultPieDataset<>();
+
+        for (Map.Entry<String, Integer> dato : datos.entrySet()) {
+
+            dataset.setValue(
+                    dato.getKey(),
+                    dato.getValue()
+            );
+        }
+
+        graficoClientesTipo = ChartFactory.createPieChart(
+                "Clientes por tipo",
+                dataset,
+                false,
+                true,
+                false
+        );
+
+        PiePlot<String> plot =
+                (PiePlot<String>) graficoClientesTipo.getPlot();
+
+        graficoClientesTipo.setBackgroundPaint(Color.WHITE);
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setOutlineVisible(false);
+        plot.setShadowPaint(null);
+        plot.setInteriorGap(0.02);
+
+        plot.setLabelGenerator(
+                new StandardPieSectionLabelGenerator(
+                        "{0}: {1} ({2})"
+                )
+        );
+
+        plot.setSectionPaint(
+                "Persona",
+                new Color(38, 90, 142)
+        );
+
+        plot.setSectionPaint(
+                "Empresa",
+                new Color(82, 140, 196)
+        );
+
+        ChartPanel chartPanel =
+                new ChartPanel(graficoClientesTipo, false);
+
+        chartPanel.setBorder(null);
+
+        Dimension tamañoGrafico =
+                new Dimension(347, 237);
+
+        chartPanel.setPreferredSize(tamañoGrafico);
+        chartPanel.setMinimumSize(tamañoGrafico);
+        chartPanel.setMaximumSize(tamañoGrafico);
+
+        chartPanel.setMinimumDrawWidth(0);
+        chartPanel.setMinimumDrawHeight(0);
+        chartPanel.setMaximumDrawWidth(465);
+        chartPanel.setMaximumDrawHeight(322);
+
+        panelGraficoClientesTipo.removeAll();
+        panelGraficoClientesTipo.setLayout(
+                new BorderLayout()
+        );
+
+        panelGraficoClientesTipo.setPreferredSize(
+                tamañoGrafico
+        );
+
+        panelGraficoClientesTipo.setMinimumSize(
+                tamañoGrafico
+        );
+
+        panelGraficoClientesTipo.setMaximumSize(
+                tamañoGrafico
+        );
+
+        panelGraficoClientesTipo.add(
+                chartPanel,
+                BorderLayout.CENTER
+        );
+
+        panelGraficoClientesTipo.revalidate();
+        panelGraficoClientesTipo.repaint();
+    }
+    
+    private void mostrarGraficoClientesIVA() {
+
+        Map<String, Integer> datos =
+                dEstadistica.obtenerClientesPorCondicionIVA();
+
+        DefaultCategoryDataset dataset =
+                new DefaultCategoryDataset();
+
+        for (Map.Entry<String, Integer> dato : datos.entrySet()) {
+
+            dataset.addValue(
+                    dato.getValue(),
+                    "Clientes",
+                    dato.getKey()
+            );
+        }
+
+        graficoClientesIVA = ChartFactory.createBarChart(
+                "Clientes por condición IVA",
+                "Condición IVA",
+                "Cantidad",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                true,
+                false
+        );
+
+        CategoryPlot plot =
+                graficoClientesIVA.getCategoryPlot();
+
+        graficoClientesIVA.setBackgroundPaint(
+                Color.WHITE
+        );
+
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setRangeGridlinePaint(
+                new Color(220, 220, 220)
+        );
+
+        plot.setDomainGridlinesVisible(false);
+        plot.setOutlineVisible(false);
+
+        BarRenderer renderer =
+                (BarRenderer) plot.getRenderer();
+
+        renderer.setSeriesPaint(
+                0,
+                new Color(38, 90, 142)
+        );
+
+        renderer.setMaximumBarWidth(0.15);
+        renderer.setShadowVisible(false);
+
+        NumberAxis ejeCantidad =
+                (NumberAxis) plot.getRangeAxis();
+
+        ejeCantidad.setStandardTickUnits(
+                NumberAxis.createIntegerTickUnits()
+        );
+
+        ChartPanel chartPanel =
+                new ChartPanel(graficoClientesIVA, false);
+
+        chartPanel.setBorder(null);
+
+        Dimension tamañoGrafico =
+                new Dimension(494, 322);
+
+        chartPanel.setPreferredSize(tamañoGrafico);
+        chartPanel.setMinimumSize(tamañoGrafico);
+        chartPanel.setMaximumSize(tamañoGrafico);
+
+        chartPanel.setMinimumDrawWidth(0);
+        chartPanel.setMinimumDrawHeight(0);
+        chartPanel.setMaximumDrawWidth(494);
+        chartPanel.setMaximumDrawHeight(322);
+
+        panelGraficoClientesIVA.removeAll();
+
+        panelGraficoClientesIVA.setLayout(
+                new BorderLayout()
+        );
+
+        panelGraficoClientesIVA.setPreferredSize(
+                tamañoGrafico
+        );
+
+        panelGraficoClientesIVA.setMinimumSize(
+                tamañoGrafico
+        );
+
+        panelGraficoClientesIVA.setMaximumSize(
+                tamañoGrafico
+        );
+
+        panelGraficoClientesIVA.add(
+                chartPanel,
+                BorderLayout.CENTER
+        );
+
+        panelGraficoClientesIVA.revalidate();
+        panelGraficoClientesIVA.repaint();
+    }
+    
+    private String generarInterpretacionClientesTipo() {
+
+        Map<String, Integer> datos =
+                dEstadistica.obtenerClientesPorTipo();
+
+        if (datos.isEmpty()) {
+            return "No hay clientes registrados para interpretar.";
+        }
+
+        int total = 0;
+        Map.Entry<String, Integer> mayor = null;
+        Map.Entry<String, Integer> menor = null;
+
+        for (Map.Entry<String, Integer> dato : datos.entrySet()) {
+
+            total += dato.getValue();
+
+            if (mayor == null || dato.getValue() > mayor.getValue()) {
+                mayor = dato;
+            }
+
+            if (menor == null || dato.getValue() < menor.getValue()) {
+                menor = dato;
+            }
+        }
+
+        double porcentajeMayor =
+                mayor.getValue() * 100.0 / total;
+
+        double porcentajeMenor =
+                menor.getValue() * 100.0 / total;
+
+        return String.format(
+                Locale.forLanguageTag("es-AR"),
+                "El tipo de cliente predominante es %s, con %d registros "
+                + "(%.0f%%). El tipo menos frecuente es %s, con %d registros "
+                + "(%.0f%%).",
+                mayor.getKey(),
+                mayor.getValue(),
+                porcentajeMayor,
+                menor.getKey(),
+                menor.getValue(),
+                porcentajeMenor
+        );
+    }
+    
+    private String generarInterpretacionClientesIVA() {
+
+        Map<String, Integer> datos =
+                dEstadistica.obtenerClientesPorCondicionIVA();
+
+        if (datos.isEmpty()) {
+            return "No hay condiciones de IVA registradas para interpretar.";
+        }
+
+        int total = 0;
+        Map.Entry<String, Integer> mayor = null;
+        Map.Entry<String, Integer> menor = null;
+
+        for (Map.Entry<String, Integer> dato : datos.entrySet()) {
+
+            total += dato.getValue();
+
+            if (mayor == null || dato.getValue() > mayor.getValue()) {
+                mayor = dato;
+            }
+
+            if (menor == null || dato.getValue() < menor.getValue()) {
+                menor = dato;
+            }
+        }
+
+        double porcentajeMayor =
+                mayor.getValue() * 100.0 / total;
+
+        double porcentajeMenor =
+                menor.getValue() * 100.0 / total;
+
+        return String.format(
+                Locale.forLanguageTag("es-AR"),
+                "La condición de IVA más frecuente es %s, con %d clientes "
+                + "(%.0f%%). La menos frecuente es %s, con %d clientes "
+                + "(%.0f%%).",
+                mayor.getKey(),
+                mayor.getValue(),
+                porcentajeMayor,
+                menor.getKey(),
+                menor.getValue(),
+                porcentajeMenor
+        );
+    }
+    
+    /*------------------------------------*/
+    
+    private void cbNombreActionPerformed(java.awt.event.ActionEvent evt) {
+        // Método vacío para el evento del combo cbNombre
+    }
+
+    private void txtUnidadCuotaActionPerformed(java.awt.event.ActionEvent evt) {
+        // Método vacío para el evento del campo txtUnidadCuota
     }
 
     public static void main(String args[]) {
@@ -4164,6 +5219,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton DatosCobroVenta;
     private javax.swing.JLabel DescuentoV;
     private javax.swing.JButton EliminarItemV;
+    private javax.swing.JPanel IVAPanel;
     private javax.swing.JLabel IvaV;
     private javax.swing.JButton LimpiarFiltroBP;
     private javax.swing.JButton LimpiarMp;
@@ -4179,6 +5235,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel SubtotalV;
     private javax.swing.JLabel TotalV;
     private javax.swing.JPanel actPanel;
+    private javax.swing.JPanel actPanel1;
     private javax.swing.JPanel administracionPanel;
     private javax.swing.JPanel autEmp;
     private javax.swing.JPanel autPers;
@@ -4211,7 +5268,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnEstadisticas;
     private javax.swing.JButton btnEstadisticas1;
     private javax.swing.JButton btnEstadisticas2;
-    private javax.swing.JButton btnExportarInformeVentas;
+    private javax.swing.JButton btnExportarInformePDF;
+    private javax.swing.JButton btnExportarInformePDF1;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnInformeClientes;
     private javax.swing.JButton btnInformeStock;
@@ -4315,7 +5373,13 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelFact;
     private javax.swing.JLabel lblCC;
+    private javax.swing.JLabel lblCantClientes;
+    private javax.swing.JLabel lblCantEmpresas;
+    private javax.swing.JLabel lblCantPersonas;
     private javax.swing.JLabel lblCantVentas;
+    private javax.swing.JLabel lblCantidadClientes;
+    private javax.swing.JLabel lblCantidadEmpresas;
+    private javax.swing.JLabel lblCantidadPersonas;
     private javax.swing.JLabel lblCantidadVentas;
     private javax.swing.JLabel lblFact;
     private javax.swing.JLabel lblIngTotales;
@@ -4323,9 +5387,12 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel lblTicketProm;
     private javax.swing.JLabel lblTicketPromedio;
     private javax.swing.JLabel lblTituloInformeVentas;
+    private javax.swing.JLabel lblTituloInformeVentas1;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUltimaAct;
+    private javax.swing.JLabel lblUltimaAct1;
     private javax.swing.JLabel lblUltimaActualizacion;
+    private javax.swing.JLabel lblUltimaActualizacion1;
     private javax.swing.JLabel lblimg;
     private javax.swing.JLabel lblimg1;
     private javax.swing.JLabel lblimg2;
@@ -4337,8 +5404,13 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel panelCli;
     private javax.swing.JPanel panelContenidoEstadisticas;
     private javax.swing.JPanel panelFact;
+    private javax.swing.JPanel panelGraficoClientesIVA;
+    private javax.swing.JPanel panelGraficoClientesTipo;
+    private javax.swing.JPanel panelGraficoMetodos;
+    private javax.swing.JPanel panelGraficoVentas;
+    private javax.swing.JPanel panelInformeClientes;
+    private javax.swing.JPanel panelInformePDF;
     private javax.swing.JPanel panelInformeStock;
-    private javax.swing.JPanel panelInformeVentas;
     private javax.swing.JPanel promedioPanel;
     private javax.swing.JPanel regEmp;
     private javax.swing.JPanel resumenPanel;
@@ -4346,6 +5418,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTable tablaProductosV;
     private javax.swing.JTable tablaVenta;
     private javax.swing.JPanel tarjetaDetalle;
+    private javax.swing.JPanel tipoPanel;
+    private javax.swing.JPanel totClientesPanel;
+    private javax.swing.JPanel totEmpresasPanel;
+    private javax.swing.JPanel totPersonasPanel;
     private javax.swing.JTextField txtCantV;
     private javax.swing.JTextField txtCodV;
     private javax.swing.JTextField txtComprasTotales;
