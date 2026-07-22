@@ -42,4 +42,7 @@ public class NProducto {
         return dProducto.listar();
     }
 
+    public boolean descontarStock(int idProducto, int cantidad) throws Exception {
+        return dProducto.descontarStock(idProducto, cantidad);
+    }
 }
