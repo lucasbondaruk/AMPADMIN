@@ -243,4 +243,21 @@ public class DProducto {
         return lista;
     }
 
+    public boolean descontarStock(int idProducto, int cantidad) throws Exception {
+
+        String sql = "UPDATE StockProducto "
+                + "SET stockAct = stockAct - ? "
+                + "WHERE idStockProducto = ("
+                + "SELECT idStockProducto "
+                + "FROM Producto "
+                + "WHERE idProducto = ?)";
+
+        try (Connection conn = conexion.getConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, cantidad);
+            ps.setInt(2, idProducto);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
 }
