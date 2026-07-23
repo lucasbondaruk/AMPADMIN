@@ -5021,7 +5021,7 @@ public class PPanelAMP extends javax.swing.JFrame {
             IvaV.setText(formato.format(ivaCalculado));
         } else {
             totalVenta = subtotalVenta + ivaCalculado;
-            IvaV.setText(formato.format(ivaCalculado) + " (incluido)");
+            IvaV.setText(formato.format(ivaCalculado));
         }
 
         TotalV.setText(formato.format(totalVenta));
