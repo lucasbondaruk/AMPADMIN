@@ -335,12 +335,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         lblUltimaActualizacion = new javax.swing.JLabel();
         btnExportarInformeVentas = new javax.swing.JButton();
         panelInformeStock = new javax.swing.JPanel();
-        panelGrafico = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        cbTipoReporte = new javax.swing.JComboBox<>();
-        btnActualizar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        lblTituloInformeVentas1 = new javax.swing.JLabel();
+        panelGraficoStockInforme = new javax.swing.JPanel();
+        btnExportarStockPdf = new javax.swing.JButton();
+        cbTipoReporteStock = new javax.swing.JComboBox<>();
+        btnActualizarInformeStock = new javax.swing.JButton();
+        btnExportarStockExcel = new javax.swing.JButton();
+        lblTituloInformeStock = new javax.swing.JLabel();
         lblDescripcionReporte = new javax.swing.JLabel();
 
         PBuscarProductoV.setMinimumSize(new java.awt.Dimension(870, 464));
@@ -1878,30 +1878,30 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        panelGrafico.setName("panelGrafico"); // NOI18N
-        panelGrafico.setPreferredSize(new java.awt.Dimension(1000, 1000));
-        panelGrafico.setLayout(new java.awt.BorderLayout());
+        panelGraficoStockInforme.setName("panelGraficoStockInforme"); // NOI18N
+        panelGraficoStockInforme.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        panelGraficoStockInforme.setLayout(new java.awt.BorderLayout());
 
-        jButton2.setText("Exportar a PDF");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        btnExportarStockPdf.setText("Exportar a PDF");
+        btnExportarStockPdf.addActionListener(this::btnExportarStockPdfActionPerformed);
 
-        cbTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stock total por rubro", "Productos con Stock Critico" }));
-        cbTipoReporte.addActionListener(this::cbTipoReporteActionPerformed);
+        cbTipoReporteStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stock total por rubro", "Productos con Stock Critico" }));
+        cbTipoReporteStock.addActionListener(this::cbTipoReporteStockActionPerformed);
 
-        btnActualizar.setText("Actualizar grafico");
-        btnActualizar.addActionListener(this::btnActualizarActionPerformed);
+        btnActualizarInformeStock.setText("Actualizar grafico");
+        btnActualizarInformeStock.addActionListener(this::btnActualizarInformeStockActionPerformed);
 
-        jButton5.setText("Exportar a Excel");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
+        btnExportarStockExcel.setText("Exportar a Excel");
+        btnExportarStockExcel.addActionListener(this::btnExportarStockExcelActionPerformed);
 
-        lblTituloInformeVentas1.setBackground(new java.awt.Color(255, 255, 255));
-        lblTituloInformeVentas1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 40)); // NOI18N
-        lblTituloInformeVentas1.setForeground(new java.awt.Color(0, 66, 115));
-        lblTituloInformeVentas1.setText("Estadísticas de Ventas");
-        lblTituloInformeVentas1.setToolTipText("");
-        lblTituloInformeVentas1.setMaximumSize(new java.awt.Dimension(554, 54));
-        lblTituloInformeVentas1.setMinimumSize(new java.awt.Dimension(554, 54));
-        lblTituloInformeVentas1.setPreferredSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeStock.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloInformeStock.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 40)); // NOI18N
+        lblTituloInformeStock.setForeground(new java.awt.Color(0, 66, 115));
+        lblTituloInformeStock.setText("Estadísticas de Ventas");
+        lblTituloInformeStock.setToolTipText("");
+        lblTituloInformeStock.setMaximumSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeStock.setMinimumSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeStock.setPreferredSize(new java.awt.Dimension(554, 54));
 
         lblDescripcionReporte.setText("jLabel28");
 
@@ -1912,19 +1912,19 @@ public class PPanelAMP extends javax.swing.JFrame {
             .addGroup(panelInformeStockLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelGrafico, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(panelGraficoStockInforme, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(panelInformeStockLayout.createSequentialGroup()
                         .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelInformeStockLayout.createSequentialGroup()
-                                .addComponent(lblTituloInformeVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTituloInformeStock, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cbTipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbTipoReporteStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(btnActualizar))
+                                .addComponent(btnActualizarInformeStock))
                             .addGroup(panelInformeStockLayout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnExportarStockPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnExportarStockExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(48, 48, 48)
                                 .addComponent(lblDescripcionReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 123, Short.MAX_VALUE)))
@@ -1934,20 +1934,20 @@ public class PPanelAMP extends javax.swing.JFrame {
             panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformeStockLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloInformeVentas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInformeStockLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbTipoReporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnActualizar))))
+                            .addComponent(cbTipoReporteStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizarInformeStock)))
+                    .addComponent(lblTituloInformeStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelGraficoStockInforme, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton5))
+                        .addComponent(btnExportarStockPdf)
+                        .addComponent(btnExportarStockExcel))
                     .addComponent(lblDescripcionReporte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -4109,11 +4109,11 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         // Montar en el panel de la interfaz
         org.jfree.chart.ChartPanel chartPanel = new org.jfree.chart.ChartPanel(chart);
-        panelGrafico.removeAll();
-        panelGrafico.setLayout(new java.awt.BorderLayout());
-        panelGrafico.add(chartPanel, java.awt.BorderLayout.CENTER);
-        panelGrafico.revalidate();
-        panelGrafico.repaint();
+        panelGraficoStockInforme.removeAll();
+        panelGraficoStockInforme.setLayout(new java.awt.BorderLayout());
+        panelGraficoStockInforme.add(chartPanel, java.awt.BorderLayout.CENTER);
+        panelGraficoStockInforme.revalidate();
+        panelGraficoStockInforme.repaint();
     }
 
     private void mostrarGraficoStockCritico() {
@@ -4157,15 +4157,15 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         // 
         org.jfree.chart.ChartPanel chartPanel = new org.jfree.chart.ChartPanel(chart);
-        panelGrafico.removeAll();
-        panelGrafico.setLayout(new java.awt.BorderLayout());
-        panelGrafico.add(chartPanel, java.awt.BorderLayout.CENTER);
-        panelGrafico.revalidate();
-        panelGrafico.repaint();
+        panelGraficoStockInforme.removeAll();
+        panelGraficoStockInforme.setLayout(new java.awt.BorderLayout());
+        panelGraficoStockInforme.add(chartPanel, java.awt.BorderLayout.CENTER);
+        panelGraficoStockInforme.revalidate();
+        panelGraficoStockInforme.repaint();
     }
 
     private void actualizarDescripcionGrafico() {
-        int seleccion = cbTipoReporte.getSelectedIndex();
+        int seleccion = cbTipoReporteStock.getSelectedIndex();
 
         if (seleccion == 0) {
             // Descripción para la Torta bro
@@ -4185,7 +4185,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     private void actualizarGrafico() {
-        if (cbTipoReporte.getSelectedIndex() == 0) {
+        if (cbTipoReporteStock.getSelectedIndex() == 0) {
             mostrarGraficoRubro();
         } else {
             mostrarGraficoStockCritico();
@@ -4194,7 +4194,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnExportarStockPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarStockPdfActionPerformed
         try {
             javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
             chooser.setDialogTitle("Guardar Informe de Stock (PDF)");
@@ -4303,9 +4303,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         celda.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
         celda.setBackgroundColor(com.itextpdf.text.BaseColor.LIGHT_GRAY);
         return celda;
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnExportarStockPdfActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnExportarStockExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarStockExcelActionPerformed
         try {
             javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
             chooser.setDialogTitle("Guardar Informe de Stock (Excel)");
@@ -4380,15 +4380,15 @@ public class PPanelAMP extends javax.swing.JFrame {
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al generar Excel: " + e.getMessage());
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnExportarStockExcelActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    private void btnActualizarInformeStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarInformeStockActionPerformed
         actualizarGrafico();
-    }//GEN-LAST:event_btnActualizarActionPerformed
+    }//GEN-LAST:event_btnActualizarInformeStockActionPerformed
 
-    private void cbTipoReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoReporteActionPerformed
+    private void cbTipoReporteStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoReporteStockActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbTipoReporteActionPerformed
+    }//GEN-LAST:event_cbTipoReporteStockActionPerformed
 
     private void calcularDescuento() {
         Locale localeAR = new Locale("es", "AR");
@@ -4596,7 +4596,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnAPagos;
     private javax.swing.JButton btnAPersona;
     private javax.swing.JButton btnAVolver;
-    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizarInformeStock;
     private javax.swing.JButton btnAdministracion;
     private javax.swing.JButton btnAdministracion1;
     private javax.swing.JButton btnAdministracion2;
@@ -4607,6 +4607,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnEstadisticas1;
     private javax.swing.JButton btnEstadisticas2;
     private javax.swing.JButton btnExportarInformeVentas;
+    private javax.swing.JButton btnExportarStockExcel;
+    private javax.swing.JButton btnExportarStockPdf;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnInformeClientes;
     private javax.swing.JButton btnInformeStock;
@@ -4635,7 +4637,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbNombre;
     private javax.swing.JComboBox<RubroProducto> cbRubroV;
     private javax.swing.JComboBox<String> cbTipo;
-    private javax.swing.JComboBox<String> cbTipoReporte;
+    private javax.swing.JComboBox<String> cbTipoReporteStock;
     private javax.swing.JComboBox<TipoProducto> cbTipoV;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JPanel detPanel;
@@ -4645,10 +4647,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton factB;
     private javax.swing.JPanel ingresosPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
@@ -4721,8 +4721,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel lblIngresosTotales;
     private javax.swing.JLabel lblTicketProm;
     private javax.swing.JLabel lblTicketPromedio;
+    private javax.swing.JLabel lblTituloInformeStock;
     private javax.swing.JLabel lblTituloInformeVentas;
-    private javax.swing.JLabel lblTituloInformeVentas1;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUltimaAct;
     private javax.swing.JLabel lblUltimaActualizacion;
@@ -4737,7 +4737,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel panelCli;
     private javax.swing.JPanel panelContenidoEstadisticas;
     private javax.swing.JPanel panelFact;
-    private javax.swing.JPanel panelGrafico;
+    private javax.swing.JPanel panelGraficoStockInforme;
     private javax.swing.JPanel panelInformeStock;
     private javax.swing.JPanel panelInformeVentas;
     private javax.swing.JPanel promedioPanel;
