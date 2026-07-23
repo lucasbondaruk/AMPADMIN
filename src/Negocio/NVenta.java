@@ -1,15 +1,23 @@
 package Negocio;
 
+import Conexiones.SqlConection;
+import Datos.DDetalleVenta;
 import Datos.DVenta;
+import Modelos.DetalleVenta;
+import Modelos.Producto;
 import Modelos.Venta;
 import java.util.List;
 import java.util.ArrayList;
 
 public class NVenta {
 
-    public static boolean Registrar(Venta venta) {
+    private DVenta dVenta = new DVenta();
+    private DDetalleVenta dDetalleVenta = new DDetalleVenta();
+    private SqlConection conexion = new SqlConection();
+
+    public static int insertarConId(Venta venta) throws Exception{
         DVenta dVenta = new DVenta();
-        return dVenta.Insertar(venta);
+        return dVenta.insertarConId(venta);
     }
 
     public List<Venta> listarVentasCliente(int idCliente) {

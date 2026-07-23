@@ -86,7 +86,7 @@ public class PLogin extends javax.swing.JFrame {
                     "Bienvenido " + u.getUsuario()
             );
 
-            PPanelAMP ventana = new PPanelAMP();
+            PPanelAMP ventana = new PPanelAMP(u);
             ventana.setVisible(true);
             this.dispose();
 

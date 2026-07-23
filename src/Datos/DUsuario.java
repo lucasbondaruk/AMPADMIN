@@ -36,7 +36,6 @@ public class DUsuario {
             }
 
         } catch (Exception e) {
-            // ESTA LÍNEA ES CLAVE: Te va a mostrar el verdadero error en la consola de NetBeans
             e.printStackTrace(); 
             throw new Exception("Error, usuario inválido: " + e.getMessage());
         }

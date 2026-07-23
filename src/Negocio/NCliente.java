@@ -41,7 +41,7 @@ public class NCliente {
 
     public Cliente select(String cuit) throws Exception {
 
-        if (!cuit.matches("\\d{11}")) {
+        if (!cuit.matches("\\d+")) {
             throw new IllegalArgumentException("CUIT/CUIL inválido");
         }
 
@@ -52,5 +52,4 @@ public class NCliente {
         return dcc.listar();
     }
 
-    
 }

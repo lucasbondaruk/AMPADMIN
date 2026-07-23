@@ -16,7 +16,7 @@ public class DVenta {
     public boolean Insertar(Venta venta) {
         try {
             Connection cn = conexion.getConexion();
-
+            venta.setNumVenta(obtenerProximoNumVenta(cn));
             String sql = "INSERT INTO Venta "
                     + "(numVenta, fecha, total, cuotas, interes, tipoComprobante, "
                     + "idMetodoPago, idIVA, idCliente, idVendedor) "
@@ -41,6 +41,39 @@ public class DVenta {
             System.out.println("Error al registrar venta: " + e.getMessage());
             return false;
         }
+    }
+
+    public int insertarConId(Venta venta) throws Exception {
+        Connection conn = conexion.getConexion();
+        venta.setNumVenta(obtenerProximoNumVenta(conn));
+        String sql = "INSERT INTO Venta "
+                + "(numVenta, fecha, total, cuotas, interes, tipoComprobante, "
+                + "idMetodoPago, idIVA, idCliente, idVendedor) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setInt(1, venta.getNumVenta());
+            ps.setDate(2, new java.sql.Date(venta.getFecha().getTime()));
+            ps.setFloat(3, venta.getTotal());
+            ps.setInt(4, venta.getCuotas());
+            ps.setFloat(5, venta.getInteres());
+            ps.setString(6, venta.getTipoComprobante());
+            ps.setInt(7, venta.getIdMetodoPago());
+            ps.setInt(8, venta.getIdIVA());
+            ps.setInt(9, venta.getIdCliente());
+            ps.setInt(10, venta.getIdVendedor());
+
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+
+        throw new Exception("No se pudo obtener el ID de la venta generada.");
     }
 
     public List<Venta> listarVentasCliente(int idCliente) throws Exception {
@@ -122,5 +155,18 @@ public class DVenta {
         }
 
         return saldoPendiente;
+    }
+
+    public int obtenerProximoNumVenta(Connection conn) throws Exception {
+
+        String sql = "SELECT ISNULL(MAX(numVenta), 0) + 1 AS proximo FROM Venta";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("proximo");
+            }
+        }
+
+        return 1;
     }
 }
