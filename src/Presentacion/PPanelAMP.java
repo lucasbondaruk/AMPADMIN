@@ -66,6 +66,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import Datos.DEstadistica;
+import Datos.DStockProducto;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -75,6 +76,9 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator; // Para gráficos de categorías (ej. Barras)
+import org.jfree.chart.labels.StandardXYItemLabelGenerator;       // Para gráficos XY (ej. Dispersión)
 import java.util.Map;
 import java.awt.Dimension;
 import org.jfree.chart.plot.CategoryPlot;
@@ -136,6 +140,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         cargarMetodosPago();
         revalidate();
         repaint();
+        actualizarGrafico();
     }
     private boolean opc;
 
@@ -462,6 +467,13 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelGraficoClientesIVA = new javax.swing.JPanel();
         btnExportarInformePDF1 = new javax.swing.JButton();
         panelInformeStock = new javax.swing.JPanel();
+        panelGraficoStockInforme = new javax.swing.JPanel();
+        btnExportarStockPdf = new javax.swing.JButton();
+        cbTipoReporteStock = new javax.swing.JComboBox<>();
+        btnActualizarInformeStock = new javax.swing.JButton();
+        btnExportarStockExcel = new javax.swing.JButton();
+        lblTituloInformeStock = new javax.swing.JLabel();
+        lblDescripcionReporte = new javax.swing.JLabel();
 
         PBuscarProductoV.setMinimumSize(new java.awt.Dimension(870, 464));
         PBuscarProductoV.setResizable(false);
@@ -1043,7 +1055,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         cbNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbNombre.addItemListener(this::cbNombreItemStateChanged);
-        cbNombre.addActionListener(this::cbNombreActionPerformed);
         PagosPanelCampos.add(cbNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 270, -1));
 
         jLabel7.setText("Cuit-Cuil:");
@@ -1098,8 +1109,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel49.setText("Intereses:");
         PanelCalculo.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-
-        txtUnidadCuota.addActionListener(this::txtUnidadCuotaActionPerformed);
         PanelCalculo.add(txtUnidadCuota, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 130, 20));
         PanelCalculo.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 130, 20));
         PanelCalculo.add(txtSubtotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, 20));
@@ -2700,15 +2709,78 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        panelGraficoStockInforme.setName("panelGraficoStockInforme"); // NOI18N
+        panelGraficoStockInforme.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        panelGraficoStockInforme.setLayout(new java.awt.BorderLayout());
+
+        btnExportarStockPdf.setText("Exportar a PDF");
+        btnExportarStockPdf.addActionListener(this::btnExportarStockPdfActionPerformed);
+
+        cbTipoReporteStock.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Stock total por rubro", "Productos con Stock Critico" }));
+        cbTipoReporteStock.addActionListener(this::cbTipoReporteStockActionPerformed);
+
+        btnActualizarInformeStock.setText("Actualizar grafico");
+        btnActualizarInformeStock.addActionListener(this::btnActualizarInformeStockActionPerformed);
+
+        btnExportarStockExcel.setText("Exportar a Excel");
+        btnExportarStockExcel.addActionListener(this::btnExportarStockExcelActionPerformed);
+
+        lblTituloInformeStock.setBackground(new java.awt.Color(255, 255, 255));
+        lblTituloInformeStock.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 40)); // NOI18N
+        lblTituloInformeStock.setForeground(new java.awt.Color(0, 66, 115));
+        lblTituloInformeStock.setText("Estadísticas de Ventas");
+        lblTituloInformeStock.setToolTipText("");
+        lblTituloInformeStock.setMaximumSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeStock.setMinimumSize(new java.awt.Dimension(554, 54));
+        lblTituloInformeStock.setPreferredSize(new java.awt.Dimension(554, 54));
+
+        lblDescripcionReporte.setText("jLabel28");
+
         javax.swing.GroupLayout panelInformeStockLayout = new javax.swing.GroupLayout(panelInformeStock);
         panelInformeStock.setLayout(panelInformeStockLayout);
         panelInformeStockLayout.setHorizontalGroup(
             panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 980, Short.MAX_VALUE)
+            .addGroup(panelInformeStockLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelGraficoStockInforme, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(panelInformeStockLayout.createSequentialGroup()
+                        .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelInformeStockLayout.createSequentialGroup()
+                                .addComponent(lblTituloInformeStock, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbTipoReporteStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(btnActualizarInformeStock))
+                            .addGroup(panelInformeStockLayout.createSequentialGroup()
+                                .addComponent(btnExportarStockPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExportarStockExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(lblDescripcionReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 123, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelInformeStockLayout.setVerticalGroup(
             panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 690, Short.MAX_VALUE)
+            .addGroup(panelInformeStockLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInformeStockLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbTipoReporteStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizarInformeStock)))
+                    .addComponent(lblTituloInformeStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelGraficoStockInforme, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnExportarStockPdf)
+                        .addComponent(btnExportarStockExcel))
+                    .addComponent(lblDescripcionReporte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout estadísticaPanelLayout = new javax.swing.GroupLayout(estadísticaPanel);
@@ -5320,6 +5392,321 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelInformePDF.setVisible(false);
     }//GEN-LAST:event_btnInformeStockActionPerformed
 
+    private void btnExportarInformeVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarInformeVentasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExportarInformeVentasActionPerformed
+
+    // CARGAR DATOS DE GRAFICOS EN LA SECCION INFORMES DE STOCK
+    private Datos.DStockProducto dStock = new Datos.DStockProducto();
+
+    private void mostrarGraficoRubro() {
+        // Obtener datos
+        org.jfree.data.general.DefaultPieDataset dataset = dStock.obtenerStockPorRubro();
+
+        // Crear gráfico de torta
+        org.jfree.chart.JFreeChart chart = org.jfree.chart.ChartFactory.createPieChart(
+                "Informe de Stock Total por Rubro",
+                dataset,
+                true,
+                true,
+                false
+        );
+
+        org.jfree.chart.plot.PiePlot plot = (org.jfree.chart.plot.PiePlot) chart.getPlot();
+
+        /* 
+       Formato de etiqueta: {0} = Nombre Rubro, {1} = Valor absoluto (Cantidad), {2} = Porcentaje
+         */
+        plot.setLabelGenerator(new org.jfree.chart.labels.StandardPieSectionLabelGenerator(
+                "{0}: {1} unidades ({2})",
+                new java.text.DecimalFormat("#,##0"),
+                new java.text.DecimalFormat("0.0%")
+        ));
+
+        plot.setSimpleLabels(false);
+
+        // Montar en el panel de la interfaz
+        org.jfree.chart.ChartPanel chartPanel = new org.jfree.chart.ChartPanel(chart);
+        panelGraficoStockInforme.removeAll();
+        panelGraficoStockInforme.setLayout(new java.awt.BorderLayout());
+        panelGraficoStockInforme.add(chartPanel, java.awt.BorderLayout.CENTER);
+        panelGraficoStockInforme.revalidate();
+        panelGraficoStockInforme.repaint();
+    }
+
+    private void mostrarGraficoStockCritico() {
+        // obtengo los datos
+        org.jfree.data.category.DefaultCategoryDataset dataset = dStock.obtenerStockCritico();
+
+        // Creo el  gráfico de barras
+        org.jfree.chart.JFreeChart chart = org.jfree.chart.ChartFactory.createBarChart(
+                "Productos en Stock Crítico vs. Mínimo",
+                "Productos",
+                "Unidades en Stock",
+                dataset,
+                org.jfree.chart.plot.PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+
+        
+        org.jfree.chart.plot.CategoryPlot plot = chart.getCategoryPlot();
+        org.jfree.chart.renderer.category.BarRenderer renderer = (org.jfree.chart.renderer.category.BarRenderer) plot.getRenderer();
+
+        renderer.setDefaultItemLabelsVisible(true);
+
+        renderer.setDefaultItemLabelGenerator(
+                new org.jfree.chart.labels.StandardCategoryItemLabelGenerator(
+                        "{2}",
+                        new java.text.DecimalFormat("#,##0")
+                )
+        );
+
+        // Rotar etiquetas del Eje X para que el nombre del producto se lea completo si es largo
+        plot.getDomainAxis().setCategoryLabelPositions(
+                org.jfree.chart.axis.CategoryLabelPositions.UP_45
+        );
+
+        // Rotar etiquetas del Eje X para que el nombre del producto se lea completo si es largo
+        plot.getDomainAxis().setCategoryLabelPositions(
+                org.jfree.chart.axis.CategoryLabelPositions.UP_45
+        );
+
+        // 
+        org.jfree.chart.ChartPanel chartPanel = new org.jfree.chart.ChartPanel(chart);
+        panelGraficoStockInforme.removeAll();
+        panelGraficoStockInforme.setLayout(new java.awt.BorderLayout());
+        panelGraficoStockInforme.add(chartPanel, java.awt.BorderLayout.CENTER);
+        panelGraficoStockInforme.revalidate();
+        panelGraficoStockInforme.repaint();
+    }
+
+    private void actualizarDescripcionGrafico() {
+        int seleccion = cbTipoReporteStock.getSelectedIndex();
+
+        if (seleccion == 0) {
+            // Descripción para la Torta bro
+            lblDescripcionReporte.setText(
+                    "<html><b>DESCRIPCIÓN DEL INFORME:</b><br>"
+                    + "Este gráfico representa el volumen total acumulado de stock agrupado por <b>Rubro</b>.<br>"
+                    + "Permite identificar qué rubros concentran el mayor nivel de inventario en el comercio.</html>"
+            );
+        } else {
+            // Descripción para el Crítico 
+            lblDescripcionReporte.setText(
+                    "<html><b>DESCRIPCIÓN DEL INFORME:</b><br>"
+                    + "Este gráfico compara visualmente el <b>Stock Actual</b> con el <b>Stock Mínimo</b> requerido.<br>"
+                    + "Muestra únicamente los productos cuya existencia actual está por debajo o al límite del margen de seguridad.</html>"
+            );
+        }
+    }
+
+    private void actualizarGrafico() {
+        if (cbTipoReporteStock.getSelectedIndex() == 0) {
+            mostrarGraficoRubro();
+        } else {
+            mostrarGraficoStockCritico();
+        }
+        actualizarDescripcionGrafico();
+    }
+
+
+    private void btnExportarStockPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarStockPdfActionPerformed
+        try {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setDialogTitle("Guardar Informe de Stock (PDF)");
+            chooser.setSelectedFile(new java.io.File("informe_stock_inventario.pdf"));
+
+            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+
+            java.io.File archivo = chooser.getSelectedFile();
+            if (!archivo.getName().toLowerCase().endsWith(".pdf")) {
+                archivo = new java.io.File(archivo.getAbsolutePath() + ".pdf");
+            }
+
+           
+            com.itextpdf.text.Document documento = new com.itextpdf.text.Document(com.itextpdf.text.PageSize.A4, 36, 36, 36, 36);
+            com.itextpdf.text.pdf.PdfWriter.getInstance(documento, new java.io.FileOutputStream(archivo));
+
+            documento.open();
+
+            com.itextpdf.text.Font tituloFont = new com.itextpdf.text.Font(
+                    com.itextpdf.text.Font.FontFamily.HELVETICA, 16, com.itextpdf.text.Font.BOLD);
+            com.itextpdf.text.Font fechaFont = new com.itextpdf.text.Font(
+                    com.itextpdf.text.Font.FontFamily.HELVETICA, 10, com.itextpdf.text.Font.ITALIC, com.itextpdf.text.BaseColor.DARK_GRAY);
+
+           
+            com.itextpdf.text.Paragraph titulo = new com.itextpdf.text.Paragraph("Informe General de Stock de Productos", tituloFont);
+            titulo.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            documento.add(titulo);
+
+           
+            String fechaHoraActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+            com.itextpdf.text.Paragraph fecha = new com.itextpdf.text.Paragraph("Fecha y Hora de Creación: " + fechaHoraActual, fechaFont);
+            fecha.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            fecha.setSpacingAfter(15);
+            documento.add(fecha);
+
+            
+            com.itextpdf.text.pdf.PdfPTable tablaPDF = new com.itextpdf.text.pdf.PdfPTable(5);
+            tablaPDF.setWidthPercentage(100);
+            tablaPDF.setWidths(new float[]{15f, 35f, 15f, 15f, 20f});
+
+           
+            tablaPDF.addCell(crearCeldaEncabezado("Código"));
+            tablaPDF.addCell(crearCeldaEncabezado("Descripción"));
+            tablaPDF.addCell(crearCeldaEncabezado("Cantidad"));
+            tablaPDF.addCell(crearCeldaEncabezado("P. Unitario"));
+            tablaPDF.addCell(crearCeldaEncabezado("Proveedor"));
+
+            
+            List<Producto> listaProductos = nProducto.listar(); 
+
+            for (Producto p : listaProductos) {
+                String codigo = String.valueOf(p.getCodigo());
+                String descripcion = p.getDescripcion();
+
+                
+                String cantidad = (p.getIdStockProducto() != null)
+                        ? String.valueOf(p.getIdStockProducto().getStockAct()) : "0";
+
+                String precio = String.format("$%.2f", p.getPrecioUnitario());
+
+                
+                String proveedor = (p.getProveedor() != null)
+                        ? p.getProveedor().getNombre() : "S/N";
+
+                com.itextpdf.text.pdf.PdfPCell c1 = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(codigo));
+                c1.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                c1.setPadding(5);
+                tablaPDF.addCell(c1);
+
+                com.itextpdf.text.pdf.PdfPCell c2 = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(descripcion));
+                c2.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+                c2.setPadding(5);
+                tablaPDF.addCell(c2);
+
+                com.itextpdf.text.pdf.PdfPCell c3 = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(cantidad));
+                c3.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+                c3.setPadding(5);
+                tablaPDF.addCell(c3);
+
+                com.itextpdf.text.pdf.PdfPCell c4 = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(precio));
+                c4.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+                c4.setPadding(5);
+                tablaPDF.addCell(c4);
+
+                com.itextpdf.text.pdf.PdfPCell c5 = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(proveedor));
+                c5.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+                c5.setPadding(5);
+                tablaPDF.addCell(c5);
+            }
+
+            documento.add(tablaPDF);
+            documento.close();
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Informe PDF generado correctamente en formato A4.");
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage());
+        }
+    }
+
+    private com.itextpdf.text.pdf.PdfPCell crearCeldaEncabezado(String texto) {
+        com.itextpdf.text.pdf.PdfPCell celda = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(texto));
+        celda.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+        celda.setBackgroundColor(com.itextpdf.text.BaseColor.LIGHT_GRAY);
+        return celda;
+    }//GEN-LAST:event_btnExportarStockPdfActionPerformed
+
+    private void btnExportarStockExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarStockExcelActionPerformed
+        try {
+            javax.swing.JFileChooser chooser = new javax.swing.JFileChooser();
+            chooser.setDialogTitle("Guardar Informe de Stock (Excel)");
+            chooser.setSelectedFile(new java.io.File("informe_stock_inventario.xls"));
+
+            if (chooser.showSaveDialog(this) != javax.swing.JFileChooser.APPROVE_OPTION) {
+                return;
+            }
+
+            java.io.File archivo = chooser.getSelectedFile();
+            if (!archivo.getName().toLowerCase().endsWith(".xls")) {
+                archivo = new java.io.File(archivo.getAbsolutePath() + ".xls");
+            }
+
+            
+            String fechaHoraActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+
+            try (java.io.PrintWriter pw = new java.io.PrintWriter(
+                    new java.io.OutputStreamWriter(
+                            new java.io.FileOutputStream(archivo), "UTF-8"))) {
+
+                pw.println("<html><head><meta charset='UTF-8'>");
+                
+                pw.println("<style>");
+                pw.println("@page { size: A4 portrait; margin: 1cm; }");
+                pw.println("body { font-family: Arial, sans-serif; font-size: 11pt; }");
+                pw.println("h2 { text-align: center; color: #1e3a8a; }");
+                pw.println(".fecha { text-align: center; font-style: italic; color: #555; margin-bottom: 20px; }");
+                pw.println("table { border-collapse: collapse; width: 100%; }");
+                pw.println("th, td { border: 1px solid #000; padding: 6px 8px; }");
+                pw.println("th { background-color: #D9EAF7; text-align: center; font-weight: bold; }");
+                pw.println("</style>");
+                pw.println("</head><body>");
+
+                pw.println("<h2>Informe General de Stock de Productos</h2>");
+                pw.println("<div class='fecha'><b>Fecha y Hora de Creación:</b> " + fechaHoraActual + "</div>");
+
+                
+                pw.println("<table>");
+                pw.println("<thead><tr>");
+                pw.println("<th>Código</th>");
+                pw.println("<th>Descripción</th>");
+                pw.println("<th>Cantidad</th>");
+                pw.println("<th>Precio Unitario</th>");
+                pw.println("<th>Proveedor</th>");
+                pw.println("</tr></thead>");
+                pw.println("<tbody>");
+
+                List<Producto> listaProductos = nProducto.listar();
+
+                for (Producto p : listaProductos) {
+                    String codigo = String.valueOf(p.getCodigo());
+                    String descripcion = p.getDescripcion();
+                    int cantidad = (p.getIdStockProducto() != null) ? p.getIdStockProducto().getStockAct() : 0;
+                    float precio = p.getPrecioUnitario();
+                    String proveedor = (p.getProveedor() != null) ? p.getProveedor().getNombre() : "S/N";
+
+                    pw.println("<tr>");
+                    pw.println("<td style='text-align:center; mso-number-format:\"\\@\";'>" + codigo + "</td>");
+                    pw.println("<td>" + descripcion + "</td>");
+                    pw.println("<td style='text-align:right;'>" + cantidad + "</td>");
+                    pw.println("<td style='text-align:right; mso-number-format:\"\\$#,##0.00\";'>" + String.format(Locale.US, "%.2f", precio) + "</td>");
+                    pw.println("<td>" + proveedor + "</td>");
+                    pw.println("</tr>");
+                }
+
+                pw.println("</tbody></table></body></html>");
+            }
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Informe Excel generado correctamente en formato A4.");
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al generar Excel: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnExportarStockExcelActionPerformed
+
+    private void btnActualizarInformeStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarInformeStockActionPerformed
+        actualizarGrafico();
+    }//GEN-LAST:event_btnActualizarInformeStockActionPerformed
+
+    private void cbTipoReporteStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoReporteStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoReporteStockActionPerformed
     private void btnExportarInformePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarInformePDFActionPerformed
         JFileChooser selector = new JFileChooser();
 
@@ -6385,6 +6772,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnAPersona;
     private javax.swing.JButton btnAVolver;
     private javax.swing.JButton btnActualizarP;
+    private javax.swing.JButton btnActualizarInformeStock;
     private javax.swing.JButton btnAdministracion;
     private javax.swing.JButton btnAdministracion1;
     private javax.swing.JButton btnAdministracion2;
@@ -6399,6 +6787,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnEstadisticas3;
     private javax.swing.JButton btnExportarInformePDF;
     private javax.swing.JButton btnExportarInformePDF1;
+    private javax.swing.JButton btnExportarInformeVentas;
+    private javax.swing.JButton btnExportarStockExcel;
+    private javax.swing.JButton btnExportarStockPdf;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnGestionarP;
     private javax.swing.JButton btnInformeClientes;
@@ -6434,6 +6825,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbNombre;
     private javax.swing.JComboBox<RubroProducto> cbRubroV;
     private javax.swing.JComboBox<String> cbTipo;
+    private javax.swing.JComboBox<String> cbTipoReporteStock;
     private javax.swing.JComboBox<TipoProducto> cbTipoV;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JPanel detPanel;
@@ -6554,6 +6946,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel lblCantidadEmpresas;
     private javax.swing.JLabel lblCantidadPersonas;
     private javax.swing.JLabel lblCantidadVentas;
+    private javax.swing.JLabel lblDescripcionReporte;
     private javax.swing.JLabel lblFact;
     private javax.swing.JLabel lblHeaderAgregar;
     private javax.swing.JLabel lblHeaderAgregar1;
@@ -6563,6 +6956,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel lblIngresosTotales;
     private javax.swing.JLabel lblTicketProm;
     private javax.swing.JLabel lblTicketPromedio;
+    private javax.swing.JLabel lblTituloInformeStock;
     private javax.swing.JLabel lblTituloInformeVentas;
     private javax.swing.JLabel lblTituloInformeVentas1;
     private javax.swing.JLabel lblTotal;
@@ -6583,6 +6977,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel panelCli;
     private javax.swing.JPanel panelContenidoEstadisticas;
     private javax.swing.JPanel panelFact;
+    private javax.swing.JPanel panelGraficoStockInforme;
     private javax.swing.JPanel panelGraficoClientesIVA;
     private javax.swing.JPanel panelGraficoClientesTipo;
     private javax.swing.JPanel panelGraficoMetodos;
