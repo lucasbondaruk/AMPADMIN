@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Negocio;
 
 import Modelos.Producto;
@@ -11,6 +7,14 @@ import java.util.List;
 public class NProducto {
 
     private DProducto dProducto = new DProducto();
+
+    public boolean insertar(Producto p) {
+        return dProducto.insertar(p);
+    }
+
+    public boolean modificar(Producto p) {
+        return dProducto.modificar(p);
+    }
 
     public Producto buscarPorCodigo(String codigo) throws Exception {
         if (codigo == null || codigo.trim().isEmpty()) {
@@ -44,5 +48,14 @@ public class NProducto {
 
     public boolean descontarStock(int idProducto, int cantidad) throws Exception {
         return dProducto.descontarStock(idProducto, cantidad);
+    }
+
+    public boolean eliminarPorCodigo(int codigo) {
+        try {
+            return dProducto.eliminar(codigo);
+        } catch (Exception e) {
+            System.out.println("Error al eliminar producto: " + e.getMessage());
+            return false;
+        }
     }
 }

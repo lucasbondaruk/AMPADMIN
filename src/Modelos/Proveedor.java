@@ -61,7 +61,10 @@ public class Proveedor {
         this.mail = mail;
     }
     
-    
+    @Override
+    public String toString() {
+        return this.nombre;
+    }
     
     
 }
