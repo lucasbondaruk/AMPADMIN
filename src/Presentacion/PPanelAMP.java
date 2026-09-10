@@ -67,6 +67,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import Datos.DEstadistica;
 import Datos.DStockProducto;
+import Modelos.Proveedor;
+import Modelos.StockProducto;
+import Negocio.NProveedor;
+import Negocio.NStockProducto;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -96,6 +100,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 
 public class PPanelAMP extends javax.swing.JFrame {
 
@@ -371,50 +376,51 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        AccionGestion = new javax.swing.JPanel();
-        lblHeaderAgregar = new javax.swing.JLabel();
-        lblHeaderAgregar1 = new javax.swing.JLabel();
-        DatosProdAPanel = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jComboBox6 = new javax.swing.JComboBox<>();
-        jComboBox7 = new javax.swing.JComboBox<>();
-        jComboBox8 = new javax.swing.JComboBox<>();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jPanel11 = new javax.swing.JPanel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        GVolver = new javax.swing.JButton();
-        AGAceptar = new javax.swing.JButton();
-        lblHeaderModificar1 = new javax.swing.JLabel();
-        lblHeaderModificar = new javax.swing.JLabel();
-        MGAceptar = new javax.swing.JButton();
         GestionProdPanel = new javax.swing.JPanel();
         btnsGestion = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        AgregarStockP = new javax.swing.JButton();
+        NuevoP = new javax.swing.JButton();
+        ModificarP = new javax.swing.JButton();
+        EliminarP = new javax.swing.JButton();
         globGestion = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        lblTotalProveedoresP = new javax.swing.JLabel();
+        lblTotalProductosP = new javax.swing.JLabel();
+        lblStockTotalP = new javax.swing.JLabel();
+        btnBajoStockP = new javax.swing.JButton();
+        btnEliminadosP = new javax.swing.JButton();
+        btnSinStockP = new javax.swing.JButton();
         listaGestion = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaProductosP = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        cbProveedorP1 = new javax.swing.JComboBox<>();
+        cbRubroP1 = new javax.swing.JComboBox<>();
+        cbTipoP1 = new javax.swing.JComboBox<>();
+        cbStockP = new javax.swing.JComboBox<>();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        AccionGestion = new javax.swing.JPanel();
+        lblHeaderAgregar = new javax.swing.JLabel();
+        lblHeaderAgregar1 = new javax.swing.JLabel();
+        DatosProdAPanel = new javax.swing.JPanel();
+        txtPrecioP = new javax.swing.JTextField();
+        txtCodP = new javax.swing.JTextField();
+        cbProveedorP = new javax.swing.JComboBox<>();
+        cbIVAP = new javax.swing.JComboBox<>();
+        cbRubroP = new javax.swing.JComboBox<>();
+        cbTipoP = new javax.swing.JComboBox<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtDescP = new javax.swing.JTextArea();
+        jPanel11 = new javax.swing.JPanel();
+        txtStockMinP = new javax.swing.JTextField();
+        txtStockMaxP = new javax.swing.JTextField();
+        txtStockActP = new javax.swing.JTextField();
+        GVolver = new javax.swing.JButton();
+        AGAceptar = new javax.swing.JButton();
+        lblHeaderModificar1 = new javax.swing.JLabel();
+        lblHeaderModificar = new javax.swing.JLabel();
+        MGAceptar = new javax.swing.JButton();
         estadísticaPanel = new javax.swing.JPanel();
         lblimg2 = new javax.swing.JLabel();
         btnInformes2 = new javax.swing.JButton();
@@ -1765,34 +1771,35 @@ public class PPanelAMP extends javax.swing.JFrame {
         lblimg3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
         productosPanel.add(lblimg3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        btnInformes3.setBackground(new java.awt.Color(204, 255, 255));
+        btnInformes3.setBackground(new java.awt.Color(225, 250, 255));
         btnInformes3.setForeground(new java.awt.Color(0, 51, 102));
         btnInformes3.setText("Informes");
         btnInformes3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnInformes3.setBorderPainted(false);
-        btnInformes3.setContentAreaFilled(false);
+        btnInformes3.setFocusPainted(false);
         productosPanel.add(btnInformes3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
 
-        btnEstadisticas3.setBackground(new java.awt.Color(204, 255, 255));
+        btnEstadisticas3.setBackground(new java.awt.Color(225, 250, 255));
         btnEstadisticas3.setForeground(new java.awt.Color(0, 51, 102));
         btnEstadisticas3.setText("Estadísticas");
         btnEstadisticas3.setBorderPainted(false);
-        btnEstadisticas3.setContentAreaFilled(false);
+        btnEstadisticas3.setFocusPainted(false);
         btnEstadisticas3.addActionListener(this::btnEstadisticas3ActionPerformed);
         productosPanel.add(btnEstadisticas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
 
-        btnVentas3.setBackground(new java.awt.Color(204, 255, 255));
+        btnVentas3.setBackground(new java.awt.Color(225, 250, 255));
         btnVentas3.setForeground(new java.awt.Color(0, 51, 102));
         btnVentas3.setText("Ventas");
         btnVentas3.setBorderPainted(false);
+        btnVentas3.setFocusPainted(false);
         btnVentas3.addActionListener(this::btnVentas3ActionPerformed);
         productosPanel.add(btnVentas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
 
-        btnAdministracion3.setBackground(new java.awt.Color(20, 52, 83));
+        btnAdministracion3.setBackground(new java.awt.Color(225, 250, 255));
         btnAdministracion3.setForeground(new java.awt.Color(0, 51, 102));
         btnAdministracion3.setText("Administración");
         btnAdministracion3.setBorderPainted(false);
-        btnAdministracion3.setContentAreaFilled(false);
+        btnAdministracion3.setFocusPainted(false);
         btnAdministracion3.addActionListener(this::btnAdministracion3ActionPerformed);
         productosPanel.add(btnAdministracion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
 
@@ -1800,21 +1807,22 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProductos3.setForeground(new java.awt.Color(255, 255, 255));
         btnProductos3.setText("Productos");
         btnProductos3.setBorderPainted(false);
+        btnProductos3.setFocusPainted(false);
         btnProductos3.addActionListener(this::btnProductos3ActionPerformed);
         productosPanel.add(btnProductos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
 
-        btnProveedores3.setBackground(new java.awt.Color(204, 255, 255));
+        btnProveedores3.setBackground(new java.awt.Color(225, 250, 255));
         btnProveedores3.setForeground(new java.awt.Color(0, 51, 102));
         btnProveedores3.setText("Proveedores");
         btnProveedores3.setBorderPainted(false);
-        btnProveedores3.setContentAreaFilled(false);
+        btnProveedores3.setFocusPainted(false);
         productosPanel.add(btnProveedores3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
 
-        btnCaja3.setBackground(new java.awt.Color(204, 255, 255));
+        btnCaja3.setBackground(new java.awt.Color(225, 250, 255));
         btnCaja3.setForeground(new java.awt.Color(0, 51, 102));
         btnCaja3.setText("Caja");
         btnCaja3.setBorderPainted(false);
-        btnCaja3.setContentAreaFilled(false);
+        btnCaja3.setFocusPainted(false);
         productosPanel.add(btnCaja3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
 
         InicioProdPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -1844,147 +1852,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         productosPanel.add(InicioProdPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 640));
 
-        AccionGestion.setBackground(new java.awt.Color(255, 255, 255));
-        AccionGestion.setMaximumSize(new java.awt.Dimension(980, 640));
-        AccionGestion.setMinimumSize(new java.awt.Dimension(980, 640));
-        AccionGestion.setPreferredSize(new java.awt.Dimension(980, 640));
-        AccionGestion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblHeaderAgregar.setBackground(new java.awt.Color(226, 255, 226));
-        lblHeaderAgregar.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        lblHeaderAgregar.setForeground(new java.awt.Color(0, 0, 0));
-        lblHeaderAgregar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblHeaderAgregar.setToolTipText("");
-        lblHeaderAgregar.setOpaque(true);
-        AccionGestion.add(lblHeaderAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 60));
-
-        lblHeaderAgregar1.setBackground(new java.awt.Color(226, 255, 226));
-        lblHeaderAgregar1.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        lblHeaderAgregar1.setForeground(new java.awt.Color(0, 0, 0));
-        lblHeaderAgregar1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblHeaderAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
-        lblHeaderAgregar1.setText(" Agregar nuevo producto");
-        lblHeaderAgregar1.setToolTipText("");
-        lblHeaderAgregar1.setOpaque(true);
-        AccionGestion.add(lblHeaderAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 930, 60));
-
-        DatosProdAPanel.setBackground(new java.awt.Color(255, 255, 255));
-        DatosProdAPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(98, 135, 165), new java.awt.Color(0, 59, 108)), "DATOS DEL PRODUCTO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 59, 108))); // NOI18N
-        DatosProdAPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Precio Unitario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        DatosProdAPanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 450, 60));
-
-        jTextField7.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField7.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        DatosProdAPanel.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 450, 60));
-
-        jComboBox5.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        DatosProdAPanel.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 450, 60));
-
-        jComboBox6.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "IVA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        DatosProdAPanel.add(jComboBox6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 450, 60));
-
-        jComboBox7.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rubro del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        DatosProdAPanel.add(jComboBox7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 450, 60));
-
-        jComboBox8.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        jComboBox8.addActionListener(this::jComboBox8ActionPerformed);
-        DatosProdAPanel.add(jComboBox8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 450, 60));
-
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        jScrollPane5.setViewportView(jTextArea1);
-
-        DatosProdAPanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 450, 110));
-
-        AccionGestion.add(DatosProdAPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 300));
-
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 59, 108), new java.awt.Color(98, 135, 165)), "DATOS DE STOCK", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 59, 108))); // NOI18N
-        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField5.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stock Mínimo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        jPanel11.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 300, 50));
-
-        jTextField6.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stock Máximo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        jPanel11.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 300, 50));
-
-        jTextField8.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stock Actual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
-        jPanel11.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 300, 50));
-
-        AccionGestion.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 960, 120));
-
-        GVolver.setBackground(new java.awt.Color(242, 76, 76));
-        GVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        GVolver.setForeground(new java.awt.Color(255, 255, 255));
-        GVolver.setText("Cancelar");
-        GVolver.setBorderPainted(false);
-        GVolver.addActionListener(this::GVolverActionPerformed);
-        AccionGestion.add(GVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 590, 110, -1));
-
-        AGAceptar.setBackground(new java.awt.Color(100, 216, 100));
-        AGAceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        AGAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        AGAceptar.setText("Aceptar");
-        AGAceptar.setBorderPainted(false);
-        AGAceptar.addActionListener(this::AGAceptarActionPerformed);
-        AccionGestion.add(AGAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 590, 110, -1));
-
-        lblHeaderModificar1.setBackground(new java.awt.Color(240, 240, 240));
-        lblHeaderModificar1.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        lblHeaderModificar1.setForeground(new java.awt.Color(0, 0, 0));
-        lblHeaderModificar1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblHeaderModificar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
-        lblHeaderModificar1.setText(" Modificar producto");
-        lblHeaderModificar1.setToolTipText("");
-        lblHeaderModificar1.setOpaque(true);
-        AccionGestion.add(lblHeaderModificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 930, 60));
-
-        lblHeaderModificar.setBackground(new java.awt.Color(240, 240, 240));
-        lblHeaderModificar.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        lblHeaderModificar.setForeground(new java.awt.Color(0, 0, 0));
-        lblHeaderModificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblHeaderModificar.setToolTipText("");
-        lblHeaderModificar.setOpaque(true);
-        AccionGestion.add(lblHeaderModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 60));
-
-        MGAceptar.setBackground(new java.awt.Color(107, 107, 107));
-        MGAceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        MGAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        MGAceptar.setText("Aceptar");
-        MGAceptar.setBorderPainted(false);
-        MGAceptar.addActionListener(this::MGAceptarActionPerformed);
-        AccionGestion.add(MGAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 590, 110, -1));
-
-        productosPanel.add(AccionGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
-
         GestionProdPanel.setBackground(new java.awt.Color(255, 255, 255));
         GestionProdPanel.setMaximumSize(new java.awt.Dimension(980, 640));
         GestionProdPanel.setMinimumSize(new java.awt.Dimension(980, 640));
@@ -1995,35 +1862,44 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnsGestion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "  Acciones ", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
         btnsGestion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setBackground(new java.awt.Color(255, 245, 228));
-        jButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 51));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar-stock.png"))); // NOI18N
-        jButton2.setText("Agregar Stock");
-        btnsGestion.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 153, 320, 40));
+        AgregarStockP.setBackground(new java.awt.Color(255, 245, 228));
+        AgregarStockP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        AgregarStockP.setForeground(new java.awt.Color(0, 0, 51));
+        AgregarStockP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar-stock.png"))); // NOI18N
+        AgregarStockP.setText("Agregar Stock");
+        AgregarStockP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AgregarStockP.setFocusPainted(false);
+        btnsGestion.add(AgregarStockP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 153, 320, 40));
 
-        jButton5.setBackground(new java.awt.Color(228, 255, 228));
-        jButton5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 51));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
-        jButton5.setText("Nuevo ");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
-        btnsGestion.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 33, 320, 40));
+        NuevoP.setBackground(new java.awt.Color(228, 255, 228));
+        NuevoP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        NuevoP.setForeground(new java.awt.Color(0, 0, 51));
+        NuevoP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
+        NuevoP.setText("Nuevo ");
+        NuevoP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        NuevoP.setFocusPainted(false);
+        NuevoP.addActionListener(this::NuevoPActionPerformed);
+        btnsGestion.add(NuevoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 33, 320, 40));
 
-        jButton8.setBackground(new java.awt.Color(240, 240, 240));
-        jButton8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(0, 0, 51));
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
-        jButton8.setText("Modificar ");
-        jButton8.addActionListener(this::jButton8ActionPerformed);
-        btnsGestion.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, 320, 40));
+        ModificarP.setBackground(new java.awt.Color(240, 240, 240));
+        ModificarP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        ModificarP.setForeground(new java.awt.Color(0, 0, 51));
+        ModificarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
+        ModificarP.setText("Modificar ");
+        ModificarP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ModificarP.setFocusPainted(false);
+        ModificarP.addActionListener(this::ModificarPActionPerformed);
+        btnsGestion.add(ModificarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 73, 320, 40));
 
-        jButton9.setBackground(new java.awt.Color(255, 239, 239));
-        jButton9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(0, 0, 51));
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
-        jButton9.setText("Eliminar ");
-        btnsGestion.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 320, 40));
+        EliminarP.setBackground(new java.awt.Color(255, 239, 239));
+        EliminarP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        EliminarP.setForeground(new java.awt.Color(0, 0, 51));
+        EliminarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
+        EliminarP.setText("Eliminar ");
+        EliminarP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        EliminarP.setFocusPainted(false);
+        EliminarP.addActionListener(this::EliminarPActionPerformed);
+        btnsGestion.add(EliminarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 113, 320, 40));
 
         GestionProdPanel.add(btnsGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 340, 200));
 
@@ -2031,46 +1907,54 @@ public class PPanelAMP extends javax.swing.JFrame {
         globGestion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Datos del inventario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
         globGestion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel35.setBackground(new java.awt.Color(237, 255, 255));
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel35.setText("43");
-        jLabel35.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(93, 157, 255), new java.awt.Color(93, 157, 255), null, null), "Proveedores", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        jLabel35.setOpaque(true);
-        globGestion.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 170, 70));
+        lblTotalProveedoresP.setBackground(new java.awt.Color(237, 255, 255));
+        lblTotalProveedoresP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblTotalProveedoresP.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalProveedoresP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalProveedoresP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(93, 157, 255), new java.awt.Color(93, 157, 255), null, null), "Proveedores", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        lblTotalProveedoresP.setOpaque(true);
+        globGestion.add(lblTotalProveedoresP, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 170, 70));
 
-        jLabel36.setBackground(new java.awt.Color(237, 255, 255));
-        jLabel36.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel36.setText("165");
-        jLabel36.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(93, 157, 255), new java.awt.Color(93, 157, 255), null, null), "Total de Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        jLabel36.setOpaque(true);
-        globGestion.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, 70));
+        lblTotalProductosP.setBackground(new java.awt.Color(237, 255, 255));
+        lblTotalProductosP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblTotalProductosP.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalProductosP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalProductosP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(93, 157, 255), new java.awt.Color(93, 157, 255), null, null), "Total de Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        lblTotalProductosP.setOpaque(true);
+        globGestion.add(lblTotalProductosP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, 70));
 
-        jLabel39.setBackground(new java.awt.Color(237, 255, 255));
-        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel39.setText("642");
-        jLabel39.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(93, 157, 255), new java.awt.Color(93, 157, 255), null, null), "Stock total", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        jLabel39.setOpaque(true);
-        globGestion.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 170, 70));
+        lblStockTotalP.setBackground(new java.awt.Color(237, 255, 255));
+        lblStockTotalP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblStockTotalP.setForeground(new java.awt.Color(0, 0, 0));
+        lblStockTotalP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStockTotalP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(93, 157, 255), new java.awt.Color(93, 157, 255), null, null), "Stock total", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        lblStockTotalP.setOpaque(true);
+        globGestion.add(lblStockTotalP, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 170, 70));
 
-        jButton10.setBackground(new java.awt.Color(255, 255, 204));
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(0, 0, 0));
-        jButton10.setText("15");
-        jButton10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 0), new java.awt.Color(204, 204, 0), new java.awt.Color(204, 204, 0), new java.awt.Color(255, 255, 0)), "Productos bajo stock", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        globGestion.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, 160, 80));
+        btnBajoStockP.setBackground(new java.awt.Color(255, 255, 204));
+        btnBajoStockP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnBajoStockP.setForeground(new java.awt.Color(0, 0, 0));
+        btnBajoStockP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 0), new java.awt.Color(204, 204, 0), new java.awt.Color(204, 204, 0), new java.awt.Color(255, 255, 0)), "Productos bajo stock", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnBajoStockP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBajoStockP.setFocusPainted(false);
+        globGestion.add(btnBajoStockP, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 170, 80));
 
-        jButton11.setBackground(new java.awt.Color(255, 230, 230));
-        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(0, 0, 0));
-        jButton11.setText("3");
-        jButton11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0), new java.awt.Color(255, 204, 204)), "Productos sin stock", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        globGestion.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 160, 80));
+        btnEliminadosP.setBackground(new java.awt.Color(51, 51, 51));
+        btnEliminadosP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnEliminadosP.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminadosP.setText("2");
+        btnEliminadosP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(202, 202, 202), new java.awt.Color(2, 2, 25), new java.awt.Color(2, 2, 25), new java.awt.Color(202, 202, 202)), "Productos eliminados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        btnEliminadosP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminadosP.setFocusPainted(false);
+        globGestion.add(btnEliminadosP, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 170, 80));
+
+        btnSinStockP.setBackground(new java.awt.Color(255, 230, 230));
+        btnSinStockP.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnSinStockP.setForeground(new java.awt.Color(0, 0, 0));
+        btnSinStockP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 204, 204), new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0), new java.awt.Color(255, 204, 204)), "Productos sin stock", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnSinStockP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSinStockP.setFocusPainted(false);
+        globGestion.add(btnSinStockP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 170, 80));
 
         GestionProdPanel.add(globGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, 590, 200));
 
@@ -2102,7 +1986,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tablaProductosP);
 
-        listaGestion.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 81, 940, 310));
+        listaGestion.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 930, 310));
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2116,41 +2000,202 @@ public class PPanelAMP extends javax.swing.JFrame {
         jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
         listaGestion.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 40));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        listaGestion.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 160, 50));
+        cbProveedorP1.setBackground(new java.awt.Color(255, 255, 255));
+        cbProveedorP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbProveedorP1.setForeground(new java.awt.Color(0, 0, 0));
+        cbProveedorP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbProveedorP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        cbProveedorP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listaGestion.add(cbProveedorP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 160, 50));
 
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rurbo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        listaGestion.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 150, 50));
+        cbRubroP1.setBackground(new java.awt.Color(255, 255, 255));
+        cbRubroP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbRubroP1.setForeground(new java.awt.Color(0, 0, 0));
+        cbRubroP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbRubroP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rurbo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        cbRubroP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listaGestion.add(cbRubroP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 150, 50));
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        listaGestion.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 150, 50));
+        cbTipoP1.setBackground(new java.awt.Color(255, 255, 255));
+        cbTipoP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbTipoP1.setForeground(new java.awt.Color(0, 0, 0));
+        cbTipoP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        cbTipoP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listaGestion.add(cbTipoP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 150, 50));
 
-        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todo", "Ascendente", "Descendente" }));
-        jComboBox4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Stock", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        listaGestion.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 100, 50));
+        cbStockP.setBackground(new java.awt.Color(255, 255, 255));
+        cbStockP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbStockP.setForeground(new java.awt.Color(0, 0, 0));
+        cbStockP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todo", "Ascendente", "Descendente" }));
+        cbStockP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Stock", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        cbStockP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listaGestion.add(cbStockP, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 100, 50));
 
         jButton12.setBackground(new java.awt.Color(42, 67, 117));
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rehacer-blanco.png"))); // NOI18N
+        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listaGestion.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 40, 50, 40));
 
         jButton13.setBackground(new java.awt.Color(204, 204, 204));
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listaGestion.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 50, 40));
 
         GestionProdPanel.add(listaGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 950, 420));
 
         productosPanel.add(GestionProdPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
+
+        AccionGestion.setBackground(new java.awt.Color(255, 255, 255));
+        AccionGestion.setMaximumSize(new java.awt.Dimension(980, 640));
+        AccionGestion.setMinimumSize(new java.awt.Dimension(980, 640));
+        AccionGestion.setPreferredSize(new java.awt.Dimension(980, 640));
+        AccionGestion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblHeaderAgregar.setBackground(new java.awt.Color(226, 255, 226));
+        lblHeaderAgregar.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        lblHeaderAgregar.setForeground(new java.awt.Color(0, 0, 0));
+        lblHeaderAgregar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHeaderAgregar.setToolTipText("");
+        lblHeaderAgregar.setOpaque(true);
+        AccionGestion.add(lblHeaderAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 60));
+
+        lblHeaderAgregar1.setBackground(new java.awt.Color(226, 255, 226));
+        lblHeaderAgregar1.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        lblHeaderAgregar1.setForeground(new java.awt.Color(0, 0, 0));
+        lblHeaderAgregar1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHeaderAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
+        lblHeaderAgregar1.setText(" Agregar nuevo producto");
+        lblHeaderAgregar1.setToolTipText("");
+        lblHeaderAgregar1.setOpaque(true);
+        AccionGestion.add(lblHeaderAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 930, 60));
+
+        DatosProdAPanel.setBackground(new java.awt.Color(255, 255, 255));
+        DatosProdAPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(98, 135, 165), new java.awt.Color(0, 59, 108)), "DATOS DEL PRODUCTO", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 59, 108))); // NOI18N
+        DatosProdAPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtPrecioP.setBackground(new java.awt.Color(255, 255, 255));
+        txtPrecioP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPrecioP.setForeground(new java.awt.Color(0, 0, 0));
+        txtPrecioP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Precio Unitario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        DatosProdAPanel.add(txtPrecioP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 450, 60));
+
+        txtCodP.setBackground(new java.awt.Color(255, 255, 255));
+        txtCodP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtCodP.setForeground(new java.awt.Color(0, 0, 0));
+        txtCodP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        DatosProdAPanel.add(txtCodP, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 450, 60));
+
+        cbProveedorP.setBackground(new java.awt.Color(255, 255, 255));
+        cbProveedorP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbProveedorP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        cbProveedorP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DatosProdAPanel.add(cbProveedorP, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, 450, 60));
+
+        cbIVAP.setBackground(new java.awt.Color(255, 255, 255));
+        cbIVAP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbIVAP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "IVA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        cbIVAP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DatosProdAPanel.add(cbIVAP, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 450, 60));
+
+        cbRubroP.setBackground(new java.awt.Color(255, 255, 255));
+        cbRubroP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbRubroP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Rubro del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        cbRubroP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbRubroP.addActionListener(this::cbRubroPActionPerformed);
+        DatosProdAPanel.add(cbRubroP, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 450, 60));
+
+        cbTipoP.setBackground(new java.awt.Color(255, 255, 255));
+        cbTipoP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbTipoP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Tipo de producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        cbTipoP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbTipoP.addActionListener(this::cbTipoPActionPerformed);
+        DatosProdAPanel.add(cbTipoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 450, 60));
+
+        txtDescP.setBackground(new java.awt.Color(255, 255, 255));
+        txtDescP.setColumns(20);
+        txtDescP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtDescP.setForeground(new java.awt.Color(0, 0, 0));
+        txtDescP.setRows(5);
+        txtDescP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jScrollPane5.setViewportView(txtDescP);
+
+        DatosProdAPanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 450, 110));
+
+        AccionGestion.add(DatosProdAPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 960, 300));
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 59, 108), new java.awt.Color(98, 135, 165)), "DATOS DE STOCK", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 18), new java.awt.Color(0, 59, 108))); // NOI18N
+        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtStockMinP.setBackground(new java.awt.Color(255, 255, 255));
+        txtStockMinP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtStockMinP.setForeground(new java.awt.Color(0, 0, 0));
+        txtStockMinP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtStockMinP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stock Mínimo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jPanel11.add(txtStockMinP, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 300, 60));
+
+        txtStockMaxP.setBackground(new java.awt.Color(255, 255, 255));
+        txtStockMaxP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtStockMaxP.setForeground(new java.awt.Color(0, 0, 0));
+        txtStockMaxP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtStockMaxP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stock Máximo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jPanel11.add(txtStockMaxP, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 300, 60));
+
+        txtStockActP.setBackground(new java.awt.Color(255, 255, 255));
+        txtStockActP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtStockActP.setForeground(new java.awt.Color(0, 0, 0));
+        txtStockActP.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtStockActP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Stock Actual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16))); // NOI18N
+        jPanel11.add(txtStockActP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 300, 60));
+
+        AccionGestion.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 960, 120));
+
+        GVolver.setBackground(new java.awt.Color(242, 76, 76));
+        GVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        GVolver.setForeground(new java.awt.Color(255, 255, 255));
+        GVolver.setText("Volver");
+        GVolver.setBorderPainted(false);
+        GVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        GVolver.addActionListener(this::GVolverActionPerformed);
+        AccionGestion.add(GVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 590, 110, -1));
+
+        AGAceptar.setBackground(new java.awt.Color(100, 216, 100));
+        AGAceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        AGAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        AGAceptar.setText("Aceptar");
+        AGAceptar.setBorderPainted(false);
+        AGAceptar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        AGAceptar.addActionListener(this::AGAceptarActionPerformed);
+        AccionGestion.add(AGAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 590, 110, -1));
+
+        lblHeaderModificar1.setBackground(new java.awt.Color(203, 203, 203));
+        lblHeaderModificar1.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        lblHeaderModificar1.setForeground(new java.awt.Color(0, 0, 0));
+        lblHeaderModificar1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHeaderModificar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
+        lblHeaderModificar1.setText(" Modificar producto");
+        lblHeaderModificar1.setToolTipText("");
+        lblHeaderModificar1.setOpaque(true);
+        AccionGestion.add(lblHeaderModificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 930, 60));
+
+        lblHeaderModificar.setBackground(new java.awt.Color(203, 203, 203));
+        lblHeaderModificar.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        lblHeaderModificar.setForeground(new java.awt.Color(0, 0, 0));
+        lblHeaderModificar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHeaderModificar.setToolTipText("");
+        lblHeaderModificar.setOpaque(true);
+        AccionGestion.add(lblHeaderModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 60));
+
+        MGAceptar.setBackground(new java.awt.Color(107, 107, 107));
+        MGAceptar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        MGAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        MGAceptar.setText("Aceptar");
+        MGAceptar.setBorderPainted(false);
+        MGAceptar.addActionListener(this::MGAceptarActionPerformed);
+        AccionGestion.add(MGAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 590, 110, -1));
+
+        productosPanel.add(AccionGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
 
         getContentPane().add(productosPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 740));
 
@@ -3653,9 +3698,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         AccionGestion.setVisible(false);
         InicioProdPanel.setVisible(true);
         productosPanel.setVisible(true);
-        btnGestionarP.setBackground(new Color(20,52,83));
-        btnListasP.setBackground(new Color(20,52,83));
-        btnActualizarP.setBackground(new Color(20,52,83));
+        btnGestionarP.setBackground(new Color(20, 52, 83));
+        btnListasP.setBackground(new Color(20, 52, 83));
+        btnActualizarP.setBackground(new Color(20, 52, 83));
     }
 
     private void clickEstadisticas() {
@@ -3961,7 +4006,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                 filaClara = !filaClara;
 
                 double base = dv.getImporte();
-                float porcentaje = p.getIva().getPorcentaje();
+                float porcentaje = p.getIdIVA().getPorcentaje();
                 double importeIVA = base * porcentaje / 100;
 
                 if (porcentaje == 10.5f) {
@@ -4891,7 +4936,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                     float preU = p.getPrecioUnitario();
                     txtPre1.setText(formatoMoneda.format(preU));
                     txtPre2.setText(formatoMoneda.format(preU - preU / 10));
-                    txtIVA.setText(p.getIva().toString());
+                    txtIVA.setText(p.getIdIVA().toString());
                     txtStock.setText(String.valueOf(p.getIdStockProducto().getStockAct()));
                 }
             } catch (Exception e) {
@@ -4949,8 +4994,8 @@ public class PPanelAMP extends javax.swing.JFrame {
                 p.getCodigo(),
                 p.getDescripcion(),
                 formatoMoneda.format(p.getPrecioUnitario()),
-                p.getRubroProducto(),
-                p.getTipoProducto()
+                p.getIdRubroProducto(),
+                p.getIdTipoProducto()
             });
         }
 
@@ -5109,13 +5154,13 @@ public class PPanelAMP extends javax.swing.JFrame {
 
             // rubro
             if (rubro != null
-                    && p.getRubroProducto().getIdRubroProducto() != rubro.getIdRubroProducto()) {
+                    && p.getIdRubroProducto().getIdRubroProducto() != rubro.getIdRubroProducto()) {
                 coincide = false;
             }
 
             // tipo
             if (tipo != null
-                    && p.getTipoProducto().getIdTipoProducto() != tipo.getIdTipoProducto()) {
+                    && p.getIdTipoProducto().getIdTipoProducto() != tipo.getIdTipoProducto()) {
                 coincide = false;
             }
 
@@ -5127,8 +5172,8 @@ public class PPanelAMP extends javax.swing.JFrame {
                     p.getCodigo(),
                     p.getDescripcion(),
                     formatoMoneda.format(p.getPrecioUnitario()),
-                    p.getRubroProducto(),
-                    p.getTipoProducto()
+                    p.getIdRubroProducto(),
+                    p.getIdTipoProducto()
                 });
             }
         }
@@ -5189,8 +5234,8 @@ public class PPanelAMP extends javax.swing.JFrame {
                         p.getCodigo(),
                         p.getDescripcion(),
                         formatoMoneda.format(p.getPrecioUnitario()),
-                        p.getRubroProducto(),
-                        p.getTipoProducto()
+                        p.getIdRubroProducto(),
+                        p.getIdTipoProducto()
                     });
                 }
             }
@@ -5228,7 +5273,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                 float preU = p.getPrecioUnitario();
                 txtPre1.setText(formatoMoneda.format(preU));
                 txtPre2.setText(formatoMoneda.format(preU - preU / 10));
-                txtIVA.setText(p.getIva().toString());
+                txtIVA.setText(p.getIdIVA().toString());
                 txtStock.setText(String.valueOf(p.getIdStockProducto().getStockAct()));
                 PBuscarProductoV.setVisible(false);
                 ventasPanel.setVisible(true);
@@ -5450,7 +5495,6 @@ public class PPanelAMP extends javax.swing.JFrame {
                 false
         );
 
-        
         org.jfree.chart.plot.CategoryPlot plot = chart.getCategoryPlot();
         org.jfree.chart.renderer.category.BarRenderer renderer = (org.jfree.chart.renderer.category.BarRenderer) plot.getRenderer();
 
@@ -5527,7 +5571,6 @@ public class PPanelAMP extends javax.swing.JFrame {
                 archivo = new java.io.File(archivo.getAbsolutePath() + ".pdf");
             }
 
-           
             com.itextpdf.text.Document documento = new com.itextpdf.text.Document(com.itextpdf.text.PageSize.A4, 36, 36, 36, 36);
             com.itextpdf.text.pdf.PdfWriter.getInstance(documento, new java.io.FileOutputStream(archivo));
 
@@ -5538,12 +5581,10 @@ public class PPanelAMP extends javax.swing.JFrame {
             com.itextpdf.text.Font fechaFont = new com.itextpdf.text.Font(
                     com.itextpdf.text.Font.FontFamily.HELVETICA, 10, com.itextpdf.text.Font.ITALIC, com.itextpdf.text.BaseColor.DARK_GRAY);
 
-           
             com.itextpdf.text.Paragraph titulo = new com.itextpdf.text.Paragraph("Informe General de Stock de Productos", tituloFont);
             titulo.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             documento.add(titulo);
 
-           
             String fechaHoraActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 
             com.itextpdf.text.Paragraph fecha = new com.itextpdf.text.Paragraph("Fecha y Hora de Creación: " + fechaHoraActual, fechaFont);
@@ -5551,34 +5592,29 @@ public class PPanelAMP extends javax.swing.JFrame {
             fecha.setSpacingAfter(15);
             documento.add(fecha);
 
-            
             com.itextpdf.text.pdf.PdfPTable tablaPDF = new com.itextpdf.text.pdf.PdfPTable(5);
             tablaPDF.setWidthPercentage(100);
             tablaPDF.setWidths(new float[]{15f, 35f, 15f, 15f, 20f});
 
-           
             tablaPDF.addCell(crearCeldaEncabezado("Código"));
             tablaPDF.addCell(crearCeldaEncabezado("Descripción"));
             tablaPDF.addCell(crearCeldaEncabezado("Cantidad"));
             tablaPDF.addCell(crearCeldaEncabezado("P. Unitario"));
             tablaPDF.addCell(crearCeldaEncabezado("Proveedor"));
 
-            
-            List<Producto> listaProductos = nProducto.listar(); 
+            List<Producto> listaProductos = nProducto.listar();
 
             for (Producto p : listaProductos) {
                 String codigo = String.valueOf(p.getCodigo());
                 String descripcion = p.getDescripcion();
 
-                
                 String cantidad = (p.getIdStockProducto() != null)
                         ? String.valueOf(p.getIdStockProducto().getStockAct()) : "0";
 
                 String precio = String.format("$%.2f", p.getPrecioUnitario());
 
-                
-                String proveedor = (p.getProveedor() != null)
-                        ? p.getProveedor().getNombre() : "S/N";
+                String proveedor = (p.getIdProveedor() != null)
+                        ? p.getIdProveedor().getNombre() : "S/N";
 
                 com.itextpdf.text.pdf.PdfPCell c1 = new com.itextpdf.text.pdf.PdfPCell(new com.itextpdf.text.Phrase(codigo));
                 c1.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
@@ -5638,7 +5674,6 @@ public class PPanelAMP extends javax.swing.JFrame {
                 archivo = new java.io.File(archivo.getAbsolutePath() + ".xls");
             }
 
-            
             String fechaHoraActual = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 
             try (java.io.PrintWriter pw = new java.io.PrintWriter(
@@ -5646,7 +5681,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                             new java.io.FileOutputStream(archivo), "UTF-8"))) {
 
                 pw.println("<html><head><meta charset='UTF-8'>");
-                
+
                 pw.println("<style>");
                 pw.println("@page { size: A4 portrait; margin: 1cm; }");
                 pw.println("body { font-family: Arial, sans-serif; font-size: 11pt; }");
@@ -5661,7 +5696,6 @@ public class PPanelAMP extends javax.swing.JFrame {
                 pw.println("<h2>Informe General de Stock de Productos</h2>");
                 pw.println("<div class='fecha'><b>Fecha y Hora de Creación:</b> " + fechaHoraActual + "</div>");
 
-                
                 pw.println("<table>");
                 pw.println("<thead><tr>");
                 pw.println("<th>Código</th>");
@@ -5679,7 +5713,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                     String descripcion = p.getDescripcion();
                     int cantidad = (p.getIdStockProducto() != null) ? p.getIdStockProducto().getStockAct() : 0;
                     float precio = p.getPrecioUnitario();
-                    String proveedor = (p.getProveedor() != null) ? p.getProveedor().getNombre() : "S/N";
+                    String proveedor = (p.getIdProveedor() != null) ? p.getIdProveedor().getNombre() : "S/N";
 
                     pw.println("<tr>");
                     pw.println("<td style='text-align:center; mso-number-format:\"\\@\";'>" + codigo + "</td>");
@@ -5878,12 +5912,24 @@ public class PPanelAMP extends javax.swing.JFrame {
         GestionProdPanel.setVisible(true);
         btnGestionarP.setBackground(new Color(38, 90, 142));
         cargarTablaProductosP();
+        actualizarDatosInventario();
+        cargarRubro(cbRubroP);
+        cargarProveedor(cbProveedorP);
+        cbIVAP.removeAllItems();
+        cargarIva(cbIVAP);
+        cargarRubro(cbRubroP1);
+        RubroProducto rubro = (RubroProducto) cbRubroP1.getSelectedItem();
+        if (rubro != null) {
+            cargarTipoProducto(cbTipoP, rubro);
+            cargarTipoProducto(cbTipoP1, rubro);
+        }
+        cargarProveedor(cbProveedorP1);
     }//GEN-LAST:event_btnGestionarPActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void NuevoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPActionPerformed
         GestionProdPanel.setVisible(false);
         AccionGestion.setVisible(true);
-         lblHeaderAgregar.setVisible(true);
+        lblHeaderAgregar.setVisible(true);
         lblHeaderAgregar1.setVisible(true);
         AGAceptar.setVisible(true);
         AGAceptar.setEnabled(true);
@@ -5891,37 +5937,428 @@ public class PPanelAMP extends javax.swing.JFrame {
         lblHeaderModificar1.setVisible(false);
         MGAceptar.setVisible(false);
         MGAceptar.setEnabled(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
+        cargarRubro(cbRubroP);
+        cargarProveedor(cbProveedorP);
+        cbIVAP.removeAllItems();
+        cargarIva(cbIVAP);
+        RubroProducto rubro = (RubroProducto) cbRubroP.getSelectedItem();
+        if (rubro != null) {
+            cargarTipoProducto(cbTipoP, rubro);
+        }
+    }//GEN-LAST:event_NuevoPActionPerformed
 
     private void GVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GVolverActionPerformed
         AccionGestion.setVisible(false);
         GestionProdPanel.setVisible(true);
+        cargarTablaProductosP();
     }//GEN-LAST:event_GVolverActionPerformed
 
-    private void jComboBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox8ActionPerformed
+    private void cbTipoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox8ActionPerformed
+    }//GEN-LAST:event_cbTipoPActionPerformed
 
+    private boolean validarProductoAM() {
+        try {
+            if (txtCodP.getText().trim().isEmpty()
+                    || txtDescP.getText().trim().isEmpty()
+                    || txtPrecioP.getText().trim().isEmpty()
+                    || txtStockMinP.getText().trim().isEmpty()
+                    || txtStockActP.getText().trim().isEmpty()
+                    || txtStockMaxP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe completar todos los campos.");
+                return false;
+            }
+            String codigoTexto = txtCodP.getText().trim();
+            if (!codigoTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El código debe contener solamente números.");
+                txtCodP.requestFocus();
+                return false;
+            }
+            if (codigoTexto.length() < 3) {
+                JOptionPane.showMessageDialog(this, "El código debe tener al menos 3 números.");
+                txtCodP.requestFocus();
+                return false;
+            }
+            if (codigoTexto.length() > 5) {
+                JOptionPane.showMessageDialog(this, "El código no puede superar los 5 caracteres.");
+                txtCodP.requestFocus();
+                return false;
+            }
+            int codigo = Integer.parseInt(codigoTexto);
+            try {
+                Producto productoExistente = nProducto.buscarPorCodigo(codigoTexto);
+                JOptionPane.showMessageDialog(this, "Ya existe un producto con el código: " + codigo);
+                txtCodP.requestFocus();
+                return false;
+            } catch (Exception e) {
+
+            }
+            String descripcion = txtDescP.getText().trim();
+            if (descripcion.length() > 50) {
+                JOptionPane.showMessageDialog(this, "La descripción no puede superar los 50 caracteres.");
+                txtDescP.requestFocus();
+                return false;
+            }
+            String precioTexto = txtPrecioP.getText().trim();
+            if (!precioTexto.matches("\\d+(\\.\\d+)?")) {
+                JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.");
+                txtPrecioP.requestFocus();
+                return false;
+            }
+            float precio = Float.parseFloat(precioTexto);
+            String stockMinTexto = txtStockMinP.getText().trim();
+            if (!stockMinTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El stock mínimo debe ser un número entero.");
+                txtStockMinP.requestFocus();
+                return false;
+            }
+            int stockMin = Integer.parseInt(stockMinTexto);
+            String stockActTexto = txtStockActP.getText().trim();
+            if (!stockActTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El stock actual debe ser un número entero.");
+                txtStockActP.requestFocus();
+                return false;
+            }
+            int stockAct = Integer.parseInt(stockActTexto);
+            String stockMaxTexto = txtStockMaxP.getText().trim();
+            if (!stockMaxTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El stock máximo debe ser un número entero.");
+                txtStockMaxP.requestFocus();
+                return false;
+            }
+            int stockMax = Integer.parseInt(stockMaxTexto);
+            if (stockMin > stockMax) {
+                JOptionPane.showMessageDialog(this, "El stock mínimo no puede ser mayor que el stock máximo.");
+                txtStockMinP.requestFocus();
+                return false;
+            }
+            if (stockAct > stockMax) {
+                JOptionPane.showMessageDialog(this, "El stock actual no puede ser mayor que el stock máximo.");
+                txtStockActP.requestFocus();
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Uno de los valores numéricos no es válido.");
+            return false;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            return false;
+        }
+    }
     private void AGAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AGAceptarActionPerformed
-        // TODO add your handling code here:
+        if (validarProductoAM()) {
+            StockProducto sp = new StockProducto();
+            sp.setStockMin(Integer.parseInt(txtStockMinP.getText()));
+            sp.setStockMax(Integer.parseInt(txtStockMaxP.getText()));
+            sp.setStockAct(Integer.parseInt(txtStockActP.getText()));
+            try {
+                NStockProducto nsp = new NStockProducto();
+                int idStockProducto = nsp.insert(sp);
+
+                if (idStockProducto > 0) {
+                    sp.setIdStockProducto(idStockProducto);
+                    Producto p = new Producto();
+                    p.setCodigo(Integer.parseInt(txtCodP.getText()));
+                    p.setDescripcion(txtDescP.getText().toString());
+                    p.setPrecioUnitario(Float.parseFloat(txtPrecioP.getText()));
+                    p.setIdRubroProducto((RubroProducto) cbRubroP.getSelectedItem());
+                    p.setIdIVA((IVA) cbIVAP.getSelectedItem());
+                    p.setIdTipoProducto((TipoProducto) cbTipoP.getSelectedItem());
+                    p.setIdProveedor((Proveedor) cbProveedorP.getSelectedItem());
+                    p.setIdStockProducto(sp);
+
+                    NProducto np = new NProducto();
+                    if (np.insertar(p)) {
+                        JOptionPane.showMessageDialog(this, "Registrado con éxito");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al registrar el producto");
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e);
+            }
+        }
+        actualizarDatosInventario();
     }//GEN-LAST:event_AGAceptarActionPerformed
 
+    private boolean validarProductoMM(Producto p) {
+        try {
+            if (txtCodP.getText().trim().isEmpty()
+                    || txtDescP.getText().trim().isEmpty()
+                    || txtPrecioP.getText().trim().isEmpty()
+                    || txtStockMinP.getText().trim().isEmpty()
+                    || txtStockActP.getText().trim().isEmpty()
+                    || txtStockMaxP.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debe completar todos los campos.");
+                return false;
+            }
+            String codigoTexto = txtCodP.getText().trim();
+            if (!codigoTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El código debe contener solamente números.");
+                txtCodP.requestFocus();
+                return false;
+            }
+            if (codigoTexto.length() < 3) {
+                JOptionPane.showMessageDialog(this, "El código debe tener al menos 3 números.");
+                txtCodP.requestFocus();
+                return false;
+            }
+            if (codigoTexto.length() > 5) {
+                JOptionPane.showMessageDialog(this, "El código no puede superar los 5 caracteres.");
+                txtCodP.requestFocus();
+                return false;
+            }
+            int codigo = Integer.parseInt(codigoTexto);
+
+            // Si el código no cambió, es el mismo producto
+            if (codigo == p.getCodigo()) {
+                // Continúa con las demás validaciones
+            } else {
+
+                // El código cambió, entonces verificamos si ya existe
+                Producto productoExistente = nProducto.buscarPorCodigo(codigoTexto);
+
+                if (productoExistente != null) {
+                    JOptionPane.showMessageDialog(this,
+                            "Ya existe otro producto con el código: " + codigo);
+
+                    txtCodP.requestFocus();
+                    return false;
+                }
+            }
+            String descripcion = txtDescP.getText().trim();
+            if (descripcion.length() > 50) {
+                JOptionPane.showMessageDialog(this, "La descripción no puede superar los 50 caracteres.");
+                txtDescP.requestFocus();
+                return false;
+            }
+            String precioTexto = txtPrecioP.getText().trim();
+            if (!precioTexto.matches("\\d+(\\.\\d+)?")) {
+                JOptionPane.showMessageDialog(this, "El precio debe ser un número válido.");
+                txtPrecioP.requestFocus();
+                return false;
+            }
+            float precio = Float.parseFloat(precioTexto);
+            String stockMinTexto = txtStockMinP.getText().trim();
+            if (!stockMinTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El stock mínimo debe ser un número entero.");
+                txtStockMinP.requestFocus();
+                return false;
+            }
+            int stockMin = Integer.parseInt(stockMinTexto);
+            String stockActTexto = txtStockActP.getText().trim();
+            if (!stockActTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El stock actual debe ser un número entero.");
+                txtStockActP.requestFocus();
+                return false;
+            }
+            int stockAct = Integer.parseInt(stockActTexto);
+            String stockMaxTexto = txtStockMaxP.getText().trim();
+            if (!stockMaxTexto.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El stock máximo debe ser un número entero.");
+                txtStockMaxP.requestFocus();
+                return false;
+            }
+            int stockMax = Integer.parseInt(stockMaxTexto);
+            if (stockMin > stockMax) {
+                JOptionPane.showMessageDialog(this, "El stock mínimo no puede ser mayor que el stock máximo.");
+                txtStockMinP.requestFocus();
+                return false;
+            }
+            if (stockAct > stockMax) {
+                JOptionPane.showMessageDialog(this, "El stock actual no puede ser mayor que el stock máximo.");
+                txtStockActP.requestFocus();
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Uno de los valores numéricos no es válido.");
+            return false;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            return false;
+        }
+    }
     private void MGAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MGAceptarActionPerformed
-        // TODO add your handling code here:
+        try {
+            NProducto np = new NProducto();
+            Producto p = np.buscarPorCodigo(txtCodP.getText());
+            if (validarProductoMM(p)) {
+                p.setCodigo(Integer.parseInt(txtCodP.getText()));
+                p.setDescripcion(txtDescP.getText());
+                p.setPrecioUnitario(Float.parseFloat(txtPrecioP.getText()));
+                p.setIdRubroProducto((RubroProducto) cbRubroP.getSelectedItem());
+                p.setIdIVA((IVA) cbIVAP.getSelectedItem());
+                p.setIdTipoProducto((TipoProducto) cbTipoP.getSelectedItem());
+                p.setIdProveedor((Proveedor) cbProveedorP.getSelectedItem());
+                NStockProducto nsp = new NStockProducto();
+                StockProducto sp = new StockProducto();
+                sp.setIdStockProducto(p.getIdStockProducto().getIdStockProducto());
+                sp.setStockAct(Integer.parseInt(txtStockActP.getText()));
+                sp.setStockMax(Integer.parseInt(txtStockMaxP.getText()));
+                sp.setStockMin(Integer.parseInt(txtStockMinP.getText()));
+                if (np.modificar(p) && nsp.modificar(sp)) {
+                    JOptionPane.showMessageDialog(this, "Modificado con éxito");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al modificar el producto");
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e);
+        }
+        actualizarDatosInventario();
     }//GEN-LAST:event_MGAceptarActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-       GestionProdPanel.setVisible(false);
-        AccionGestion.setVisible(true);
-        lblHeaderAgregar.setVisible(false);
-        lblHeaderAgregar1.setVisible(false);
-        AGAceptar.setVisible(false);
-        AGAceptar.setEnabled(false);
-        lblHeaderModificar.setVisible(true);
-        lblHeaderModificar1.setVisible(true);
-        MGAceptar.setVisible(true);
-        MGAceptar.setEnabled(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void ModificarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarPActionPerformed
+
+        int fila = tablaProductosP.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la lista para continuar");
+        } else {
+            int colCodigo = tablaProductosP.getColumn("Código").getModelIndex();
+            String codigo = tablaProductosP.getValueAt(fila, colCodigo).toString();
+            try {
+                NProducto np = new NProducto();
+                Producto p = np.buscarPorCodigo(codigo);
+                txtCodP.setText(String.valueOf(p.getCodigo()));
+                txtDescP.setText(p.getDescripcion());
+                txtPrecioP.setText(String.valueOf(p.getPrecioUnitario()));
+
+                int idRubro = p.getIdRubroProducto().getIdRubroProducto();
+                for (int i = 0; i < cbRubroP.getItemCount(); i++) {
+                    RubroProducto rp = cbRubroP.getItemAt(i);
+                    if (rp.getIdRubroProducto() == idRubro) {
+                        cbRubroP.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                int idIva = p.getIdIVA().getIdIVA();
+                for (int i = 0; i < cbIVAP.getItemCount(); i++) {
+                    IVA iva = cbIVAP.getItemAt(i);
+                    if (iva.getIdIVA() == idIva) {
+                        cbIVAP.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                int idProveedor = p.getIdProveedor().getIdProveedor();
+                for (int i = 0; i < cbProveedorP.getItemCount(); i++) {
+                    Proveedor prov = cbProveedorP.getItemAt(i);
+                    if (prov.getIdProveedor() == idProveedor) {
+                        cbProveedorP.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
+                cargarTipoProducto(cbTipoP, p.getIdRubroProducto());
+                int idTipo = p.getIdTipoProducto().getIdTipoProducto();
+                for (int i = 0; i < cbTipoP.getItemCount(); i++) {
+                    TipoProducto tp = cbTipoP.getItemAt(i);
+                    if (tp.getIdTipoProducto() == idTipo) {
+                        cbTipoP.setSelectedIndex(i);
+                        break;
+                    }
+                }
+                StockProducto sp = p.getIdStockProducto();
+                if (sp != null) {
+                    txtStockMinP.setText(String.valueOf(sp.getStockMin()));
+                    txtStockMaxP.setText(String.valueOf(sp.getStockMax()));
+                    txtStockActP.setText(String.valueOf(sp.getStockAct()));
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            GestionProdPanel.setVisible(false);
+            AccionGestion.setVisible(true);
+            lblHeaderAgregar.setVisible(false);
+            lblHeaderAgregar1.setVisible(false);
+            AGAceptar.setVisible(false);
+            AGAceptar.setEnabled(false);
+            lblHeaderModificar.setVisible(true);
+            lblHeaderModificar1.setVisible(true);
+            MGAceptar.setVisible(true);
+            MGAceptar.setEnabled(true);
+        }
+    }//GEN-LAST:event_ModificarPActionPerformed
+
+    private void cbRubroPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRubroPActionPerformed
+        RubroProducto rubro = (RubroProducto) cbRubroP.getSelectedItem();
+        if (rubro != null) {
+            cargarTipoProducto(cbTipoP, rubro);
+        }
+    }//GEN-LAST:event_cbRubroPActionPerformed
+
+    private void actualizarDatosInventario(){
+        NProducto np = new NProducto();
+        int totalProductos = 0;
+        int stockTotal = 0;
+        int totalProveedores = 0; 
+        int stockBajo = 0;
+        int sinStock = 0;
+        List<Producto> listaProductos = np.listar();
+        for(Producto p : listaProductos){
+            totalProductos += 1;
+            stockTotal += p.getIdStockProducto().getStockAct();
+            if (p.getIdStockProducto().getStockAct() < p.getIdStockProducto().getStockMin() && p.getIdStockProducto().getStockAct() > 0){
+                stockBajo += 1;
+            }
+            if (p.getIdStockProducto().getStockAct() == 0){
+                sinStock += 1;
+            }
+        }
+        NProveedor npr = new NProveedor();
+        List<Proveedor> listaProveedores = npr.listar();
+        for (Proveedor pr : listaProveedores){
+            totalProveedores += 1;
+        }
+        lblTotalProductosP.setText(String.valueOf(totalProductos));
+        lblStockTotalP.setText(String.valueOf(stockTotal));
+        lblTotalProveedoresP.setText(String.valueOf(totalProveedores));
+        btnBajoStockP.setText(String.valueOf(stockBajo));
+        btnSinStockP.setText(String.valueOf(sinStock));
+    }
+    private void EliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPActionPerformed
+        int fila = tablaProductosP.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la lista para eliminar un producto");
+        } else {
+            try {
+                int colCodigo = tablaProductosP
+                        .getColumn("Código")
+                        .getModelIndex();
+                int codigo = Integer.parseInt(
+                        tablaProductosP.getValueAt(fila, colCodigo).toString()
+                );
+                int opcion = JOptionPane.showConfirmDialog(
+                        this,
+                        "¿Está seguro que desea eliminar el producto?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (opcion != JOptionPane.YES_OPTION) {
+                    return;
+                }
+                NProducto np = new NProducto();
+                boolean eliminado = np.eliminarPorCodigo(codigo);
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this,
+                            "Producto eliminado correctamente.");
+                    cargarTablaProductosP();
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "No se encontró el producto.");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,
+                        "Error: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        actualizarDatosInventario();
+    }//GEN-LAST:event_EliminarPActionPerformed
 
     private void calcularDescuento() {
         Locale localeAR = new Locale("es", "AR");
@@ -5953,7 +6390,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         float ivaTotal = 0;
         for (DetalleVenta dv : ListaVentas) {
             Producto p = np.select(dv.getIdProducto());
-            float porcentaje = p.getIva().getPorcentaje();
+            float porcentaje = p.getIdIVA().getPorcentaje();
             ivaTotal += dv.getImporte() * porcentaje / 100f;
         }
         ivaCalculado = ivaTotal;
@@ -6669,18 +7106,19 @@ public class PPanelAMP extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getCodigo(),
                 p.getDescripcion(),
-                p.getRubroProducto().getDescripcion(),
-                p.getTipoProducto().getDescripcion(),
+                p.getIdRubroProducto().getDescripcion(),
+                p.getIdTipoProducto().getDescripcion(),
                 p.getIdStockProducto().getStockAct(),
                 formatoMoneda.format(p.getPrecioUnitario()),
-                p.getProveedor().getNombre()
+                p.getIdProveedor().getNombre()
             });
         }
 
         tablaProductosP.setModel(modelo);
         formatearTablaProductosP();
     }
-    private void formatearTablaProductosP(){
+
+    private void formatearTablaProductosP() {
         tablaProductosP.setRowSorter(null);
         tablaProductosP.getColumnModel().getColumn(0).setPreferredWidth(70);
         tablaProductosP.getColumnModel().getColumn(1).setPreferredWidth(200);
@@ -6703,6 +7141,69 @@ public class PPanelAMP extends javax.swing.JFrame {
         tablaProductosP.getTableHeader().setResizingAllowed(false);
     }
 
+    public JComboBox cargarRubro(JComboBox cb) {
+        cb.removeAllItems();
+
+        NRubroProducto nrp = new NRubroProducto();
+
+        for (RubroProducto rp : nrp.listar()) {
+            cb.addItem(rp);
+        }
+
+        if (cb.getItemCount() > 0) {
+            cb.setSelectedIndex(0);
+        }
+        return cb;
+    }
+
+    public JComboBox cargarProveedor(JComboBox cb) {
+        cb.removeAllItems();
+        NProveedor np = new NProveedor();
+        List<Proveedor> lista = np.listar();
+        lista.sort((p1, p2)
+                -> p1.getNombre().compareToIgnoreCase(p2.getNombre())
+        );
+        for (Proveedor p : lista) {
+            cb.addItem(p);
+        }
+        if (cb.getItemCount() > 0) {
+            cb.setSelectedIndex(0);
+        }
+        return cb;
+    }
+
+    public JComboBox cargarTipoProducto(JComboBox cb, RubroProducto rubro) {
+        cb.removeAllItems();
+        NTipoProducto ntp = new NTipoProducto();
+        List<TipoProducto> lista = ntp.listar();
+        lista.sort((tp1, tp2)
+                -> tp1.getDescripcion().compareToIgnoreCase(tp2.getDescripcion())
+        );
+        for (TipoProducto tp : lista) {
+            if (tp.getIdRubroProducto() != null
+                    && tp.getIdRubroProducto().getIdRubroProducto()
+                    == rubro.getIdRubroProducto()) {
+                cb.addItem(tp);
+            }
+        }
+        if (cb.getItemCount() > 0) {
+            cb.setSelectedIndex(0);
+        }
+        return cb;
+    }
+
+    public JComboBox cargarIva(JComboBox cb) {
+        cb.removeAllItems();
+        NIVA niva = new NIVA();
+        for (IVA iva : niva.listar()) {
+            cb.addItem(iva);
+        }
+        if (cb.getItemCount() > 0) {
+            cb.setSelectedIndex(0);
+        }
+        return cb;
+    }
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> new PLogin().setVisible(true));
@@ -6713,6 +7214,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel AccionGestion;
     private javax.swing.JButton AgregarCliMP;
     private javax.swing.JButton AgregarProdBP;
+    private javax.swing.JButton AgregarStockP;
     private javax.swing.JButton AgregarV;
     private javax.swing.JPanel BtnDetalleCC;
     private javax.swing.JPanel BtnsADM;
@@ -6727,6 +7229,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel DatosProdAPanel;
     private javax.swing.JLabel DescuentoV;
     private javax.swing.JButton EliminarItemV;
+    private javax.swing.JButton EliminarP;
     private javax.swing.JButton GVolver;
     private javax.swing.JPanel GestionProdPanel;
     private javax.swing.JPanel IVAPanel;
@@ -6736,6 +7239,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton LimpiarMp;
     private javax.swing.JPanel ListaPanel;
     private javax.swing.JButton MGAceptar;
+    private javax.swing.JButton ModificarP;
+    private javax.swing.JButton NuevoP;
     private javax.swing.JFrame PBuscarProductoV;
     private javax.swing.JPanel PagosPanel;
     private javax.swing.JPanel PagosPanelCampos;
@@ -6771,23 +7276,24 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnAPagos;
     private javax.swing.JButton btnAPersona;
     private javax.swing.JButton btnAVolver;
-    private javax.swing.JButton btnActualizarP;
     private javax.swing.JButton btnActualizarInformeStock;
+    private javax.swing.JButton btnActualizarP;
     private javax.swing.JButton btnAdministracion;
     private javax.swing.JButton btnAdministracion1;
     private javax.swing.JButton btnAdministracion2;
     private javax.swing.JButton btnAdministracion3;
+    private javax.swing.JButton btnBajoStockP;
     private javax.swing.JButton btnCaja;
     private javax.swing.JButton btnCaja1;
     private javax.swing.JButton btnCaja2;
     private javax.swing.JButton btnCaja3;
+    private javax.swing.JButton btnEliminadosP;
     private javax.swing.JButton btnEstadisticas;
     private javax.swing.JButton btnEstadisticas1;
     private javax.swing.JButton btnEstadisticas2;
     private javax.swing.JButton btnEstadisticas3;
     private javax.swing.JButton btnExportarInformePDF;
     private javax.swing.JButton btnExportarInformePDF1;
-    private javax.swing.JButton btnExportarInformeVentas;
     private javax.swing.JButton btnExportarStockExcel;
     private javax.swing.JButton btnExportarStockPdf;
     private javax.swing.JButton btnFiltrar;
@@ -6809,6 +7315,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnProveedores1;
     private javax.swing.JButton btnProveedores2;
     private javax.swing.JButton btnProveedores3;
+    private javax.swing.JButton btnSinStockP;
     private javax.swing.JButton btnVentas;
     private javax.swing.JButton btnVentas1;
     private javax.swing.JButton btnVentas2;
@@ -6820,11 +7327,19 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JComboBox<CondIVA> cbCondIva;
     private javax.swing.JComboBox<CondIVA> cbCondIvaMp;
     private javax.swing.JCheckBox cbDescuento;
+    private javax.swing.JComboBox<IVA> cbIVAP;
     private javax.swing.JComboBox<String> cbMetodosPagos;
     private javax.swing.JComboBox<MetodoPago> cbMpVentas;
     private javax.swing.JComboBox<String> cbNombre;
+    private javax.swing.JComboBox<Proveedor> cbProveedorP;
+    private javax.swing.JComboBox<String> cbProveedorP1;
+    private javax.swing.JComboBox<RubroProducto> cbRubroP;
+    private javax.swing.JComboBox<String> cbRubroP1;
     private javax.swing.JComboBox<RubroProducto> cbRubroV;
+    private javax.swing.JComboBox<String> cbStockP;
     private javax.swing.JComboBox<String> cbTipo;
+    private javax.swing.JComboBox<TipoProducto> cbTipoP;
+    private javax.swing.JComboBox<String> cbTipoP1;
     private javax.swing.JComboBox<String> cbTipoReporteStock;
     private javax.swing.JComboBox<TipoProducto> cbTipoV;
     private com.toedter.calendar.JDateChooser date;
@@ -6837,26 +7352,12 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel globGestion;
     private javax.swing.JPanel ingresosPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JComboBox<String> jComboBox6;
-    private javax.swing.JComboBox<String> jComboBox7;
-    private javax.swing.JComboBox<String> jComboBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -6885,11 +7386,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -6928,14 +7426,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel labelFact;
     private javax.swing.JLabel lblCC;
     private javax.swing.JLabel lblCantClientes;
@@ -6954,12 +7446,15 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel lblHeaderModificar1;
     private javax.swing.JLabel lblIngTotales;
     private javax.swing.JLabel lblIngresosTotales;
+    private javax.swing.JLabel lblStockTotalP;
     private javax.swing.JLabel lblTicketProm;
     private javax.swing.JLabel lblTicketPromedio;
     private javax.swing.JLabel lblTituloInformeStock;
     private javax.swing.JLabel lblTituloInformeVentas;
     private javax.swing.JLabel lblTituloInformeVentas1;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalProductosP;
+    private javax.swing.JLabel lblTotalProveedoresP;
     private javax.swing.JLabel lblUltimaAct;
     private javax.swing.JLabel lblUltimaAct1;
     private javax.swing.JLabel lblUltimaActualizacion;
@@ -6977,10 +7472,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel panelCli;
     private javax.swing.JPanel panelContenidoEstadisticas;
     private javax.swing.JPanel panelFact;
-    private javax.swing.JPanel panelGraficoStockInforme;
     private javax.swing.JPanel panelGraficoClientesIVA;
     private javax.swing.JPanel panelGraficoClientesTipo;
     private javax.swing.JPanel panelGraficoMetodos;
+    private javax.swing.JPanel panelGraficoStockInforme;
     private javax.swing.JPanel panelGraficoVentas;
     private javax.swing.JPanel panelInformeClientes;
     private javax.swing.JPanel panelInformePDF;
@@ -6999,6 +7494,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel totEmpresasPanel;
     private javax.swing.JPanel totPersonasPanel;
     private javax.swing.JTextField txtCantV;
+    private javax.swing.JTextField txtCodP;
     private javax.swing.JTextField txtCodV;
     private javax.swing.JTextField txtComprasTotales;
     private javax.swing.JTextField txtCuil;
@@ -7011,6 +7507,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtDNIRetiro1;
     private com.toedter.calendar.JDateChooser txtDate;
     private javax.swing.JTextField txtDescBP;
+    private javax.swing.JTextArea txtDescP;
     private javax.swing.JTextField txtDescV;
     private javax.swing.JTextField txtDom;
     private javax.swing.JTextField txtDomCliente;
@@ -7027,10 +7524,14 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtPre1;
     private javax.swing.JTextField txtPre2;
+    private javax.swing.JTextField txtPrecioP;
     private javax.swing.JTextField txtRS;
     private javax.swing.JLabel txtSaldo1;
     private javax.swing.JLabel txtSaldoT;
     private javax.swing.JTextField txtStock;
+    private javax.swing.JTextField txtStockActP;
+    private javax.swing.JTextField txtStockMaxP;
+    private javax.swing.JTextField txtStockMinP;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTel;
     private javax.swing.JTextField txtUnidadCuota;

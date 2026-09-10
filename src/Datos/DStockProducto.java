@@ -2,6 +2,7 @@ package Datos;
 
 import Modelos.StockProducto;
 import Conexiones.SqlConection;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -99,5 +100,40 @@ public class DStockProducto {
         }
 
         return dataset;
+    }
+
+    public int insert(StockProducto sp) throws Exception {
+        String sql = "INSERT INTO StockProducto(stockMin,stockMax,stockAct) VALUES(?,?,?)";
+        try (Connection conn = conexion.getConexion(); PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, sp.getStockMin());
+            ps.setInt(2, sp.getStockMax());
+            ps.setInt(3, sp.getStockAct());
+            ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean modificar(StockProducto sp) {
+        String sql = "UPDATE StockProducto SET "
+                + "stockMin = ?, "
+                + "stockMax = ?, "
+                + "stockAct = ? "
+                + "WHERE idStockProducto = ?";
+        try (Connection conn = conexion.getConexion(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, sp.getStockMin());
+            ps.setInt(2, sp.getStockMax());
+            ps.setInt(3, sp.getStockAct());
+            ps.setInt(4, sp.getIdStockProducto());
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

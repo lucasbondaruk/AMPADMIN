@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.ArrayList;
 
 public class DIVA {
 
@@ -36,5 +38,23 @@ public class DIVA {
         }
 
         return iva;
+    }
+    
+    public List<IVA> listar(){
+        List<IVA> lista = new ArrayList<>();
+        String sql = "SELECT * FROM IVA";
+        try(Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()){
+                IVA i = new IVA();
+                i.setIdIVA(rs.getInt("idIVA"));
+                i.setDescripcion(rs.getString("descripcion"));
+                i.setPorcentaje(rs.getFloat("porcentaje"));
+                
+                lista.add(i);
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return lista;
     }
 }

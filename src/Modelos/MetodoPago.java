@@ -46,7 +46,6 @@ public class MetodoPago {
         this.activo = activo;
     }
 
-    // Sobrescribimos el toString para que el JComboBox de NetBeans muestre el texto de la descripción
     @Override
     public String toString() {
         return this.descripcion;
