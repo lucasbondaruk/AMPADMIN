@@ -75,4 +75,56 @@ public class NProveedor {
         );
     }
     
+    public void update(Proveedor proveedor) throws Exception {
+
+        if (proveedor == null) {
+            throw new Exception("El proveedor no puede ser nulo");
+        }
+
+        if (proveedor.getIdProveedor() <= 0) {
+            throw new Exception("Proveedor inválido");
+        }
+
+        if (proveedor.getNombre() == null
+                || proveedor.getNombre().trim().isEmpty()) {
+            throw new Exception("Debe ingresar la razón social o nombre");
+        }
+
+        if (proveedor.getCuit() == null
+                || proveedor.getCuit().trim().isEmpty()) {
+            throw new Exception("Debe ingresar el CUIT/CUIL");
+        }
+
+        String cuit = proveedor.getCuit().replaceAll("[^0-9]", "");
+
+        if (cuit.length() != 11) {
+            throw new Exception("El CUIT/CUIL debe contener 11 dígitos");
+        }
+
+        if (dp.existeCuitEnOtroProveedor(cuit, proveedor.getIdProveedor())) {
+            throw new Exception("El CUIT/CUIL ya pertenece a otro proveedor");
+        }
+
+        proveedor.setCuit(cuit);
+
+        dp.update(proveedor);
+    }
+    
+    public void desactivar(Proveedor proveedor) throws Exception {
+
+        if (proveedor == null) {
+            throw new Exception("Debe seleccionar un proveedor");
+        }
+
+        if (proveedor.getIdProveedor() <= 0) {
+            throw new Exception("Proveedor inválido");
+        }
+
+        if ("Inactivo".equalsIgnoreCase(proveedor.getEstado())) {
+            throw new Exception("El proveedor ya se encuentra inactivo");
+        }
+
+        dp.desactivar(proveedor.getIdProveedor());
+    }
+    
 }

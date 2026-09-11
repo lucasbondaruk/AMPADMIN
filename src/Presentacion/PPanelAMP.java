@@ -2813,8 +2813,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         PanelBotones.setVisible(false);
         estadísticaPanel.setVisible(false);
         iniciarActualizacionEstadisticas();
-        proveedoresPanel.setVisible(false); // NUEVO
+        proveedoresPanel.setVisible(false);
         panelRegistrarProveedor.setVisible(false);
+        panelModificarProveedor.setVisible(false);
     }
     //ADMINISTRACION - REGISTRO CUENTA CORRIENTE
 
@@ -5928,7 +5929,89 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarProveedorActionPerformed
 
     private void btnEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProveedorActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = tablaProveedores.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Debe seleccionar un proveedor para desactivar.",
+                    "Desactivar proveedor",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        String cuitSeleccionado = tablaProveedores
+                .getValueAt(filaSeleccionada, 1)
+                .toString();
+
+        try {
+
+            NProveedor negocioProveedor = new NProveedor();
+
+            Proveedor proveedorAEliminar = null;
+
+            for (Proveedor proveedor : negocioProveedor.listar()) {
+
+                if (cuitSeleccionado.equals(proveedor.getCuit())) {
+                    proveedorAEliminar = proveedor;
+                    break;
+                }
+            }
+
+            if (proveedorAEliminar == null) {
+                throw new Exception("No se encontró el proveedor seleccionado.");
+            }
+
+            // Evitar intentar desactivar un proveedor que ya está inactivo
+            if ("Inactivo".equalsIgnoreCase(proveedorAEliminar.getEstado())) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "El proveedor ya se encuentra inactivo.",
+                        "Desactivar proveedor",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                return;
+            }
+
+            // Confirmar desactivación
+            int respuesta = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Está seguro de que desea desactivar al proveedor \""
+                            + proveedorAEliminar.getNombre() + "\"?",
+                    "Confirmar desactivación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (respuesta != JOptionPane.YES_OPTION) {
+                return;
+            }
+
+            // Desactivar proveedor
+            negocioProveedor.desactivar(proveedorAEliminar);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Proveedor desactivado correctamente.",
+                    "Desactivación exitosa",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            // Actualizar listado
+            cargarTablaProveedores();
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Error al desactivar proveedor",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_btnEliminarProveedorActionPerformed
 
     private void btnBuscarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProveedorActionPerformed
@@ -6079,11 +6162,74 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarFiltrosProveedorActionPerformed
 
     private void btnCancelarModificacionProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarModificacionProveedorActionPerformed
-        // TODO add your handling code here:
+        panelModificarProveedor.setVisible(false);
+        panelListaProveedores.setVisible(true);
+
+        proveedorSeleccionado = null;
     }//GEN-LAST:event_btnCancelarModificacionProveedorActionPerformed
 
     private void btnGuardarModificacionProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificacionProveedorActionPerformed
-        // TODO add your handling code here:
+        try {
+
+            if (proveedorSeleccionado == null) {
+                throw new Exception("No hay ningún proveedor seleccionado.");
+            }
+
+            // Actualizar el objeto con los datos ingresados
+            proveedorSeleccionado.setNombre(
+                    txtNombreModificarProveedor.getText().trim()
+            );
+
+            proveedorSeleccionado.setCuit(
+                    txtCuitModificarProveedor.getText().trim()
+            );
+
+            proveedorSeleccionado.setTelefono(
+                    txtTelefonoModificarProveedor.getText().trim()
+            );
+
+            proveedorSeleccionado.setMail(
+                    txtEmailModificarProveedor.getText().trim()
+            );
+
+            proveedorSeleccionado.setDomicilio(
+                    txtDireccionModificarProveedor.getText().trim()
+            );
+
+            proveedorSeleccionado.setRubro(
+                    txtRubroModificarProveedor.getText().trim()
+            );
+
+            // Guardar modificación
+            NProveedor negocioProveedor = new NProveedor();
+            negocioProveedor.update(proveedorSeleccionado);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Proveedor modificado correctamente.",
+                    "Modificación exitosa",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            // Actualizar tabla
+            cargarTablaProveedores();
+
+            // Volver al listado
+            panelModificarProveedor.setVisible(false);
+            panelListaProveedores.setVisible(true);
+
+            // Ya terminamos de trabajar con este proveedor
+            proveedorSeleccionado = null;
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Error al modificar proveedor",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_btnGuardarModificacionProveedorActionPerformed
 
     private void btnModificarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProveedorActionPerformed

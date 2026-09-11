@@ -58,6 +58,30 @@ public class DProveedor {
         }
     }
     
+    public boolean existeCuitEnOtroProveedor(String cuit, int idProveedor) throws Exception {
+
+        String sql = "SELECT COUNT(*) "
+                + "FROM dbo.Proveedor "
+                + "WHERE cuit = ? "
+                + "AND idProveedor <> ?";
+
+        try (Connection con = conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, cuit);
+            ps.setInt(2, idProveedor);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+
+                return false;
+            }
+        }
+    }
+    
     public ArrayList<Proveedor> listar() throws Exception {
 
         ArrayList<Proveedor> proveedores = new ArrayList<>();
@@ -185,6 +209,57 @@ public class DProveedor {
         }
 
         return proveedores;
+    }
+    
+    public void update(Proveedor p) throws Exception {
+
+        String sql = "UPDATE dbo.Proveedor SET "
+                + "nombre = ?, "
+                + "telefono = ?, "
+                + "domicilio = ?, "
+                + "mail = ?, "
+                + "cuit = ?, "
+                + "rubro = ?, "
+                + "fechaModificacion = SYSDATETIME() "
+                + "WHERE idProveedor = ?";
+
+        try (Connection con = conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, p.getNombre());
+            ps.setString(2, p.getTelefono());
+            ps.setString(3, p.getDomicilio());
+            ps.setString(4, p.getMail());
+            ps.setString(5, p.getCuit());
+            ps.setString(6, p.getRubro());
+            ps.setInt(7, p.getIdProveedor());
+
+            int filas = ps.executeUpdate();
+
+            if (filas == 0) {
+                throw new Exception("No se encontró el proveedor a modificar");
+            }
+        }
+    }
+    
+    public void desactivar(int idProveedor) throws Exception {
+
+        String sql = "UPDATE dbo.Proveedor "
+                + "SET estado = 'Inactivo', "
+                + "fechaModificacion = SYSDATETIME() "
+                + "WHERE idProveedor = ?";
+
+        try (Connection con = conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idProveedor);
+
+            int filas = ps.executeUpdate();
+
+            if (filas == 0) {
+                throw new Exception("No se encontró el proveedor a desactivar");
+            }
+        }
     }
     
 }
