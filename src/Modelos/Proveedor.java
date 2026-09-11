@@ -1,24 +1,53 @@
-
 package Modelos;
 
+import java.sql.Timestamp;
 
 public class Proveedor {
+
     private int idProveedor;
     private String nombre;
     private String telefono;
     private String domicilio;
     private String mail;
+    private String cuit;
+    private String rubro;
+    private String estado;
+    private Timestamp fechaModificacion;
 
-    
-    public Proveedor(){
-        
+    // Constructor vacío
+    public Proveedor() {
     }
-    public Proveedor(int idProveedor, String nombre, String telefono, String domicilio, String mail) {
+
+    // Constructor completo
+    // Lo vamos a utilizar principalmente al recuperar proveedores de la BD.
+    public Proveedor(int idProveedor, String nombre, String telefono,
+            String domicilio, String mail, String cuit, String rubro,
+            String estado, Timestamp fechaModificacion) {
+
         this.idProveedor = idProveedor;
         this.nombre = nombre;
         this.telefono = telefono;
         this.domicilio = domicilio;
         this.mail = mail;
+        this.cuit = cuit;
+        this.rubro = rubro;
+        this.estado = estado;
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    // Constructor para registrar un nuevo proveedor
+    // No recibe ID porque lo genera la BD.
+    // Tampoco recibe fechaModificacion porque todavía no fue modificado.
+    public Proveedor(String nombre, String telefono, String domicilio,
+            String mail, String cuit, String rubro, String estado) {
+
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.domicilio = domicilio;
+        this.mail = mail;
+        this.cuit = cuit;
+        this.rubro = rubro;
+        this.estado = estado;
     }
 
     public int getIdProveedor() {
@@ -60,8 +89,36 @@ public class Proveedor {
     public void setMail(String mail) {
         this.mail = mail;
     }
-    
-    
-    
-    
+
+    public String getCuit() {
+        return cuit;
+    }
+
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
+    }
+
+    public String getRubro() {
+        return rubro;
+    }
+
+    public void setRubro(String rubro) {
+        this.rubro = rubro;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Timestamp getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Timestamp fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
 }
