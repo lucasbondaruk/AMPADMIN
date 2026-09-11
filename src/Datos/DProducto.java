@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Datos;
 
 import Modelos.Producto;
@@ -21,6 +17,66 @@ import java.sql.ResultSet;
 public class DProducto {
 
     private SqlConection conexion = new SqlConection();
+
+    public boolean insertar(Producto p) {
+        try {
+            String sql = "INSERT INTO Producto"
+                    + "(codigo, descripcion, precioUnitario, idRubroProducto, idIVA, idStockProducto, idTipoProducto, idProveedor)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            Connection cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, p.getCodigo());
+            ps.setString(2, p.getDescripcion());
+            ps.setFloat(3, p.getPrecioUnitario());
+            ps.setInt(4, p.getIdRubroProducto().getIdRubroProducto());
+            ps.setInt(5, p.getIdIVA().getIdIVA());
+            ps.setInt(6, p.getIdStockProducto().getIdStockProducto());
+            ps.setInt(7, p.getIdTipoProducto().getIdTipoProducto());
+            ps.setInt(8, p.getIdProveedor().getIdProveedor());
+
+            ps.executeUpdate();
+            ps.close();
+            cn.close();
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean modificar(Producto p) {
+        try {
+            String sql = "UPDATE Producto SET "
+                    + "codigo = ?, "
+                    + "descripcion = ?, "
+                    + "precioUnitario = ?, "
+                    + "idRubroProducto = ?, "
+                    + "idIVA = ?, "
+                    + "idStockProducto = ?, "
+                    + "idTipoProducto = ?, "
+                    + "idProveedor = ? "
+                    + "WHERE idProducto = ?";
+            Connection cn = conexion.getConexion();
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, p.getCodigo());
+            ps.setString(2, p.getDescripcion());
+            ps.setFloat(3, p.getPrecioUnitario());
+            ps.setInt(4, p.getIdRubroProducto().getIdRubroProducto());
+            ps.setInt(5, p.getIdIVA().getIdIVA());
+            ps.setInt(6, p.getIdStockProducto().getIdStockProducto());
+            ps.setInt(7, p.getIdTipoProducto().getIdTipoProducto());
+            ps.setInt(8, p.getIdProveedor().getIdProveedor());
+            ps.setInt(9, p.getIdProducto());
+            int filasAfectadas = ps.executeUpdate();
+            ps.close();
+            cn.close();
+            return filasAfectadas > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public Producto buscarPorCodigo(String codigo) throws Exception {
 
@@ -69,24 +125,24 @@ public class DProducto {
                 RubroProducto rp = new RubroProducto();
                 rp.setIdRubroProducto(rs.getInt("idRubroProducto"));
                 rp.setDescripcion(rs.getString("rubro"));
-                p.setRubroProducto(rp);
+                p.setIdRubroProducto(rp);
 
                 IVA iva = new IVA();
                 iva.setIdIVA(rs.getInt("idIVA"));
                 iva.setDescripcion(rs.getString("iva"));
                 iva.setPorcentaje(rs.getFloat("porcentaje"));
-                p.setIva(iva);
+                p.setIdIVA(iva);
 
                 TipoProducto tp = new TipoProducto();
                 tp.setIdTipoProducto(rs.getInt("idTipoProducto"));
                 tp.setDescripcion(rs.getString("tipo"));
                 tp.setUnidad(rs.getString("unidad"));
-                p.setTipoProducto(tp);
+                p.setIdTipoProducto(tp);
 
                 Proveedor prov = new Proveedor();
                 prov.setIdProveedor(rs.getInt("idProveedor"));
                 prov.setNombre(rs.getString("nombre"));
-                p.setProveedor(prov);
+                p.setIdProveedor(prov);
 
                 return p;
             }
@@ -143,24 +199,24 @@ public class DProducto {
                 RubroProducto rp = new RubroProducto();
                 rp.setIdRubroProducto(rs.getInt("idRubroProducto"));
                 rp.setDescripcion(rs.getString("rubro"));
-                p.setRubroProducto(rp);
+                p.setIdRubroProducto(rp);
 
                 IVA iva = new IVA();
                 iva.setIdIVA(rs.getInt("idIVA"));
                 iva.setDescripcion(rs.getString("iva"));
                 iva.setPorcentaje(rs.getFloat("porcentaje"));
-                p.setIva(iva);
+                p.setIdIVA(iva);
 
                 TipoProducto tp = new TipoProducto();
                 tp.setIdTipoProducto(rs.getInt("idTipoProducto"));
                 tp.setDescripcion(rs.getString("tipo"));
                 tp.setUnidad(rs.getString("unidad"));
-                p.setTipoProducto(tp);
+                p.setIdTipoProducto(tp);
 
                 Proveedor prov = new Proveedor();
                 prov.setIdProveedor(rs.getInt("idProveedor"));
                 prov.setNombre(rs.getString("nombre"));
-                p.setProveedor(prov);
+                p.setIdProveedor(prov);
 
                 return p;
             }
@@ -214,24 +270,24 @@ public class DProducto {
                 RubroProducto rp = new RubroProducto();
                 rp.setIdRubroProducto(rs.getInt("idRubroProducto"));
                 rp.setDescripcion(rs.getString("rubro"));
-                p.setRubroProducto(rp);
+                p.setIdRubroProducto(rp);
 
                 IVA iva = new IVA();
                 iva.setIdIVA(rs.getInt("idIVA"));
                 iva.setDescripcion(rs.getString("iva"));
                 iva.setPorcentaje(rs.getFloat("porcentaje"));
-                p.setIva(iva);
+                p.setIdIVA(iva);
 
                 TipoProducto tp = new TipoProducto();
                 tp.setIdTipoProducto(rs.getInt("idTipoProducto"));
                 tp.setDescripcion(rs.getString("tipo"));
                 tp.setUnidad(rs.getString("unidad"));
-                p.setTipoProducto(tp);
+                p.setIdTipoProducto(tp);
 
                 Proveedor prov = new Proveedor();
                 prov.setIdProveedor(rs.getInt("idProveedor"));
                 prov.setNombre(rs.getString("nombre"));
-                p.setProveedor(prov);
+                p.setIdProveedor(prov);
 
                 lista.add(p);
             }
@@ -258,6 +314,53 @@ public class DProducto {
             ps.setInt(2, idProducto);
 
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean eliminar(int codigo) throws Exception {
+        Connection conn = null;
+        try {
+            conn = conexion.getConexion();
+            conn.setAutoCommit(false);
+            
+            String sqlBuscar = "SELECT idStockProducto "
+                    + "FROM Producto "
+                    + "WHERE codigo = ?";
+            int idStockProducto = 0;
+            try (PreparedStatement psBuscar = conn.prepareStatement(sqlBuscar)) {
+                psBuscar.setInt(1, codigo);
+                try (ResultSet rs = psBuscar.executeQuery()) {
+                    if (rs.next()) {
+                        idStockProducto = rs.getInt("idStockProducto");
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            String sqlProducto = "DELETE FROM Producto WHERE codigo = ?";
+            try (PreparedStatement psProducto = conn.prepareStatement(sqlProducto)) {
+                psProducto.setInt(1, codigo);
+                psProducto.executeUpdate();
+            }
+           
+            String sqlStock = "DELETE FROM StockProducto "
+                    + "WHERE idStockProducto = ?";
+            try (PreparedStatement psStock = conn.prepareStatement(sqlStock)) {
+                psStock.setInt(1, idStockProducto);
+                psStock.executeUpdate();
+            }
+            conn.commit();
+            return true;
+        } catch (Exception e) {
+            if (conn != null) {
+                conn.rollback();
+            }
+            throw e;
+        } finally {
+            if (conn != null) {
+                conn.setAutoCommit(true);
+                conn.close();
+            }
         }
     }
 }
