@@ -121,4 +121,9 @@ public class Proveedor {
     public void setFechaModificacion(Timestamp fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
+    
+    @Override 
+    public String toString(){
+        return nombre;
+    }
 }
