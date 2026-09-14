@@ -101,6 +101,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
+import javax.swing.ImageIcon;
 
 public class PPanelAMP extends javax.swing.JFrame {
 
@@ -135,6 +136,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     public PPanelAMP(Usuario usuarioLogueado) {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/img/ampadmin_icon_64.png")).getImage());
         this.usuarioLogueado = usuarioLogueado;
         setLocationRelativeTo(null);
         iniciarPaneles();
@@ -168,6 +170,21 @@ public class PPanelAMP extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         BuscarProdBPDesc = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
+        InicioPanel = new javax.swing.JPanel();
+        navbarADM1 = new javax.swing.JPanel();
+        lblimg4 = new javax.swing.JLabel();
+        btnInformes4 = new javax.swing.JButton();
+        btnCaja4 = new javax.swing.JButton();
+        btnProveedores4 = new javax.swing.JButton();
+        btnAdministracion4 = new javax.swing.JButton();
+        btnVentas4 = new javax.swing.JButton();
+        btnEstadisticas4 = new javax.swing.JButton();
+        btnProductos4 = new javax.swing.JButton();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         administracionPanel = new javax.swing.JPanel();
         navbarADM = new javax.swing.JPanel();
         lblimg = new javax.swing.JLabel();
@@ -182,6 +199,11 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnVentas = new javax.swing.JButton();
         btnEstadisticas = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
+        InicioAdmPanel = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
         BtnsADM = new javax.swing.JPanel();
         btnABuscar = new javax.swing.JButton();
         btnAContinuar = new javax.swing.JButton();
@@ -480,6 +502,11 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnExportarStockExcel = new javax.swing.JButton();
         lblTituloInformeStock = new javax.swing.JLabel();
         lblDescripcionReporte = new javax.swing.JLabel();
+        InicioEstPanel = new javax.swing.JPanel();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel61 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
 
         PBuscarProductoV.setMinimumSize(new java.awt.Dimension(870, 464));
         PBuscarProductoV.setResizable(false);
@@ -575,9 +602,124 @@ public class PPanelAMP extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AMPADMIN");
         setMinimumSize(new java.awt.Dimension(991, 777));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        InicioPanel.setBackground(new java.awt.Color(255, 255, 255));
+        InicioPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        navbarADM1.setBackground(new java.awt.Color(225, 250, 255));
+        navbarADM1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblimg4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
+        navbarADM1.add(lblimg4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        btnInformes4.setBackground(new java.awt.Color(204, 255, 255));
+        btnInformes4.setForeground(new java.awt.Color(0, 51, 102));
+        btnInformes4.setText("Informes");
+        btnInformes4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnInformes4.setBorderPainted(false);
+        btnInformes4.setContentAreaFilled(false);
+        btnInformes4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInformes4.addActionListener(this::btnInformes4ActionPerformed);
+        navbarADM1.add(btnInformes4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
+
+        btnCaja4.setBackground(new java.awt.Color(204, 255, 255));
+        btnCaja4.setForeground(new java.awt.Color(0, 51, 102));
+        btnCaja4.setText("Caja");
+        btnCaja4.setBorderPainted(false);
+        btnCaja4.setContentAreaFilled(false);
+        btnCaja4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        navbarADM1.add(btnCaja4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
+
+        btnProveedores4.setBackground(new java.awt.Color(204, 255, 255));
+        btnProveedores4.setForeground(new java.awt.Color(0, 51, 102));
+        btnProveedores4.setText("Proveedores");
+        btnProveedores4.setBorderPainted(false);
+        btnProveedores4.setContentAreaFilled(false);
+        btnProveedores4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        navbarADM1.add(btnProveedores4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
+
+        btnAdministracion4.setBackground(new java.awt.Color(204, 255, 255));
+        btnAdministracion4.setForeground(new java.awt.Color(0, 51, 102));
+        btnAdministracion4.setText("Administración");
+        btnAdministracion4.setBorderPainted(false);
+        btnAdministracion4.setContentAreaFilled(false);
+        btnAdministracion4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdministracion4.addActionListener(this::btnAdministracion4ActionPerformed);
+        navbarADM1.add(btnAdministracion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
+
+        btnVentas4.setBackground(new java.awt.Color(204, 255, 255));
+        btnVentas4.setForeground(new java.awt.Color(0, 51, 102));
+        btnVentas4.setText("Ventas");
+        btnVentas4.setBorderPainted(false);
+        btnVentas4.setContentAreaFilled(false);
+        btnVentas4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVentas4.addActionListener(this::btnVentas4ActionPerformed);
+        navbarADM1.add(btnVentas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
+
+        btnEstadisticas4.setBackground(new java.awt.Color(204, 255, 255));
+        btnEstadisticas4.setForeground(new java.awt.Color(0, 51, 102));
+        btnEstadisticas4.setText("Estadísticas");
+        btnEstadisticas4.setBorderPainted(false);
+        btnEstadisticas4.setContentAreaFilled(false);
+        btnEstadisticas4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEstadisticas4.addActionListener(this::btnEstadisticas4ActionPerformed);
+        navbarADM1.add(btnEstadisticas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
+
+        btnProductos4.setBackground(new java.awt.Color(204, 255, 255));
+        btnProductos4.setForeground(new java.awt.Color(0, 51, 102));
+        btnProductos4.setText("Productos");
+        btnProductos4.setBorderPainted(false);
+        btnProductos4.setContentAreaFilled(false);
+        btnProductos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnProductos4.addActionListener(this::btnProductos4ActionPerformed);
+        navbarADM1.add(btnProductos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
+
+        InicioPanel.add(navbarADM1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, -1));
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inicio-img.jpg"))); // NOI18N
+        InicioPanel.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 540, 380));
+
+        jLabel36.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(1, 31, 51));
+        jLabel36.setText("Tu software de gestión comercial");
+        InicioPanel.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, -1, -1));
+
+        jPanel13.setBackground(new java.awt.Color(11, 55, 86));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 980, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        InicioPanel.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 10));
+
+        jLabel39.setFont(new java.awt.Font("Georgia", 0, 70)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel39.setText("AMPADMIN");
+        InicioPanel.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(204, 204, 204));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(51, 51, 51));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
+        jButton2.setText("Configuración");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        InicioPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, -1, -1));
+
+        getContentPane().add(InicioPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 740));
 
         administracionPanel.setBackground(new java.awt.Color(255, 255, 255));
         administracionPanel.setMaximumSize(new java.awt.Dimension(976, 738));
@@ -592,22 +734,25 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
 
-        btnAClientes.setBackground(new java.awt.Color(38, 90, 142));
+        btnAClientes.setBackground(new java.awt.Color(20, 52, 83));
         btnAClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnAClientes.setText("Clientes");
         btnAClientes.setBorderPainted(false);
+        btnAClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAClientes.addActionListener(this::btnAClientesActionPerformed);
 
         btnAPagos.setBackground(new java.awt.Color(20, 52, 83));
         btnAPagos.setForeground(new java.awt.Color(255, 255, 255));
         btnAPagos.setText("Pagos");
         btnAPagos.setBorderPainted(false);
+        btnAPagos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAPagos.addActionListener(this::btnAPagosActionPerformed);
 
         btnAListas.setBackground(new java.awt.Color(20, 52, 83));
         btnAListas.setForeground(new java.awt.Color(255, 255, 255));
         btnAListas.setText("Listas");
         btnAListas.setBorderPainted(false);
+        btnAListas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAListas.addActionListener(this::btnAListasActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -641,6 +786,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnInformes.setBorderPainted(false);
         btnInformes.setContentAreaFilled(false);
+        btnInformes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInformes.addActionListener(this::btnInformesActionPerformed);
         navbarADM.add(btnInformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
 
@@ -649,6 +795,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnCaja.setText("Caja");
         btnCaja.setBorderPainted(false);
         btnCaja.setContentAreaFilled(false);
+        btnCaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         navbarADM.add(btnCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
 
         btnProveedores.setBackground(new java.awt.Color(204, 255, 255));
@@ -656,12 +803,14 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProveedores.setText("Proveedores");
         btnProveedores.setBorderPainted(false);
         btnProveedores.setContentAreaFilled(false);
+        btnProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         navbarADM.add(btnProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
 
         btnAdministracion.setBackground(new java.awt.Color(20, 52, 83));
         btnAdministracion.setForeground(new java.awt.Color(255, 255, 255));
         btnAdministracion.setText("Administración");
         btnAdministracion.setBorderPainted(false);
+        btnAdministracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdministracion.addActionListener(this::btnAdministracionActionPerformed);
         navbarADM.add(btnAdministracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
 
@@ -670,6 +819,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnVentas.setText("Ventas");
         btnVentas.setBorderPainted(false);
         btnVentas.setContentAreaFilled(false);
+        btnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVentas.addActionListener(this::btnVentasActionPerformed);
         navbarADM.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
 
@@ -678,6 +828,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnEstadisticas.setText("Estadísticas");
         btnEstadisticas.setBorderPainted(false);
         btnEstadisticas.setContentAreaFilled(false);
+        btnEstadisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEstadisticas.addActionListener(this::btnEstadisticasActionPerformed);
         navbarADM.add(btnEstadisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
 
@@ -686,10 +837,35 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProductos.setText("Productos");
         btnProductos.setBorderPainted(false);
         btnProductos.setContentAreaFilled(false);
+        btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos.addActionListener(this::btnProductosActionPerformed);
         navbarADM.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
 
         administracionPanel.add(navbarADM, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, -1));
+
+        InicioAdmPanel.setBackground(new java.awt.Color(255, 255, 255));
+        InicioAdmPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/administracion-img.png"))); // NOI18N
+        InicioAdmPanel.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 500, -1));
+
+        jLabel45.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(20, 52, 83));
+        jLabel45.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel45.setText("ADMINISTRACIÓN");
+        InicioAdmPanel.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 430, 50));
+
+        jLabel46.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel46.setText("En esta sección podrás gestionar las ventas y cobros");
+        InicioAdmPanel.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 430, 20));
+
+        jLabel56.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel56.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel56.setText("de las cuentas corrientes de la empresa.");
+        InicioAdmPanel.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(625, 330, 330, 20));
+
+        administracionPanel.add(InicioAdmPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 640));
 
         BtnsADM.setBackground(new java.awt.Color(22, 22, 22));
 
@@ -698,6 +874,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnABuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnABuscar.setText("<Buscar Cliente>");
         btnABuscar.setBorderPainted(false);
+        btnABuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnABuscar.addActionListener(this::btnABuscarActionPerformed);
 
         btnAContinuar.setBackground(new java.awt.Color(22, 22, 22));
@@ -705,6 +882,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAContinuar.setForeground(new java.awt.Color(255, 255, 255));
         btnAContinuar.setText("<Registrar>");
         btnAContinuar.setBorderPainted(false);
+        btnAContinuar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAContinuar.addActionListener(this::btnAContinuarActionPerformed);
 
         btnAModificar.setBackground(new java.awt.Color(22, 22, 22));
@@ -712,6 +890,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnAModificar.setText("<Modificar Cliente>");
         btnAModificar.setBorderPainted(false);
+        btnAModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAModificar.addActionListener(this::btnAModificarActionPerformed);
 
         btnABorrar.setBackground(new java.awt.Color(22, 22, 22));
@@ -719,6 +898,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnABorrar.setForeground(new java.awt.Color(255, 255, 255));
         btnABorrar.setText("<Borrar Cliente>");
         btnABorrar.setBorderPainted(false);
+        btnABorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnABorrar.addActionListener(this::btnABorrarActionPerformed);
 
         javax.swing.GroupLayout BtnsADMLayout = new javax.swing.GroupLayout(BtnsADM);
@@ -756,7 +936,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAEmpresa.setText("EMPRESA");
         btnAEmpresa.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAEmpresa.setBorderPainted(false);
-        btnAEmpresa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAEmpresa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAEmpresa.addActionListener(this::btnAEmpresaActionPerformed);
         regEmp.add(btnAEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 116, 40));
 
@@ -766,7 +946,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAPersona.setText("PERSONA");
         btnAPersona.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAPersona.setBorderPainted(false);
-        btnAPersona.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAPersona.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAPersona.addActionListener(this::btnAPersonaActionPerformed);
         regEmp.add(btnAPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 116, 40));
 
@@ -838,6 +1018,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         regEmp.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, 116));
 
         cbCondIva.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbCondIva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         regEmp.add(cbCondIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, 350, 30));
 
         administracionPanel.add(regEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 980, 400));
@@ -974,6 +1155,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAGestionarCC.setText("<Gestionar>");
         btnAGestionarCC.setActionCommand("<Volver>");
         btnAGestionarCC.setBorderPainted(false);
+        btnAGestionarCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAGestionarCC.addActionListener(this::btnAGestionarCCActionPerformed);
 
         btnAContinuar3.setBackground(new java.awt.Color(22, 22, 22));
@@ -983,6 +1165,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAContinuar3.setToolTipText("");
         btnAContinuar3.setActionCommand("<Volver>");
         btnAContinuar3.setBorderPainted(false);
+        btnAContinuar3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAContinuar3.addActionListener(this::btnExportarCliente);
 
         btnADetalleCC.setBackground(new java.awt.Color(22, 22, 22));
@@ -992,6 +1175,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnADetalleCC.setToolTipText("");
         btnADetalleCC.setActionCommand("<Volver>");
         btnADetalleCC.setBorderPainted(false);
+        btnADetalleCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnADetalleCC.addActionListener(this::btnADetalleCCActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1202,6 +1386,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAVolver.setForeground(new java.awt.Color(255, 255, 255));
         btnAVolver.setText("<Volver>");
         btnAVolver.setBorderPainted(false);
+        btnAVolver.setContentAreaFilled(false);
+        btnAVolver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAVolver.addActionListener(this::btnAVolverActionPerformed);
 
         btnAExportar.setBackground(new java.awt.Color(22, 22, 22));
@@ -1211,6 +1397,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAExportar.setToolTipText("");
         btnAExportar.setActionCommand("<Volver>");
         btnAExportar.setBorderPainted(false);
+        btnAExportar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAExportar.addActionListener(this::btnAExportarbtnExportarCliente);
 
         btnACobrar.setBackground(new java.awt.Color(22, 22, 22));
@@ -1220,6 +1407,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnACobrar.setToolTipText("");
         btnACobrar.setActionCommand("<Volver>");
         btnACobrar.setBorderPainted(false);
+        btnACobrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnACobrar.addActionListener(this::btnACobrarActionPerformed);
 
         javax.swing.GroupLayout BtnDetalleCCLayout = new javax.swing.GroupLayout(BtnDetalleCC);
@@ -1269,6 +1457,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformes1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnInformes1.setBorderPainted(false);
         btnInformes1.setContentAreaFilled(false);
+        btnInformes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         navbarVNT.add(btnInformes1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
 
         btnCaja1.setBackground(new java.awt.Color(204, 255, 255));
@@ -1276,6 +1465,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnCaja1.setText("Caja");
         btnCaja1.setBorderPainted(false);
         btnCaja1.setContentAreaFilled(false);
+        btnCaja1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         navbarVNT.add(btnCaja1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
 
         btnProveedores1.setBackground(new java.awt.Color(204, 255, 255));
@@ -1283,6 +1473,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProveedores1.setText("Proveedores");
         btnProveedores1.setBorderPainted(false);
         btnProveedores1.setContentAreaFilled(false);
+        btnProveedores1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         navbarVNT.add(btnProveedores1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
 
         btnAdministracion1.setBackground(new java.awt.Color(20, 52, 83));
@@ -1290,6 +1481,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAdministracion1.setText("Administración");
         btnAdministracion1.setBorderPainted(false);
         btnAdministracion1.setContentAreaFilled(false);
+        btnAdministracion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdministracion1.addActionListener(this::btnAdministracion1ActionPerformed);
         navbarVNT.add(btnAdministracion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
 
@@ -1297,6 +1489,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnVentas1.setForeground(new java.awt.Color(255, 255, 255));
         btnVentas1.setText("Ventas");
         btnVentas1.setBorderPainted(false);
+        btnVentas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVentas1.addActionListener(this::btnVentas1ActionPerformed);
         navbarVNT.add(btnVentas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
 
@@ -1305,6 +1498,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnEstadisticas1.setText("Estadísticas");
         btnEstadisticas1.setBorderPainted(false);
         btnEstadisticas1.setContentAreaFilled(false);
+        btnEstadisticas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEstadisticas1.addActionListener(this::btnEstadisticas1ActionPerformed);
         navbarVNT.add(btnEstadisticas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
 
@@ -1313,6 +1507,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProductos1.setText("Productos");
         btnProductos1.setBorderPainted(false);
         btnProductos1.setContentAreaFilled(false);
+        btnProductos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos1.addActionListener(this::btnProductos1ActionPerformed);
         navbarVNT.add(btnProductos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
 
@@ -1603,18 +1798,21 @@ public class PPanelAMP extends javax.swing.JFrame {
         cbMpVentas.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         cbMpVentas.setForeground(new java.awt.Color(1, 25, 48));
         cbMpVentas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cbMpVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbMpVentas.addActionListener(this::cbMpVentasActionPerformed);
         panelFact.add(cbMpVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 260, 30));
 
         factB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         factB.setText("B");
         factB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        factB.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         factB.addActionListener(this::factBActionPerformed);
         panelFact.add(factB, new org.netbeans.lib.awtextra.AbsoluteConstraints(125, 230, 70, 30));
 
         factA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         factA.setText("A");
         factA.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        factA.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         factA.addActionListener(this::factAActionPerformed);
         panelFact.add(factA, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 70, 30));
 
@@ -1651,6 +1849,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         factX.setForeground(new java.awt.Color(0, 0, 0));
         factX.setText("X");
         factX.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        factX.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         factX.addActionListener(this::factXActionPerformed);
         panelFact.add(factX, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 70, 30));
 
@@ -1663,6 +1862,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         cbCondIvaMp.setFont(new java.awt.Font("Segoe UI Semilight", 0, 18)); // NOI18N
         cbCondIvaMp.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Condición frente al IVA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(20, 52, 83))); // NOI18N
+        cbCondIvaMp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbCondIvaMp.addActionListener(this::cbCondIvaMpActionPerformed);
         panelCli.add(cbCondIvaMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 540, 60));
 
@@ -1671,6 +1871,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         AgregarCliMP.setForeground(new java.awt.Color(255, 255, 255));
         AgregarCliMP.setText("+ Agregar");
         AgregarCliMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        AgregarCliMP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         AgregarCliMP.addActionListener(this::AgregarCliMPActionPerformed);
         panelCli.add(AgregarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 140, 40));
 
@@ -1680,6 +1881,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         BuscarCliMP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
         BuscarCliMP.setText("Buscar");
         BuscarCliMP.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BuscarCliMP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         BuscarCliMP.addActionListener(this::BuscarCliMPActionPerformed);
         panelCli.add(BuscarCliMP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 140, 40));
 
@@ -1706,6 +1908,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         LimpiarMp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rehacer.png"))); // NOI18N
         LimpiarMp.setText("Limpiar");
         LimpiarMp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        LimpiarMp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LimpiarMp.addActionListener(this::LimpiarMpActionPerformed);
         metodoPago.add(LimpiarMp, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 660, 140, 50));
 
@@ -1713,6 +1916,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton7.setText("Continuar →");
         jButton7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton7.addActionListener(this::jButton7ActionPerformed);
         metodoPago.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 660, 140, 50));
 
@@ -1721,6 +1925,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         cancelarMP1.setForeground(new java.awt.Color(255, 255, 255));
         cancelarMP1.setText("← Volver");
         cancelarMP1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        cancelarMP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelarMP1.addActionListener(this::cancelarMP1ActionPerformed);
         metodoPago.add(cancelarMP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 660, 140, 50));
 
@@ -1749,6 +1954,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnActualizarP.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizarP.setText("Actualizar");
         btnActualizarP.setBorderPainted(false);
+        btnActualizarP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnActualizarP.addActionListener(this::btnActualizarPActionPerformed);
         jPanel9.add(btnActualizarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(765, 0, 100, 50));
 
@@ -1756,6 +1962,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnListasP.setForeground(new java.awt.Color(255, 255, 255));
         btnListasP.setText("Listas");
         btnListasP.setBorderPainted(false);
+        btnListasP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnListasP.addActionListener(this::btnListasPActionPerformed);
         jPanel9.add(btnListasP, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 0, 100, 50));
 
@@ -1763,6 +1970,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnGestionarP.setForeground(new java.awt.Color(255, 255, 255));
         btnGestionarP.setText("Gestionar");
         btnGestionarP.setBorderPainted(false);
+        btnGestionarP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGestionarP.addActionListener(this::btnGestionarPActionPerformed);
         jPanel9.add(btnGestionarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
 
@@ -1776,6 +1984,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformes3.setText("Informes");
         btnInformes3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnInformes3.setBorderPainted(false);
+        btnInformes3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInformes3.setFocusPainted(false);
         productosPanel.add(btnInformes3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
 
@@ -1783,6 +1992,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnEstadisticas3.setForeground(new java.awt.Color(0, 51, 102));
         btnEstadisticas3.setText("Estadísticas");
         btnEstadisticas3.setBorderPainted(false);
+        btnEstadisticas3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEstadisticas3.setFocusPainted(false);
         btnEstadisticas3.addActionListener(this::btnEstadisticas3ActionPerformed);
         productosPanel.add(btnEstadisticas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
@@ -1791,6 +2001,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnVentas3.setForeground(new java.awt.Color(0, 51, 102));
         btnVentas3.setText("Ventas");
         btnVentas3.setBorderPainted(false);
+        btnVentas3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVentas3.setFocusPainted(false);
         btnVentas3.addActionListener(this::btnVentas3ActionPerformed);
         productosPanel.add(btnVentas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
@@ -1799,6 +2010,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAdministracion3.setForeground(new java.awt.Color(0, 51, 102));
         btnAdministracion3.setText("Administración");
         btnAdministracion3.setBorderPainted(false);
+        btnAdministracion3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdministracion3.setFocusPainted(false);
         btnAdministracion3.addActionListener(this::btnAdministracion3ActionPerformed);
         productosPanel.add(btnAdministracion3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
@@ -1807,6 +2019,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProductos3.setForeground(new java.awt.Color(255, 255, 255));
         btnProductos3.setText("Productos");
         btnProductos3.setBorderPainted(false);
+        btnProductos3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos3.setFocusPainted(false);
         btnProductos3.addActionListener(this::btnProductos3ActionPerformed);
         productosPanel.add(btnProductos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
@@ -1815,6 +2028,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProveedores3.setForeground(new java.awt.Color(0, 51, 102));
         btnProveedores3.setText("Proveedores");
         btnProveedores3.setBorderPainted(false);
+        btnProveedores3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProveedores3.setFocusPainted(false);
         productosPanel.add(btnProveedores3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
 
@@ -1822,6 +2036,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnCaja3.setForeground(new java.awt.Color(0, 51, 102));
         btnCaja3.setText("Caja");
         btnCaja3.setBorderPainted(false);
+        btnCaja3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCaja3.setFocusPainted(false);
         productosPanel.add(btnCaja3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
 
@@ -2210,58 +2425,68 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformes2.setText("Informes");
         btnInformes2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnInformes2.setBorderPainted(false);
+        btnInformes2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnCaja2.setBackground(new java.awt.Color(204, 255, 255));
         btnCaja2.setForeground(new java.awt.Color(0, 51, 102));
         btnCaja2.setText("Caja");
         btnCaja2.setBorderPainted(false);
+        btnCaja2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnProveedores2.setBackground(new java.awt.Color(204, 255, 255));
         btnProveedores2.setForeground(new java.awt.Color(0, 51, 102));
         btnProveedores2.setText("Proveedores");
         btnProveedores2.setBorderPainted(false);
+        btnProveedores2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnAdministracion2.setBackground(new java.awt.Color(204, 255, 255));
         btnAdministracion2.setForeground(new java.awt.Color(0, 51, 102));
         btnAdministracion2.setText("Administración");
         btnAdministracion2.setBorderPainted(false);
+        btnAdministracion2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdministracion2.addActionListener(this::btnAdministracion2ActionPerformed);
 
         btnVentas2.setBackground(new java.awt.Color(204, 255, 255));
         btnVentas2.setForeground(new java.awt.Color(0, 51, 102));
         btnVentas2.setText("Ventas");
         btnVentas2.setBorderPainted(false);
+        btnVentas2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVentas2.addActionListener(this::btnVentas2ActionPerformed);
 
         btnEstadisticas2.setBackground(new java.awt.Color(20, 52, 83));
         btnEstadisticas2.setForeground(new java.awt.Color(255, 255, 255));
         btnEstadisticas2.setText("Estadísticas");
         btnEstadisticas2.setBorderPainted(false);
+        btnEstadisticas2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEstadisticas2.addActionListener(this::btnEstadisticas2ActionPerformed);
 
         btnProductos2.setBackground(new java.awt.Color(204, 255, 255));
         btnProductos2.setForeground(new java.awt.Color(0, 51, 102));
         btnProductos2.setText("Productos");
         btnProductos2.setBorderPainted(false);
+        btnProductos2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos2.addActionListener(this::btnProductos2ActionPerformed);
 
         panelContenidoEstadisticas.setBackground(new java.awt.Color(0, 0, 0));
         panelContenidoEstadisticas.setPreferredSize(new java.awt.Dimension(980, 50));
 
-        btnInformeVentas.setBackground(new java.awt.Color(38, 90, 142));
+        btnInformeVentas.setBackground(new java.awt.Color(20, 52, 83));
         btnInformeVentas.setForeground(new java.awt.Color(255, 255, 255));
         btnInformeVentas.setText("Ventas");
         btnInformeVentas.setBorderPainted(false);
+        btnInformeVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInformeVentas.addActionListener(this::btnInformeVentasActionPerformed);
 
         btnInformeClientes.setBackground(new java.awt.Color(20, 52, 83));
         btnInformeClientes.setForeground(new java.awt.Color(255, 255, 255));
         btnInformeClientes.setText("Clientes");
+        btnInformeClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInformeClientes.addActionListener(this::btnInformeClientesActionPerformed);
 
         btnInformeStock.setBackground(new java.awt.Color(20, 52, 83));
         btnInformeStock.setForeground(new java.awt.Color(255, 255, 255));
         btnInformeStock.setText("Stock");
+        btnInformeStock.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInformeStock.addActionListener(this::btnInformeStockActionPerformed);
 
         javax.swing.GroupLayout panelContenidoEstadisticasLayout = new javax.swing.GroupLayout(panelContenidoEstadisticas);
@@ -2793,7 +3018,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                         .addGroup(panelInformeStockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelInformeStockLayout.createSequentialGroup()
                                 .addComponent(lblTituloInformeStock, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(112, 112, 112)
                                 .addComponent(cbTipoReporteStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(btnActualizarInformeStock))
@@ -2803,7 +3028,7 @@ public class PPanelAMP extends javax.swing.JFrame {
                                 .addComponent(btnExportarStockExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(48, 48, 48)
                                 .addComponent(lblDescripcionReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 123, Short.MAX_VALUE)))
+                        .addGap(0, 100, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelInformeStockLayout.setVerticalGroup(
@@ -2827,6 +3052,28 @@ public class PPanelAMP extends javax.swing.JFrame {
                     .addComponent(lblDescripcionReporte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        InicioEstPanel.setBackground(new java.awt.Color(255, 255, 255));
+        InicioEstPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel58.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/estadsiticas-img.jpg"))); // NOI18N
+        InicioEstPanel.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+
+        jLabel61.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
+        jLabel61.setForeground(new java.awt.Color(20, 52, 83));
+        jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel61.setText("ESTADÍSTICAS");
+        InicioEstPanel.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 340, 50));
+
+        jLabel62.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel62.setText("la actividad comercial de tu empresa");
+        InicioEstPanel.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 320, 290, 20));
+
+        jLabel63.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel63.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel63.setText("Consulta los datos actualizados en tiempo real de");
+        InicioEstPanel.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 290, 400, 20));
 
         javax.swing.GroupLayout estadísticaPanelLayout = new javax.swing.GroupLayout(estadísticaPanel);
         estadísticaPanel.setLayout(estadísticaPanelLayout);
@@ -2857,6 +3104,8 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addComponent(panelInformeStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panelInformeClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(InicioEstPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE))
         );
         estadísticaPanelLayout.setVerticalGroup(
             estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2877,12 +3126,17 @@ public class PPanelAMP extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, estadísticaPanelLayout.createSequentialGroup()
-                    .addGap(0, 89, Short.MAX_VALUE)
+                    .addGap(0, 131, Short.MAX_VALUE)
                     .addComponent(panelInformeStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, estadísticaPanelLayout.createSequentialGroup()
                     .addGap(0, 99, Short.MAX_VALUE)
                     .addComponent(panelInformeClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(estadísticaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(estadísticaPanelLayout.createSequentialGroup()
+                    .addGap(99, 99, 99)
+                    .addComponent(InicioEstPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(39, Short.MAX_VALUE)))
         );
 
         getContentPane().add(estadísticaPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 740));
@@ -2894,17 +3148,20 @@ public class PPanelAMP extends javax.swing.JFrame {
     private void iniciarPaneles() {
         ventasPanel.setVisible(false);
         ListaPanel.setVisible(false);
+        administracionPanel.setVisible(false);
         metodoPago.setVisible(false);
         autPers.setVisible(false);
         autEmp.setVisible(true);
         regEmp.setVisible(true);
-        BtnsADM.setVisible(true);
+        BtnsADM.setVisible(false);
         PagosPanel.setVisible(false);
         PagosPanelCampos.setVisible(false);
         PanelCalculo.setVisible(false);
         PanelBotones.setVisible(false);
         estadísticaPanel.setVisible(false);
         productosPanel.setVisible(false);
+
+        InicioPanel.setVisible(true);
         iniciarActualizacionEstadisticas();
     }
     //ADMINISTRACION - REGISTRO CUENTA CORRIENTE
@@ -3180,7 +3437,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnAListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAListasActionPerformed
         cargarTabla();
-
+        InicioAdmPanel.setVisible(false);
         PagosPanel.setVisible(false);
         ListaPanel.setVisible(true);
         btnAListas.setBackground(new Color(30, 90, 142));
@@ -3196,6 +3453,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnAClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAClientesActionPerformed
         cargarTabla();
+        InicioAdmPanel.setVisible(false);
         ListaPanel.setVisible(false);
         verDetallePanel.setVisible(false);
         PagosPanel.setVisible(false);
@@ -3572,7 +3830,8 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnAPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAPagosActionPerformed
         navbarADM.setVisible(true);
-
+        
+        InicioAdmPanel.setVisible(false);
         btnAListas.setBackground(new Color(20, 52, 83));
         btnAClientes.setBackground(new Color(20, 52, 83));
         btnAPagos.setBackground(new Color(30, 90, 142));
@@ -3674,14 +3933,27 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductos1ActionPerformed
 
     private void clickAdministracion() {
+        InicioPanel.setVisible(false);
         metodoPago.setVisible(false);
         productosPanel.setVisible(false);
         ventasPanel.setVisible(false);
         estadísticaPanel.setVisible(false);
         administracionPanel.setVisible(true);
+        InicioAdmPanel.setVisible(true);
+        BtnsADM.setVisible(false);
+        regEmp.setVisible(false);
+        autPers.setVisible(false);
+        autEmp.setVisible(false);
+        ListaPanel.setVisible(false);
+        PagosPanel.setVisible(false);
+        verDetallePanel.setVisible(false);
+        btnAClientes.setBackground(new Color(20, 52, 83));
+        btnAPagos.setBackground(new Color(20, 52, 83));
+        btnAListas.setBackground(new Color(20, 52, 83));
     }
 
     private void clickVentas() {
+        InicioPanel.setVisible(false);
         metodoPago.setVisible(false);
         productosPanel.setVisible(false);
         estadísticaPanel.setVisible(false);
@@ -3690,6 +3962,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     private void clickProductos() {
+        InicioPanel.setVisible(false);
         metodoPago.setVisible(false);
         estadísticaPanel.setVisible(false);
         administracionPanel.setVisible(false);
@@ -3704,6 +3977,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     private void clickEstadisticas() {
+        InicioPanel.setVisible(false);
         metodoPago.setVisible(false);
         administracionPanel.setVisible(false);
         ventasPanel.setVisible(false);
@@ -5405,6 +5679,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelInformePDF.setVisible(true);
         panelInformeClientes.setVisible(false);
         panelInformeStock.setVisible(false);
+        mostrarGraficoMetodosPago();
     }//GEN-LAST:event_btnInformeVentasActionPerformed
 
     private void btnEstadisticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticasActionPerformed
@@ -5891,7 +6166,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdministracion3ActionPerformed
 
     private void btnProductos3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductos3ActionPerformed
-        // TODO add your handling code here:
+        clickProductos();
     }//GEN-LAST:event_btnProductos3ActionPerformed
 
     private void btnInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformesActionPerformed
@@ -6291,27 +6566,28 @@ public class PPanelAMP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbRubroPActionPerformed
 
-    private void actualizarDatosInventario(){
+    private void actualizarDatosInventario() {
         NProducto np = new NProducto();
         int totalProductos = 0;
         int stockTotal = 0;
-        int totalProveedores = 0; 
+        int totalProveedores = 0;
         int stockBajo = 0;
         int sinStock = 0;
         List<Producto> listaProductos = np.listar();
-        for(Producto p : listaProductos){
+        for (Producto p : listaProductos) {
             totalProductos += 1;
             stockTotal += p.getIdStockProducto().getStockAct();
-            if (p.getIdStockProducto().getStockAct() < p.getIdStockProducto().getStockMin() && p.getIdStockProducto().getStockAct() > 0){
+            if (p.getIdStockProducto().getStockAct() < p.getIdStockProducto().getStockMin() && p.getIdStockProducto().getStockAct() > 0) {
                 stockBajo += 1;
             }
-            if (p.getIdStockProducto().getStockAct() == 0){
+            if (p.getIdStockProducto().getStockAct() == 0) {
                 sinStock += 1;
             }
         }
-        NProveedor npr = new NProveedor();
+        try{
+             NProveedor npr = new NProveedor();
         List<Proveedor> listaProveedores = npr.listar();
-        for (Proveedor pr : listaProveedores){
+        for (Proveedor pr : listaProveedores) {
             totalProveedores += 1;
         }
         lblTotalProductosP.setText(String.valueOf(totalProductos));
@@ -6319,6 +6595,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         lblTotalProveedoresP.setText(String.valueOf(totalProveedores));
         btnBajoStockP.setText(String.valueOf(stockBajo));
         btnSinStockP.setText(String.valueOf(sinStock));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
     private void EliminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPActionPerformed
         int fila = tablaProductosP.getSelectedRow();
@@ -6359,6 +6639,26 @@ public class PPanelAMP extends javax.swing.JFrame {
         }
         actualizarDatosInventario();
     }//GEN-LAST:event_EliminarPActionPerformed
+
+    private void btnInformes4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformes4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInformes4ActionPerformed
+
+    private void btnAdministracion4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministracion4ActionPerformed
+        clickAdministracion();
+    }//GEN-LAST:event_btnAdministracion4ActionPerformed
+
+    private void btnVentas4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentas4ActionPerformed
+        clickVentas();
+    }//GEN-LAST:event_btnVentas4ActionPerformed
+
+    private void btnEstadisticas4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadisticas4ActionPerformed
+        clickEstadisticas();
+    }//GEN-LAST:event_btnEstadisticas4ActionPerformed
+
+    private void btnProductos4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductos4ActionPerformed
+        clickProductos();
+    }//GEN-LAST:event_btnProductos4ActionPerformed
 
     private void calcularDescuento() {
         Locale localeAR = new Locale("es", "AR");
@@ -7158,7 +7458,8 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     public JComboBox cargarProveedor(JComboBox cb) {
         cb.removeAllItems();
-        NProveedor np = new NProveedor();
+        try{
+             NProveedor np = new NProveedor();
         List<Proveedor> lista = np.listar();
         lista.sort((p1, p2)
                 -> p1.getNombre().compareToIgnoreCase(p2.getNombre())
@@ -7170,6 +7471,11 @@ public class PPanelAMP extends javax.swing.JFrame {
             cb.setSelectedIndex(0);
         }
         return cb;
+        }
+       catch(Exception e){
+           e.printStackTrace();
+           return cb;
+       }
     }
 
     public JComboBox cargarTipoProducto(JComboBox cb, RubroProducto rubro) {
@@ -7233,6 +7539,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton GVolver;
     private javax.swing.JPanel GestionProdPanel;
     private javax.swing.JPanel IVAPanel;
+    private javax.swing.JPanel InicioAdmPanel;
+    private javax.swing.JPanel InicioEstPanel;
+    private javax.swing.JPanel InicioPanel;
     private javax.swing.JPanel InicioProdPanel;
     private javax.swing.JLabel IvaV;
     private javax.swing.JButton LimpiarFiltroBP;
@@ -7282,16 +7591,19 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnAdministracion1;
     private javax.swing.JButton btnAdministracion2;
     private javax.swing.JButton btnAdministracion3;
+    private javax.swing.JButton btnAdministracion4;
     private javax.swing.JButton btnBajoStockP;
     private javax.swing.JButton btnCaja;
     private javax.swing.JButton btnCaja1;
     private javax.swing.JButton btnCaja2;
     private javax.swing.JButton btnCaja3;
+    private javax.swing.JButton btnCaja4;
     private javax.swing.JButton btnEliminadosP;
     private javax.swing.JButton btnEstadisticas;
     private javax.swing.JButton btnEstadisticas1;
     private javax.swing.JButton btnEstadisticas2;
     private javax.swing.JButton btnEstadisticas3;
+    private javax.swing.JButton btnEstadisticas4;
     private javax.swing.JButton btnExportarInformePDF;
     private javax.swing.JButton btnExportarInformePDF1;
     private javax.swing.JButton btnExportarStockExcel;
@@ -7305,21 +7617,25 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnInformes1;
     private javax.swing.JButton btnInformes2;
     private javax.swing.JButton btnInformes3;
+    private javax.swing.JButton btnInformes4;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnListasP;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnProductos1;
     private javax.swing.JButton btnProductos2;
     private javax.swing.JButton btnProductos3;
+    private javax.swing.JButton btnProductos4;
     private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnProveedores1;
     private javax.swing.JButton btnProveedores2;
     private javax.swing.JButton btnProveedores3;
+    private javax.swing.JButton btnProveedores4;
     private javax.swing.JButton btnSinStockP;
     private javax.swing.JButton btnVentas;
     private javax.swing.JButton btnVentas1;
     private javax.swing.JButton btnVentas2;
     private javax.swing.JButton btnVentas3;
+    private javax.swing.JButton btnVentas4;
     private javax.swing.JPanel btnsGestion;
     private javax.swing.JPanel buscarPanel;
     private javax.swing.JButton cancelarMP1;
@@ -7354,6 +7670,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -7386,13 +7703,19 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
@@ -7403,16 +7726,22 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -7463,11 +7792,13 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel lblimg1;
     private javax.swing.JLabel lblimg2;
     private javax.swing.JLabel lblimg3;
+    private javax.swing.JLabel lblimg4;
     private javax.swing.JPanel listaGestion;
     private javax.swing.JPanel listaPanel;
     private javax.swing.JPanel metodoPago;
     private javax.swing.JPanel metodosPanel;
     private javax.swing.JPanel navbarADM;
+    private javax.swing.JPanel navbarADM1;
     private javax.swing.JPanel navbarVNT;
     private javax.swing.JPanel panelCli;
     private javax.swing.JPanel panelContenidoEstadisticas;
