@@ -5,6 +5,7 @@ import Negocio.NUsuario;
 import javax.swing.JOptionPane;
 import Modelos.Rol;
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 public class PLogin extends javax.swing.JFrame {
 
@@ -12,9 +13,10 @@ public class PLogin extends javax.swing.JFrame {
 
     public PLogin() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/img/ampadmin_icon_64.png")).getImage());
         setLocationRelativeTo(null);
         String[] frases = {
-            "Cada pequeño paso que das hoy te acerca a grandes resultados mañana.",
+            "Cada pequeño paso que das hoy, te acercará a grandes resultados mañana.",
             "Las oportunidades no aparecen por casualidad, se crean con esfuerzo.",
             "El éxito comienza cuando decides intentarlo una vez más.",
             "Aprender algo nuevo cada día es invertir en tu mejor versión.",
@@ -58,6 +60,7 @@ public class PLogin extends javax.swing.JFrame {
         txtFrase = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AMPADMIN");
         setMinimumSize(new java.awt.Dimension(560, 372));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,6 +83,7 @@ public class PLogin extends javax.swing.JFrame {
         btnIngresar.setForeground(new java.awt.Color(13, 49, 82));
         btnIngresar.setText("Ingresar");
         btnIngresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnIngresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnIngresar.addActionListener(this::btnIngresarActionPerformed);
         FormPanel.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 550, 140, 40));
 
