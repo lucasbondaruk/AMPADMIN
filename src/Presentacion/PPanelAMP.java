@@ -104,6 +104,7 @@ import java.util.Comparator;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 
 public class PPanelAMP extends javax.swing.JFrame {
@@ -418,14 +419,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         listaGestion = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaProductosP = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        cbProveedorP1 = new javax.swing.JComboBox<>();
+        txtDescripcionPP = new javax.swing.JTextField();
+        txtCodigoPP = new javax.swing.JTextField();
         cbRubroP1 = new javax.swing.JComboBox<>();
-        cbTipoP1 = new javax.swing.JComboBox<>();
         cbStockP = new javax.swing.JComboBox<>();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
+        btnLimpiarFiltroProducto = new javax.swing.JButton();
+        btnFiltrarProducto = new javax.swing.JButton();
         AccionGestion = new javax.swing.JPanel();
         lblHeaderAgregar = new javax.swing.JLabel();
         lblHeaderAgregar1 = new javax.swing.JLabel();
@@ -2260,25 +2259,17 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         listaGestion.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 930, 310));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        listaGestion.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 170, 40));
+        txtDescripcionPP.setBackground(new java.awt.Color(255, 255, 255));
+        txtDescripcionPP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtDescripcionPP.setForeground(new java.awt.Color(0, 0, 0));
+        txtDescripcionPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        listaGestion.add(txtDescripcionPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 320, 60));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        listaGestion.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 40));
-
-        cbProveedorP1.setBackground(new java.awt.Color(255, 255, 255));
-        cbProveedorP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cbProveedorP1.setForeground(new java.awt.Color(0, 0, 0));
-        cbProveedorP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbProveedorP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        cbProveedorP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listaGestion.add(cbProveedorP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 160, 50));
+        txtCodigoPP.setBackground(new java.awt.Color(255, 255, 255));
+        txtCodigoPP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtCodigoPP.setForeground(new java.awt.Color(0, 0, 0));
+        txtCodigoPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        listaGestion.add(txtCodigoPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 100, 60));
 
         cbRubroP1.setBackground(new java.awt.Color(255, 255, 255));
         cbRubroP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2286,15 +2277,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         cbRubroP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbRubroP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rurbo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
         cbRubroP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listaGestion.add(cbRubroP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 150, 50));
-
-        cbTipoP1.setBackground(new java.awt.Color(255, 255, 255));
-        cbTipoP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cbTipoP1.setForeground(new java.awt.Color(0, 0, 0));
-        cbTipoP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbTipoP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        cbTipoP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listaGestion.add(cbTipoP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, 150, 50));
+        listaGestion.add(cbRubroP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 220, 60));
 
         cbStockP.setBackground(new java.awt.Color(255, 255, 255));
         cbStockP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -2302,17 +2285,19 @@ public class PPanelAMP extends javax.swing.JFrame {
         cbStockP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todo", "Ascendente", "Descendente" }));
         cbStockP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Stock", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
         cbStockP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listaGestion.add(cbStockP, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 100, 50));
+        listaGestion.add(cbStockP, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 20, 170, 60));
 
-        jButton12.setBackground(new java.awt.Color(42, 67, 117));
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rehacer-blanco.png"))); // NOI18N
-        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listaGestion.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 40, 50, 40));
+        btnLimpiarFiltroProducto.setBackground(new java.awt.Color(42, 67, 117));
+        btnLimpiarFiltroProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/rehacer-blanco.png"))); // NOI18N
+        btnLimpiarFiltroProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimpiarFiltroProducto.addActionListener(this::btnLimpiarFiltroProductoActionPerformed);
+        listaGestion.add(btnLimpiarFiltroProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 40, 50, 40));
 
-        jButton13.setBackground(new java.awt.Color(204, 204, 204));
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
-        jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        listaGestion.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 50, 40));
+        btnFiltrarProducto.setBackground(new java.awt.Color(204, 204, 204));
+        btnFiltrarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/buscar.png"))); // NOI18N
+        btnFiltrarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFiltrarProducto.addActionListener(this::btnFiltrarProductoActionPerformed);
+        listaGestion.add(btnFiltrarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 40, 50, 40));
 
         GestionProdPanel.add(listaGestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 950, 420));
 
@@ -4287,7 +4272,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void btnAPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAPagosActionPerformed
         navbarADM.setVisible(true);
-        
+
         InicioAdmPanel.setVisible(false);
         btnAListas.setBackground(new Color(20, 52, 83));
         btnAClientes.setBackground(new Color(20, 52, 83));
@@ -6657,9 +6642,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         RubroProducto rubro = (RubroProducto) cbRubroP1.getSelectedItem();
         if (rubro != null) {
             cargarTipoProducto(cbTipoP, rubro);
-            cargarTipoProducto(cbTipoP1, rubro);
         }
-        cargarProveedor(cbProveedorP1);
     }//GEN-LAST:event_btnGestionarPActionPerformed
 
     private void NuevoPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoPActionPerformed
@@ -7045,19 +7028,18 @@ public class PPanelAMP extends javax.swing.JFrame {
                 sinStock += 1;
             }
         }
-        try{
-             NProveedor npr = new NProveedor();
-        List<Proveedor> listaProveedores = npr.listar();
-        for (Proveedor pr : listaProveedores) {
-            totalProveedores += 1;
-        }
-        lblTotalProductosP.setText(String.valueOf(totalProductos));
-        lblStockTotalP.setText(String.valueOf(stockTotal));
-        lblTotalProveedoresP.setText(String.valueOf(totalProveedores));
-        btnBajoStockP.setText(String.valueOf(stockBajo));
-        btnSinStockP.setText(String.valueOf(sinStock));
-        }
-        catch(Exception e){
+        try {
+            NProveedor npr = new NProveedor();
+            List<Proveedor> listaProveedores = npr.listar();
+            for (Proveedor pr : listaProveedores) {
+                totalProveedores += 1;
+            }
+            lblTotalProductosP.setText(String.valueOf(totalProductos));
+            lblStockTotalP.setText(String.valueOf(stockTotal));
+            lblTotalProveedoresP.setText(String.valueOf(totalProveedores));
+            btnBajoStockP.setText(String.valueOf(stockBajo));
+            btnSinStockP.setText(String.valueOf(sinStock));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -7919,24 +7901,23 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     public JComboBox cargarProveedor(JComboBox cb) {
         cb.removeAllItems();
-        try{
-             NProveedor np = new NProveedor();
-        List<Proveedor> lista = np.listar();
-        lista.sort((p1, p2)
-                -> p1.getNombre().compareToIgnoreCase(p2.getNombre())
-        );
-        for (Proveedor p : lista) {
-            cb.addItem(p);
+        try {
+            NProveedor np = new NProveedor();
+            List<Proveedor> lista = np.listar();
+            lista.sort((p1, p2)
+                    -> p1.getNombre().compareToIgnoreCase(p2.getNombre())
+            );
+            for (Proveedor p : lista) {
+                cb.addItem(p);
+            }
+            if (cb.getItemCount() > 0) {
+                cb.setSelectedIndex(0);
+            }
+            return cb;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return cb;
         }
-        if (cb.getItemCount() > 0) {
-            cb.setSelectedIndex(0);
-        }
-        return cb;
-        }
-       catch(Exception e){
-           e.printStackTrace();
-           return cb;
-       }
     }
 
     public JComboBox cargarTipoProducto(JComboBox cb, RubroProducto rubro) {
@@ -8026,7 +8007,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmarRegistroProveedorActionPerformed
 
     private void cargarTablaProveedores() {
-        formatearTablaProveedores();                
+        formatearTablaProveedores();
         try {
             NProveedor negocioProveedor = new NProveedor();
 
@@ -8044,7 +8025,8 @@ public class PPanelAMP extends javax.swing.JFrame {
             );
         }
     }
-     private void formatearTablaProveedores() {
+
+    private void formatearTablaProveedores() {
         tablaProveedores.setRowSorter(null);
         tablaProveedores.getColumnModel().getColumn(0).setPreferredWidth(200);
         tablaProveedores.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -8069,8 +8051,8 @@ public class PPanelAMP extends javax.swing.JFrame {
 
     private void mostrarProveedoresEnTabla(ArrayList<Proveedor> proveedores) {
 
-        DefaultTableModel modelo =
-                (DefaultTableModel) tablaProveedores.getModel();
+        DefaultTableModel modelo
+                = (DefaultTableModel) tablaProveedores.getModel();
 
         modelo.setRowCount(0);
 
@@ -8148,7 +8130,7 @@ public class PPanelAMP extends javax.swing.JFrame {
             int respuesta = JOptionPane.showConfirmDialog(
                     this,
                     "¿Está seguro de que desea desactivar al proveedor \""
-                            + proveedorAEliminar.getNombre() + "\"?",
+                    + proveedorAEliminar.getNombre() + "\"?",
                     "Confirmar desactivación",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.WARNING_MESSAGE
@@ -8190,8 +8172,8 @@ public class PPanelAMP extends javax.swing.JFrame {
 
             NProveedor negocioProveedor = new NProveedor();
 
-            ArrayList<Proveedor> proveedores =
-                    negocioProveedor.buscar(nombre, rubro, estado);
+            ArrayList<Proveedor> proveedores
+                    = negocioProveedor.buscar(nombre, rubro, estado);
 
             mostrarProveedoresEnTabla(proveedores);
 
@@ -8233,8 +8215,8 @@ public class PPanelAMP extends javax.swing.JFrame {
                 archivo = new File(archivo.getAbsolutePath() + ".xls");
             }
 
-            DefaultTableModel modelo =
-                    (DefaultTableModel) tablaProveedores.getModel();
+            DefaultTableModel modelo
+                    = (DefaultTableModel) tablaProveedores.getModel();
 
             try (PrintWriter pw = new PrintWriter(
                     new OutputStreamWriter(
@@ -8280,13 +8262,13 @@ public class PPanelAMP extends javax.swing.JFrame {
                             columna < modelo.getColumnCount();
                             columna++) {
 
-                        Object valor =
-                                modelo.getValueAt(fila, columna);
+                        Object valor
+                                = modelo.getValueAt(fila, columna);
 
-                        String texto =
-                                valor != null
-                                ? valor.toString()
-                                : "";
+                        String texto
+                                = valor != null
+                                        ? valor.toString()
+                                        : "";
 
                         pw.println(
                                 "<td style='mso-number-format:\"\\@\";'>"
@@ -8505,6 +8487,18 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformesActionPerformed(evt);
     }//GEN-LAST:event_btnInformesProveedoresActionPerformed
 
+    private void btnFiltrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarProductoActionPerformed
+        filtrarProductosP();
+    }//GEN-LAST:event_btnFiltrarProductoActionPerformed
+
+    private void btnLimpiarFiltroProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarFiltroProductoActionPerformed
+        txtCodigoPP.setText("");
+        txtDescripcionPP.setText("");
+        cbRubroP1.setSelectedIndex(0);
+        cbStockP.setSelectedIndex(0);
+        cargarTablaProductosP();
+    }//GEN-LAST:event_btnLimpiarFiltroProductoActionPerformed
+
     private void ocultarProveedores() {
         proveedoresPanel.setVisible(false);
         panelRegistrarProveedor.setVisible(false);
@@ -8528,6 +8522,74 @@ public class PPanelAMP extends javax.swing.JFrame {
         proveedoresPanel.revalidate();
         proveedoresPanel.repaint();
     }
+
+    private void filtrarProductosP() {
+        
+        NProducto np = new NProducto();
+        List<Producto> lista = np.listar();
+
+        String codigo = txtCodigoPP.getText().trim();
+        String descripcion = txtDescripcionPP.getText().trim();
+
+        if (!codigo.isEmpty()) {
+            // 1) Solo código
+            lista = lista.stream()
+                    .filter(p -> String.valueOf(p.getCodigo()).toLowerCase()
+                    .contains(codigo.toLowerCase()))
+                    .collect(Collectors.toList());
+
+        } else if (!descripcion.isEmpty()) {
+            // 2) Solo descripción
+            lista = lista.stream()
+                    .filter(p -> p.getDescripcion() != null
+                    && p.getDescripcion().toLowerCase()
+                            .contains(descripcion.toLowerCase()))
+                    .collect(Collectors.toList());
+
+        } else {
+            // 3) Rubro + Stock (van juntos)
+            RubroProducto rubro = (RubroProducto) cbRubroP1.getSelectedItem();
+            int opcionStock = cbStockP.getSelectedIndex(); // 0=Todo, 1=Ascendente, 2=Descendente
+
+            if (rubro != null) {
+                lista = lista.stream()
+                        .filter(p -> p.getIdRubroProducto() != null
+                        && p.getIdRubroProducto().getIdRubroProducto() == rubro.getIdRubroProducto())
+                        .collect(Collectors.toList());
+            }
+
+            if (opcionStock == 1) {
+                lista.sort(Comparator.comparingInt(this::obtenerStock));
+            } else if (opcionStock == 2) {
+                lista.sort(Comparator.comparingInt(this::obtenerStock).reversed());
+            }
+            // opcionStock == 0 -> no se ordena ni se toma en cuenta el stock
+        }
+
+        cargarTablaProductos(lista);
+    }
+    // Stock actual (con protección por si el producto no tiene StockProducto)
+
+    private int obtenerStock(Producto p) {
+        return p.getIdStockProducto() != null ? p.getIdStockProducto().getStockAct() : 0;
+    }
+    
+    private void cargarTablaProductos(List<Producto> lista) {
+    DefaultTableModel modelo = (DefaultTableModel) tablaProductosP.getModel();
+    modelo.setRowCount(0);
+
+    for (Producto p : lista) {
+        modelo.addRow(new Object[]{
+            p.getCodigo(),
+            p.getDescripcion(),
+            p.getIdRubroProducto() != null ? p.getIdRubroProducto().getDescripcion() : "",
+            p.getIdTipoProducto() != null ? p.getIdTipoProducto().getDescripcion() : "",
+            obtenerStock(p),
+            p.getPrecioUnitario(),
+            p.getIdProveedor() != null ? p.getIdProveedor().getNombre() : ""
+        });
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AGAceptar;
@@ -8633,6 +8695,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarStockExcel;
     private javax.swing.JButton btnExportarStockPdf;
     private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnFiltrarProducto;
     private javax.swing.JButton btnGestionarP;
     private javax.swing.JButton btnGuardarModificacionProveedor;
     private javax.swing.JButton btnInformeClientes;
@@ -8645,6 +8708,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnInformes4;
     private javax.swing.JButton btnInformesProveedores;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnLimpiarFiltroProducto;
     private javax.swing.JButton btnLimpiarFiltrosProveedor;
     private javax.swing.JButton btnListasP;
     private javax.swing.JButton btnModificarProveedor;
@@ -8681,14 +8745,12 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JComboBox<MetodoPago> cbMpVentas;
     private javax.swing.JComboBox<String> cbNombre;
     private javax.swing.JComboBox<Proveedor> cbProveedorP;
-    private javax.swing.JComboBox<String> cbProveedorP1;
     private javax.swing.JComboBox<RubroProducto> cbRubroP;
     private javax.swing.JComboBox<String> cbRubroP1;
     private javax.swing.JComboBox<RubroProducto> cbRubroV;
     private javax.swing.JComboBox<String> cbStockP;
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JComboBox<TipoProducto> cbTipoP;
-    private javax.swing.JComboBox<String> cbTipoP1;
     private javax.swing.JComboBox<String> cbTipoReporteStock;
     private javax.swing.JComboBox<TipoProducto> cbTipoV;
     private com.toedter.calendar.JDateChooser date;
@@ -8702,8 +8764,6 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel iconmp324;
     private javax.swing.JPanel ingresosPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -8795,8 +8855,6 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel labelFact;
     private javax.swing.JLabel lblCC;
     private javax.swing.JLabel lblCantClientes;
@@ -8881,6 +8939,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtCantV;
     private javax.swing.JTextField txtCodP;
     private javax.swing.JTextField txtCodV;
+    private javax.swing.JTextField txtCodigoPP;
     private javax.swing.JTextField txtComprasTotales;
     private javax.swing.JTextField txtCuil;
     private javax.swing.JTextField txtCuit;
@@ -8896,6 +8955,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescBP;
     private javax.swing.JTextArea txtDescP;
     private javax.swing.JTextField txtDescV;
+    private javax.swing.JTextField txtDescripcionPP;
     private javax.swing.JTextField txtDireccionModificarProveedor;
     private javax.swing.JTextField txtDireccionProveedor;
     private javax.swing.JTextField txtDom;
