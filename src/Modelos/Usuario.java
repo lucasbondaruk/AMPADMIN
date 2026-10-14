@@ -9,12 +9,12 @@ public class Usuario {
     private String telefono;
     private String domicilio;
     private String mail;
-    private int idRol;
+    private Rol idRol;
 
     public Usuario() {
     }
 
-    public Usuario(String usuario, String contrasenia, String estado, String telefono, String domicilio, String mail, int idRol) {
+    public Usuario(String usuario, String contrasenia, String estado, String telefono, String domicilio, String mail, Rol idRol) {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
         this.estado = estado;
@@ -80,12 +80,17 @@ public class Usuario {
         this.mail = mail;
     }
 
-    public int getIdRol() {
+    public Rol getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(int idRol) {
+    public void setIdRol(Rol idRol) {
         this.idRol = idRol;
     }
-    
+
+    @Override
+    public String toString() {
+        return usuario;
+    }
+
 }

@@ -67,6 +67,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import Datos.DEstadistica;
 import Datos.DStockProducto;
+import Modelos.MNegocio;
 import Modelos.Proveedor;
 import Modelos.StockProducto;
 import Negocio.NOferta;
@@ -108,6 +109,11 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
+import Modelos.Rol;
+import Negocio.NNegocio;
+import Negocio.NRol;
+import Negocio.NUsuario;
+import javax.swing.ListSelectionModel;
 
 public class PPanelAMP extends javax.swing.JFrame {
 
@@ -118,6 +124,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     DecimalFormat df = new DecimalFormat("#,##0.00");
     private Usuario usuarioLogueado;
     private Cliente clienteVenta;
+    private List<Usuario> listaUsuarios = new ArrayList<>();
+    private int idSeleccionadoUsuario = 0;
     private float totalVenta = 0;
     private float descuentoTotal = 0;
     private float subtotalVenta = 0;
@@ -140,6 +148,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private java.util.List<Modelos.MetodoPago> listaMetodosPagoGlobal;
     private java.util.Date fechaVentaOriginal;
     private Proveedor proveedorSeleccionado;
+    private MNegocio n;
 
     public PPanelAMP(Usuario usuarioLogueado) {
         initComponents();
@@ -179,7 +188,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         BuscarProdBPDesc = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         InicioPanel = new javax.swing.JPanel();
-        navbarADM1 = new javax.swing.JPanel();
+        navbarADMInicio = new javax.swing.JPanel();
         lblimg4 = new javax.swing.JLabel();
         btnInformes = new javax.swing.JButton();
         btnCaja4 = new javax.swing.JButton();
@@ -188,11 +197,44 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnVentas4 = new javax.swing.JButton();
         btnEstadisticas4 = new javax.swing.JButton();
         btnProductos4 = new javax.swing.JButton();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        barritaEncabezado = new javax.swing.JPanel();
+        PanelInicioPresentacion = new javax.swing.JPanel();
+        imgAmp1 = new javax.swing.JLabel();
+        LeyendaAMPinicio = new javax.swing.JLabel();
+        AmpLogo2 = new javax.swing.JLabel();
+        btnConfiguracion = new javax.swing.JButton();
+        PanelConfiguracion = new javax.swing.JPanel();
+        PanelConfigSeleccion = new javax.swing.JPanel();
+        btnAccesos = new javax.swing.JButton();
+        btnMiNegocio = new javax.swing.JButton();
+        btnPersonal = new javax.swing.JButton();
+        btnRoles = new javax.swing.JButton();
+        btnVolverAInicio = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        PanelConfigMiNegocio = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtTelEmpresa = new javax.swing.JTextField();
+        txtNomEmpresa = new javax.swing.JTextField();
+        txtDomEmpresa = new javax.swing.JTextField();
+        txtProvEmpresa = new javax.swing.JTextField();
+        btnGuardarEmpresa = new javax.swing.JButton();
+        btnVolverASeleccionC = new javax.swing.JButton();
+        PanelConfigPersonal = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        btnVolverASeleccionC1 = new javax.swing.JButton();
+        DatosEmpleado = new javax.swing.JPanel();
+        txtNomUsuario = new javax.swing.JTextField();
+        txtTelUsuario = new javax.swing.JTextField();
+        txtDomUsuario = new javax.swing.JTextField();
+        txtMailUsuario = new javax.swing.JTextField();
+        cbRolesPersonal = new javax.swing.JComboBox<>();
+        btnGuardarUsuario = new javax.swing.JButton();
+        btnModificarUsuario = new javax.swing.JButton();
+        txtClaveUsuario = new javax.swing.JPasswordField();
+        HistorialEmpleados = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tablaMiPersonal = new javax.swing.JTable();
+        btnEliminarPersonal = new javax.swing.JButton();
         administracionPanel = new javax.swing.JPanel();
         navbarADM = new javax.swing.JPanel();
         lblimg = new javax.swing.JLabel();
@@ -688,11 +730,17 @@ public class PPanelAMP extends javax.swing.JFrame {
         InicioPanel.setBackground(new java.awt.Color(255, 255, 255));
         InicioPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        navbarADM1.setBackground(new java.awt.Color(225, 250, 255));
-        navbarADM1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        navbarADMInicio.setBackground(new java.awt.Color(225, 250, 255));
+        navbarADMInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblimg4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
-        navbarADM1.add(lblimg4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        lblimg4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblimg4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblimg4MouseClicked(evt);
+            }
+        });
+        navbarADMInicio.add(lblimg4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         btnInformes.setBackground(new java.awt.Color(204, 255, 255));
         btnInformes.setForeground(new java.awt.Color(0, 51, 102));
@@ -702,7 +750,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnInformes.setContentAreaFilled(false);
         btnInformes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInformes.addActionListener(this::btnInformes4ActionPerformed);
-        navbarADM1.add(btnInformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
+        navbarADMInicio.add(btnInformes, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 0, 90, 50));
 
         btnCaja4.setBackground(new java.awt.Color(204, 255, 255));
         btnCaja4.setForeground(new java.awt.Color(0, 51, 102));
@@ -710,7 +758,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnCaja4.setBorderPainted(false);
         btnCaja4.setContentAreaFilled(false);
         btnCaja4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        navbarADM1.add(btnCaja4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
+        navbarADMInicio.add(btnCaja4, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, 100, 50));
 
         btnProveedores4.setBackground(new java.awt.Color(204, 255, 255));
         btnProveedores4.setForeground(new java.awt.Color(0, 51, 102));
@@ -719,7 +767,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProveedores4.setContentAreaFilled(false);
         btnProveedores4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProveedores4.addActionListener(this::btnProveedores4ActionPerformed);
-        navbarADM1.add(btnProveedores4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
+        navbarADMInicio.add(btnProveedores4, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 120, 50));
 
         btnAdministracion4.setBackground(new java.awt.Color(204, 255, 255));
         btnAdministracion4.setForeground(new java.awt.Color(0, 51, 102));
@@ -728,7 +776,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAdministracion4.setContentAreaFilled(false);
         btnAdministracion4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdministracion4.addActionListener(this::btnAdministracion4ActionPerformed);
-        navbarADM1.add(btnAdministracion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
+        navbarADMInicio.add(btnAdministracion4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 120, 50));
 
         btnVentas4.setBackground(new java.awt.Color(204, 255, 255));
         btnVentas4.setForeground(new java.awt.Color(0, 51, 102));
@@ -737,7 +785,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnVentas4.setContentAreaFilled(false);
         btnVentas4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVentas4.addActionListener(this::btnVentas4ActionPerformed);
-        navbarADM1.add(btnVentas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
+        navbarADMInicio.add(btnVentas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 90, 50));
 
         btnEstadisticas4.setBackground(new java.awt.Color(204, 255, 255));
         btnEstadisticas4.setForeground(new java.awt.Color(0, 51, 102));
@@ -746,7 +794,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnEstadisticas4.setContentAreaFilled(false);
         btnEstadisticas4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEstadisticas4.addActionListener(this::btnEstadisticas4ActionPerformed);
-        navbarADM1.add(btnEstadisticas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
+        navbarADMInicio.add(btnEstadisticas4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 120, 50));
 
         btnProductos4.setBackground(new java.awt.Color(204, 255, 255));
         btnProductos4.setForeground(new java.awt.Color(0, 51, 102));
@@ -755,47 +803,338 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnProductos4.setContentAreaFilled(false);
         btnProductos4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProductos4.addActionListener(this::btnProductos4ActionPerformed);
-        navbarADM1.add(btnProductos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
+        navbarADMInicio.add(btnProductos4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 100, 50));
 
-        InicioPanel.add(navbarADM1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, -1));
+        InicioPanel.add(navbarADMInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, -1));
 
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inicio-img.jpg"))); // NOI18N
-        InicioPanel.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 540, 380));
+        barritaEncabezado.setBackground(new java.awt.Color(11, 55, 86));
 
-        jLabel36.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(1, 31, 51));
-        jLabel36.setText("Tu software de gestión comercial");
-        InicioPanel.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, -1, -1));
-
-        jPanel13.setBackground(new java.awt.Color(11, 55, 86));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout barritaEncabezadoLayout = new javax.swing.GroupLayout(barritaEncabezado);
+        barritaEncabezado.setLayout(barritaEncabezadoLayout);
+        barritaEncabezadoLayout.setHorizontalGroup(
+            barritaEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 980, Short.MAX_VALUE)
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        barritaEncabezadoLayout.setVerticalGroup(
+            barritaEncabezadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 10, Short.MAX_VALUE)
         );
 
-        InicioPanel.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 10));
+        InicioPanel.add(barritaEncabezado, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 10));
 
-        jLabel39.setFont(new java.awt.Font("Georgia", 0, 70)); // NOI18N
-        jLabel39.setText("AMPADMIN");
-        InicioPanel.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
+        PanelInicioPresentacion.setBackground(new java.awt.Color(255, 255, 255));
+        PanelInicioPresentacion.setMaximumSize(new java.awt.Dimension(980, 680));
+        PanelInicioPresentacion.setMinimumSize(new java.awt.Dimension(980, 680));
+        PanelInicioPresentacion.setPreferredSize(new java.awt.Dimension(980, 680));
+        PanelInicioPresentacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(51, 51, 51));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
-        jButton2.setText("Configuración");
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        InicioPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, -1, -1));
+        imgAmp1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/inicio-img.jpg"))); // NOI18N
+        PanelInicioPresentacion.add(imgAmp1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 540, 380));
+
+        LeyendaAMPinicio.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
+        LeyendaAMPinicio.setForeground(new java.awt.Color(1, 31, 51));
+        LeyendaAMPinicio.setText("Tu software de gestión comercial");
+        PanelInicioPresentacion.add(LeyendaAMPinicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 350, -1, -1));
+
+        AmpLogo2.setBackground(new java.awt.Color(255, 255, 255));
+        AmpLogo2.setFont(new java.awt.Font("Georgia", 0, 70)); // NOI18N
+        AmpLogo2.setForeground(new java.awt.Color(0, 0, 0));
+        AmpLogo2.setText("AMPADMIN");
+        PanelInicioPresentacion.add(AmpLogo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, -1));
+
+        btnConfiguracion.setBackground(new java.awt.Color(204, 204, 204));
+        btnConfiguracion.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        btnConfiguracion.setForeground(new java.awt.Color(0, 0, 76));
+        btnConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
+        btnConfiguracion.setText("Configuración");
+        btnConfiguracion.setBorder(null);
+        btnConfiguracion.setBorderPainted(false);
+        btnConfiguracion.setContentAreaFilled(false);
+        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConfiguracion.addActionListener(this::btnConfiguracionActionPerformed);
+        PanelInicioPresentacion.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 640, -1, -1));
+
+        InicioPanel.add(PanelInicioPresentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 980, 680));
+
+        PanelConfiguracion.setBackground(new java.awt.Color(255, 255, 255));
+        PanelConfiguracion.setForeground(new java.awt.Color(255, 255, 255));
+        PanelConfiguracion.setMaximumSize(new java.awt.Dimension(980, 690));
+        PanelConfiguracion.setMinimumSize(new java.awt.Dimension(980, 690));
+        PanelConfiguracion.setPreferredSize(new java.awt.Dimension(980, 690));
+        PanelConfiguracion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelConfigSeleccion.setBackground(new java.awt.Color(255, 255, 255));
+        PanelConfigSeleccion.setMaximumSize(new java.awt.Dimension(980, 690));
+        PanelConfigSeleccion.setMinimumSize(new java.awt.Dimension(980, 690));
+        PanelConfigSeleccion.setPreferredSize(new java.awt.Dimension(980, 690));
+        PanelConfigSeleccion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnAccesos.setBackground(new java.awt.Color(255, 255, 255));
+        btnAccesos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnAccesos.setForeground(new java.awt.Color(0, 0, 0));
+        btnAccesos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/accesos.png"))); // NOI18N
+        btnAccesos.setText("ACCESOS");
+        btnAccesos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(37, 75, 143), new java.awt.Color(37, 75, 143)));
+        btnAccesos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAccesos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAccesos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        PanelConfigSeleccion.add(btnAccesos, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 340, 400, 250));
+
+        btnMiNegocio.setBackground(new java.awt.Color(255, 255, 255));
+        btnMiNegocio.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnMiNegocio.setForeground(new java.awt.Color(0, 0, 0));
+        btnMiNegocio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/empresa.png"))); // NOI18N
+        btnMiNegocio.setText("MI NEGOCIO");
+        btnMiNegocio.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(37, 75, 143), new java.awt.Color(37, 75, 143)));
+        btnMiNegocio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMiNegocio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMiNegocio.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMiNegocio.addActionListener(this::btnMiNegocioActionPerformed);
+        PanelConfigSeleccion.add(btnMiNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 400, 250));
+
+        btnPersonal.setBackground(new java.awt.Color(255, 255, 255));
+        btnPersonal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnPersonal.setForeground(new java.awt.Color(0, 0, 0));
+        btnPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/personas.png"))); // NOI18N
+        btnPersonal.setText("PERSONAL");
+        btnPersonal.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(37, 75, 143), new java.awt.Color(37, 75, 143)));
+        btnPersonal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPersonal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPersonal.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPersonal.addActionListener(this::btnPersonalActionPerformed);
+        PanelConfigSeleccion.add(btnPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 400, 250));
+
+        btnRoles.setBackground(new java.awt.Color(255, 255, 255));
+        btnRoles.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnRoles.setForeground(new java.awt.Color(0, 0, 0));
+        btnRoles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/roles.png"))); // NOI18N
+        btnRoles.setText("ROLES");
+        btnRoles.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(37, 75, 143), new java.awt.Color(37, 75, 143)));
+        btnRoles.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRoles.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRoles.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        PanelConfigSeleccion.add(btnRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 400, 250));
+
+        btnVolverAInicio.setBackground(new java.awt.Color(117, 41, 27));
+        btnVolverAInicio.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnVolverAInicio.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverAInicio.setText("Volver");
+        btnVolverAInicio.setBorderPainted(false);
+        btnVolverAInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolverAInicio.setFocusPainted(false);
+        btnVolverAInicio.addActionListener(this::btnVolverAInicioActionPerformed);
+        PanelConfigSeleccion.add(btnVolverAInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 610, 120, 40));
+
+        jLabel10.setBackground(new java.awt.Color(11, 55, 86));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("SELECCIONE UNA OPCIÓN");
+        jLabel10.setToolTipText("");
+        jLabel10.setOpaque(true);
+        PanelConfigSeleccion.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 50));
+
+        PanelConfiguracion.add(PanelConfigSeleccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 690));
+
+        PanelConfigMiNegocio.setBackground(new java.awt.Color(236, 255, 253));
+        PanelConfigMiNegocio.setMaximumSize(new java.awt.Dimension(980, 690));
+        PanelConfigMiNegocio.setMinimumSize(new java.awt.Dimension(980, 690));
+        PanelConfigMiNegocio.setPreferredSize(new java.awt.Dimension(980, 690));
+        PanelConfigMiNegocio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setBackground(new java.awt.Color(11, 55, 86));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("MI NEGOCIO");
+        jLabel1.setToolTipText("");
+        jLabel1.setOpaque(true);
+        PanelConfigMiNegocio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 50));
+
+        txtTelEmpresa.setBackground(new java.awt.Color(255, 255, 255));
+        txtTelEmpresa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtTelEmpresa.setForeground(new java.awt.Color(0, 102, 153));
+        txtTelEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTelEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Teléfono:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        PanelConfigMiNegocio.add(txtTelEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, 860, 80));
+
+        txtNomEmpresa.setBackground(new java.awt.Color(255, 255, 255));
+        txtNomEmpresa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtNomEmpresa.setForeground(new java.awt.Color(0, 102, 153));
+        txtNomEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNomEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Nombre/Razón Social: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        PanelConfigMiNegocio.add(txtNomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 860, 80));
+
+        txtDomEmpresa.setBackground(new java.awt.Color(255, 255, 255));
+        txtDomEmpresa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtDomEmpresa.setForeground(new java.awt.Color(0, 102, 153));
+        txtDomEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDomEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Domicilio: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        PanelConfigMiNegocio.add(txtDomEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 860, 80));
+
+        txtProvEmpresa.setBackground(new java.awt.Color(255, 255, 255));
+        txtProvEmpresa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtProvEmpresa.setForeground(new java.awt.Color(0, 102, 153));
+        txtProvEmpresa.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProvEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Provincia:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 24), new java.awt.Color(0, 0, 0))); // NOI18N
+        PanelConfigMiNegocio.add(txtProvEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 340, 860, 80));
+
+        btnGuardarEmpresa.setBackground(new java.awt.Color(32, 143, 61));
+        btnGuardarEmpresa.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnGuardarEmpresa.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarEmpresa.setText("Guardar");
+        btnGuardarEmpresa.setBorderPainted(false);
+        btnGuardarEmpresa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarEmpresa.setFocusPainted(false);
+        btnGuardarEmpresa.addActionListener(this::btnGuardarEmpresaActionPerformed);
+        PanelConfigMiNegocio.add(btnGuardarEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 600, 120, 40));
+
+        btnVolverASeleccionC.setBackground(new java.awt.Color(117, 41, 27));
+        btnVolverASeleccionC.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnVolverASeleccionC.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverASeleccionC.setText("Volver");
+        btnVolverASeleccionC.setBorderPainted(false);
+        btnVolverASeleccionC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolverASeleccionC.setFocusPainted(false);
+        btnVolverASeleccionC.addActionListener(this::btnVolverASeleccionCActionPerformed);
+        PanelConfigMiNegocio.add(btnVolverASeleccionC, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 613, 120, 40));
+
+        PanelConfiguracion.add(PanelConfigMiNegocio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 690));
+
+        PanelConfigPersonal.setBackground(new java.awt.Color(236, 255, 253));
+        PanelConfigPersonal.setMaximumSize(new java.awt.Dimension(980, 690));
+        PanelConfigPersonal.setMinimumSize(new java.awt.Dimension(980, 690));
+        PanelConfigPersonal.setPreferredSize(new java.awt.Dimension(980, 690));
+        PanelConfigPersonal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setBackground(new java.awt.Color(11, 55, 86));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("PERSONAL");
+        jLabel6.setToolTipText("");
+        jLabel6.setOpaque(true);
+        PanelConfigPersonal.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 50));
+
+        btnVolverASeleccionC1.setBackground(new java.awt.Color(117, 41, 27));
+        btnVolverASeleccionC1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnVolverASeleccionC1.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverASeleccionC1.setText("Volver");
+        btnVolverASeleccionC1.setBorderPainted(false);
+        btnVolverASeleccionC1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolverASeleccionC1.setFocusPainted(false);
+        btnVolverASeleccionC1.addActionListener(this::btnVolverASeleccionC1ActionPerformed);
+        PanelConfigPersonal.add(btnVolverASeleccionC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 613, 120, 40));
+
+        DatosEmpleado.setBackground(new java.awt.Color(255, 255, 255));
+        DatosEmpleado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.darkGray, java.awt.Color.darkGray), "DATOS DE LA PERSONA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtNomUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtNomUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNomUsuario.setForeground(new java.awt.Color(0, 102, 153));
+        txtNomUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNomUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.add(txtNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 500, 60));
+
+        txtTelUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtTelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtTelUsuario.setForeground(new java.awt.Color(0, 102, 153));
+        txtTelUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTelUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Teléfono:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.add(txtTelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 500, 60));
+
+        txtDomUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtDomUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtDomUsuario.setForeground(new java.awt.Color(0, 102, 153));
+        txtDomUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDomUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Domicilio:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.add(txtDomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 500, 60));
+
+        txtMailUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtMailUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtMailUsuario.setForeground(new java.awt.Color(0, 102, 153));
+        txtMailUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtMailUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Mail:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.add(txtMailUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 500, 60));
+
+        cbRolesPersonal.setBackground(new java.awt.Color(255, 255, 255));
+        cbRolesPersonal.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cbRolesPersonal.setForeground(new java.awt.Color(0, 102, 153));
+        cbRolesPersonal.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Rol: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.add(cbRolesPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 500, 60));
+
+        btnGuardarUsuario.setBackground(new java.awt.Color(32, 143, 61));
+        btnGuardarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnGuardarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-agregar.png"))); // NOI18N
+        btnGuardarUsuario.setText("Agregar");
+        btnGuardarUsuario.setBorderPainted(false);
+        btnGuardarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarUsuario.setFocusPainted(false);
+        btnGuardarUsuario.addActionListener(this::btnGuardarUsuarioActionPerformed);
+        DatosEmpleado.add(btnGuardarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 465, 130, 40));
+
+        btnModificarUsuario.setBackground(new java.awt.Color(153, 153, 153));
+        btnModificarUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnModificarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-modificar.png"))); // NOI18N
+        btnModificarUsuario.setText("Modificar");
+        btnModificarUsuario.setBorderPainted(false);
+        btnModificarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarUsuario.setFocusPainted(false);
+        btnModificarUsuario.addActionListener(this::btnModificarUsuarioActionPerformed);
+        DatosEmpleado.add(btnModificarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 465, 130, 40));
+
+        txtClaveUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtClaveUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtClaveUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClaveUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.darkGray), "Clave de acceso: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 16), new java.awt.Color(0, 0, 0))); // NOI18N
+        DatosEmpleado.add(txtClaveUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 500, -1));
+
+        PanelConfigPersonal.add(DatosEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 540, 520));
+
+        HistorialEmpleados.setBackground(new java.awt.Color(255, 255, 255));
+        HistorialEmpleados.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.darkGray, java.awt.Color.darkGray), "MI PERSONAL", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        HistorialEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tablaMiPersonal.setBackground(new java.awt.Color(255, 255, 255));
+        tablaMiPersonal.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Nombre", "Rol"
+            }
+        ));
+        tablaMiPersonal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMiPersonalMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tablaMiPersonal);
+
+        HistorialEmpleados.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 37, 280, 410));
+
+        btnEliminarPersonal.setBackground(new java.awt.Color(255, 102, 102));
+        btnEliminarPersonal.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnEliminarPersonal.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarPersonal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/btn-eliminar.png"))); // NOI18N
+        btnEliminarPersonal.setText("Borrar");
+        btnEliminarPersonal.setBorderPainted(false);
+        btnEliminarPersonal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarPersonal.setFocusPainted(false);
+        btnEliminarPersonal.addActionListener(this::btnEliminarPersonalActionPerformed);
+        HistorialEmpleados.add(btnEliminarPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 465, 130, 40));
+
+        PanelConfigPersonal.add(HistorialEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 310, 520));
+
+        PanelConfiguracion.add(PanelConfigPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 690));
+
+        InicioPanel.add(PanelConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 690));
 
         getContentPane().add(InicioPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 740));
 
@@ -808,6 +1147,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         navbarADM.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblimg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
+        lblimg.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblimg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblimgMouseClicked(evt);
+            }
+        });
         navbarADM.add(lblimg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         btnInformes4.setBackground(new java.awt.Color(204, 255, 255));
@@ -1422,6 +1767,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         navbarVNT.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblimg1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
+        lblimg1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblimg1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblimg1MouseClicked(evt);
+            }
+        });
         navbarVNT.add(lblimg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         btnInformes1.setBackground(new java.awt.Color(204, 255, 255));
@@ -1948,6 +2299,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         productosPanel.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 980, 50));
 
         lblimg3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
+        lblimg3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblimg3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblimg3MouseClicked(evt);
+            }
+        });
         productosPanel.add(lblimg3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         btnInformes3.setBackground(new java.awt.Color(225, 250, 255));
@@ -2535,6 +2892,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         estadísticaPanel.setMinimumSize(new java.awt.Dimension(980, 740));
 
         lblimg2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
+        lblimg2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblimg2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblimg2MouseClicked(evt);
+            }
+        });
 
         btnInformes2.setBackground(new java.awt.Color(204, 255, 255));
         btnInformes2.setForeground(new java.awt.Color(0, 51, 102));
@@ -3261,6 +3624,12 @@ public class PPanelAMP extends javax.swing.JFrame {
         proveedoresPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblImgProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/NAVBAR.png"))); // NOI18N
+        lblImgProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImgProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblImgProveedoresMouseClicked(evt);
+            }
+        });
         proveedoresPanel.add(lblImgProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         btnInformesProveedores.setBackground(new java.awt.Color(204, 255, 255));
@@ -3673,9 +4042,10 @@ public class PPanelAMP extends javax.swing.JFrame {
         estadísticaPanel.setVisible(false);
         productosPanel.setVisible(false);
 
-        InicioPanel.setVisible(true);
+        clickLogoAMP();
         iniciarActualizacionEstadisticas();
     }
+
     private void inicializarPaneles() {
 // 1. Cargar Combo de Productos para Ofertas
         cbProductoOferta.setModel(nOferta.cargarComboProductos());
@@ -3702,7 +4072,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         tblPromo.getTableHeader().setReorderingAllowed(false);
         tblOferta.getTableHeader().setReorderingAllowed(false);
     }
-    
+
     //ADMINISTRACION - REGISTRO CUENTA CORRIENTE
 
     private void btnAEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAEmpresaActionPerformed
@@ -4495,6 +4865,18 @@ public class PPanelAMP extends javax.swing.JFrame {
         NAVPAGOS.setVisible(false);
     }
 
+    private void clickLogoAMP() {
+        administracionPanel.setVisible(false);
+        ventasPanel.setVisible(false);
+        metodoPago.setVisible(false);
+        productosPanel.setVisible(false);
+        estadísticaPanel.setVisible(false);
+        proveedoresPanel.setVisible(false);
+        InicioPanel.setVisible(true);
+        PanelInicioPresentacion.setVisible(true);
+        PanelConfiguracion.setVisible(false);
+    }
+
     private void clickEstadisticas() {
         ocultarProveedores();
         InicioPanel.setVisible(false);
@@ -4719,9 +5101,10 @@ public class PPanelAMP extends javax.swing.JFrame {
             celdaDatos.setVerticalAlignment(Element.ALIGN_MIDDLE);
             celdaDatos.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
-            Paragraph direccion = new Paragraph("Formosa - España 317", subtituloFont);
+            n = NNegocio.getNegocioActual();
+            Paragraph direccion = new Paragraph(n.getProvinciaNegocio() + " - " + n.getDomicilioNegocio(), subtituloFont);
             direccion.setAlignment(Element.ALIGN_RIGHT);
-            Paragraph telefono = new Paragraph("Tel: 3704-384028", subtituloFont);
+            Paragraph telefono = new Paragraph("Tel: " + n.getTelefonoNegocio(), subtituloFont);
             telefono.setAlignment(Element.ALIGN_RIGHT);
 
             celdaDatos.addElement(direccion);
@@ -6704,8 +7087,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         clickListasP();
     }//GEN-LAST:event_btnListasPActionPerformed
 
-    private void clickListasP(){
-       InicioProdPanel.setVisible(false);
+    private void clickListasP() {
+        InicioProdPanel.setVisible(false);
         AccionGestion.setVisible(false);
         GestionProdPanel.setVisible(false);
         NAVPAGOS.setVisible(true);
@@ -8618,8 +9001,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPromocionActionPerformed
 
-     private NPromocion nPromocion = new NPromocion();
-     private NOferta nOferta = new NOferta();
+    private NPromocion nPromocion = new NPromocion();
+    private NOferta nOferta = new NOferta();
 
     private void btGuardarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarPromoActionPerformed
         // 1. Validar campos requeridos
@@ -8946,6 +9329,247 @@ public class PPanelAMP extends javax.swing.JFrame {
         cargarTablaProductosP();
     }//GEN-LAST:event_btnLimpiarFiltroProductoActionPerformed
 
+    private void lblimg4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblimg4MouseClicked
+        clickLogoAMP();
+    }//GEN-LAST:event_lblimg4MouseClicked
+
+    private void lblimgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblimgMouseClicked
+        clickLogoAMP();
+    }//GEN-LAST:event_lblimgMouseClicked
+
+    private void lblimg1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblimg1MouseClicked
+        clickLogoAMP();
+    }//GEN-LAST:event_lblimg1MouseClicked
+
+    private void lblimg3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblimg3MouseClicked
+        clickLogoAMP();
+    }//GEN-LAST:event_lblimg3MouseClicked
+
+    private void lblimg2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblimg2MouseClicked
+        clickLogoAMP();
+    }//GEN-LAST:event_lblimg2MouseClicked
+
+    private void lblImgProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImgProveedoresMouseClicked
+        clickLogoAMP();
+    }//GEN-LAST:event_lblImgProveedoresMouseClicked
+
+    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
+        PanelInicioPresentacion.setVisible(false);
+        PanelConfiguracion.setVisible(true);
+        PanelConfigSeleccion.setVisible(true);
+        PanelConfigMiNegocio.setVisible(false);
+        PanelConfigPersonal.setVisible(false);
+    }//GEN-LAST:event_btnConfiguracionActionPerformed
+
+    private void btnVolverAInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAInicioActionPerformed
+        PanelInicioPresentacion.setVisible(true);
+        barritaEncabezado.setVisible(true);
+        PanelConfiguracion.setVisible(false);
+    }//GEN-LAST:event_btnVolverAInicioActionPerformed
+
+    private void btnVolverASeleccionCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverASeleccionCActionPerformed
+        PanelConfigSeleccion.setVisible(true);
+        PanelConfigMiNegocio.setVisible(false);
+    }//GEN-LAST:event_btnVolverASeleccionCActionPerformed
+
+    private void btnVolverASeleccionC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverASeleccionC1ActionPerformed
+        PanelConfigSeleccion.setVisible(true);
+        PanelConfigPersonal.setVisible(false);
+    }//GEN-LAST:event_btnVolverASeleccionC1ActionPerformed
+
+    private void btnMiNegocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiNegocioActionPerformed
+        PanelConfigSeleccion.setVisible(false);
+        PanelConfigMiNegocio.setVisible(true);
+        barritaEncabezado.setVisible(false);
+        n = NNegocio.getNegocioActual();
+        if (n != null) {
+            txtNomEmpresa.setText(n.getNombreNegocio());
+            txtDomEmpresa.setText(n.getDomicilioNegocio());
+            txtProvEmpresa.setText(n.getProvinciaNegocio());
+            txtTelEmpresa.setText(n.getTelefonoNegocio());
+        }
+    }//GEN-LAST:event_btnMiNegocioActionPerformed
+
+    private void btnPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonalActionPerformed
+        PanelConfigSeleccion.setVisible(false);
+        PanelConfigPersonal.setVisible(true);
+        barritaEncabezado.setVisible(false);
+        cargarRolesPersonal();
+        cargarTablaPersonal();
+        limpiarCamposPersonal();
+
+    }//GEN-LAST:event_btnPersonalActionPerformed
+
+    private void cargarTablaPersonal() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[]{"Nombre", "Rol"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        try {
+            listaUsuarios.clear();
+            for (Usuario u : new NUsuario().listar()) {
+                listaUsuarios.add(u);
+                modelo.addRow(new Object[]{u.getUsuario(), u.getIdRol().getNomRol()});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar el personal: " + e.getMessage());
+        }
+
+        tablaMiPersonal.setModel(modelo);
+        tablaMiPersonal.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    private void cargarRolesPersonal() {
+        try {
+            cbRolesPersonal.removeAllItems();
+            for (Rol r : new NRol().listar()) {
+                cbRolesPersonal.addItem(r);
+            }
+            cbRolesPersonal.setSelectedIndex(-1); // que arranque sin nada seleccionado
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar roles: " + e.getMessage());
+        }
+    }
+    private void btnGuardarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEmpresaActionPerformed
+        try {
+            MNegocio n = new MNegocio(
+                    1,
+                    txtNomEmpresa.getText(),
+                    txtDomEmpresa.getText(),
+                    txtProvEmpresa.getText(),
+                    txtTelEmpresa.getText()
+            );
+
+            boolean eraNuevo = !NNegocio.hayNegocioCargado();
+
+            new NNegocio().guardar(n);
+
+            JOptionPane.showMessageDialog(this,
+                    eraNuevo ? "Negocio registrado correctamente." : "Datos del negocio actualizados.",
+                    "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (IllegalArgumentException e) {
+
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Datos incompletos", JOptionPane.WARNING_MESSAGE);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Error al guardar el negocio: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGuardarEmpresaActionPerformed
+
+    private Usuario leerFormularioPersonal() {
+        Usuario u = new Usuario(
+                txtNomUsuario.getText(),
+                new String(txtClaveUsuario.getPassword()),
+                "Activo",
+                txtTelUsuario.getText(),
+                txtDomUsuario.getText(),
+                txtMailUsuario.getText(),
+                (Rol) cbRolesPersonal.getSelectedItem()
+        );
+        u.setId(idSeleccionadoUsuario);
+        return u;
+    }
+
+    private void limpiarCamposPersonal() {
+        idSeleccionadoUsuario = 0;
+        txtNomUsuario.setText("");
+        txtClaveUsuario.setText("");
+        txtTelUsuario.setText("");
+        txtDomUsuario.setText("");
+        txtMailUsuario.setText("");
+        cbRolesPersonal.setSelectedIndex(-1);
+    }
+    private void btnGuardarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarUsuarioActionPerformed
+        try {
+            new NUsuario().registrar(leerFormularioPersonal());
+            JOptionPane.showMessageDialog(this, "Usuario registrado.");
+            limpiarCamposPersonal();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        cargarTablaPersonal();
+    }//GEN-LAST:event_btnGuardarUsuarioActionPerformed
+
+    private void cargarSeleccionado() {
+        int fila = tablaMiPersonal.getSelectedRow();
+        if (fila < 0) {
+            return;
+        }
+
+        Usuario u = listaUsuarios.get(tablaMiPersonal.convertRowIndexToModel(fila));
+
+        idSeleccionadoUsuario = u.getId();
+        txtNomUsuario.setText(u.getUsuario());
+        txtClaveUsuario.setText("");  // vacía = se mantiene la contraseña actual
+        txtTelUsuario.setText(u.getTelefono() == null ? "" : u.getTelefono());
+        txtDomUsuario.setText(u.getDomicilio() == null ? "" : u.getDomicilio());
+        txtMailUsuario.setText(u.getMail() == null ? "" : u.getMail());
+        seleccionarRolUsuario(u.getIdRol().getIdRol());
+    }
+
+    private void seleccionarRolUsuario(int idRol) {
+        for (int i = 0; i < cbRolesPersonal.getItemCount(); i++) {
+            if (cbRolesPersonal.getItemAt(i).getIdRol() == idRol) {
+                cbRolesPersonal.setSelectedIndex(i);
+                return;
+            }
+        }
+    }
+    private void tablaMiPersonalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMiPersonalMouseClicked
+        cargarSeleccionado();
+    }//GEN-LAST:event_tablaMiPersonalMouseClicked
+
+    private void btnEliminarPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPersonalActionPerformed
+        if (idSeleccionadoUsuario == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un usuario de la tabla.");
+            return;
+        }
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Dar de baja a " + txtNomUsuario.getText() + "?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (opcion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            new NUsuario().eliminar(idSeleccionadoUsuario, usuarioLogueado.getId());
+            JOptionPane.showMessageDialog(this, "Usuario dado de baja.");
+            limpiarCamposPersonal();
+            cargarTablaPersonal();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarPersonalActionPerformed
+
+    private void btnModificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarUsuarioActionPerformed
+        if (idSeleccionadoUsuario == 0) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un usuario de la tabla.");
+            return;
+        }
+        try {
+            new NUsuario().modificar(leerFormularioPersonal());
+            JOptionPane.showMessageDialog(this, "Usuario modificado.");
+            limpiarCamposPersonal();
+            cargarTablaPersonal();
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Atención", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnModificarUsuarioActionPerformed
+
     private void ocultarProveedores() {
         proveedoresPanel.setVisible(false);
         panelRegistrarProveedor.setVisible(false);
@@ -8971,7 +9595,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     private void filtrarProductosP() {
-        
+
         NProducto np = new NProducto();
         List<Producto> lista = np.listar();
 
@@ -9020,23 +9644,23 @@ public class PPanelAMP extends javax.swing.JFrame {
     private int obtenerStock(Producto p) {
         return p.getIdStockProducto() != null ? p.getIdStockProducto().getStockAct() : 0;
     }
-    
-    private void cargarTablaProductos(List<Producto> lista) {
-    DefaultTableModel modelo = (DefaultTableModel) tablaProductosP.getModel();
-    modelo.setRowCount(0);
 
-    for (Producto p : lista) {
-        modelo.addRow(new Object[]{
-            p.getCodigo(),
-            p.getDescripcion(),
-            p.getIdRubroProducto() != null ? p.getIdRubroProducto().getDescripcion() : "",
-            p.getIdTipoProducto() != null ? p.getIdTipoProducto().getDescripcion() : "",
-            obtenerStock(p),
-            p.getPrecioUnitario(),
-            p.getIdProveedor() != null ? p.getIdProveedor().getNombre() : ""
-        });
+    private void cargarTablaProductos(List<Producto> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) tablaProductosP.getModel();
+        modelo.setRowCount(0);
+
+        for (Producto p : lista) {
+            modelo.addRow(new Object[]{
+                p.getCodigo(),
+                p.getDescripcion(),
+                p.getIdRubroProducto() != null ? p.getIdRubroProducto().getDescripcion() : "",
+                p.getIdTipoProducto() != null ? p.getIdTipoProducto().getDescripcion() : "",
+                obtenerStock(p),
+                p.getPrecioUnitario(),
+                p.getIdProveedor() != null ? p.getIdProveedor().getNombre() : ""
+            });
+        }
     }
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AGAceptar;
@@ -9045,6 +9669,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton AgregarCliMP;
     private javax.swing.JButton AgregarProdBP;
     private javax.swing.JButton AgregarV;
+    private javax.swing.JLabel AmpLogo2;
     private javax.swing.JPanel BtnDetalleCC;
     private javax.swing.JPanel BtnsADM;
     private javax.swing.JPanel BtnsVNT1;
@@ -9055,6 +9680,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton BuscarV;
     private javax.swing.JButton ConfirmarVenta;
     private javax.swing.JButton DatosCobroVenta;
+    private javax.swing.JPanel DatosEmpleado;
     private javax.swing.JPanel DatosProdAPanel;
     private javax.swing.JLabel DescuentoV;
     private javax.swing.JButton EliminarItemV;
@@ -9064,12 +9690,14 @@ public class PPanelAMP extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser FechaInicioOferta;
     private javax.swing.JButton GVolver;
     private javax.swing.JPanel GestionProdPanel;
+    private javax.swing.JPanel HistorialEmpleados;
     private javax.swing.JPanel IVAPanel;
     private javax.swing.JPanel InicioAdmPanel;
     private javax.swing.JPanel InicioEstPanel;
     private javax.swing.JPanel InicioPanel;
     private javax.swing.JPanel InicioProdPanel;
     private javax.swing.JLabel IvaV;
+    private javax.swing.JLabel LeyendaAMPinicio;
     private javax.swing.JButton LimpiarFiltroBP;
     private javax.swing.JButton LimpiarMp;
     private javax.swing.JPanel ListaPanel;
@@ -9083,6 +9711,11 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel PagosPanelCampos;
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelCalculo;
+    private javax.swing.JPanel PanelConfigMiNegocio;
+    private javax.swing.JPanel PanelConfigPersonal;
+    private javax.swing.JPanel PanelConfigSeleccion;
+    private javax.swing.JPanel PanelConfiguracion;
+    private javax.swing.JPanel PanelInicioPresentacion;
     private javax.swing.JPanel PanelNuevaOferta;
     private javax.swing.JPanel PanelNuevaPromo;
     private javax.swing.JPanel PanelOfertaExistente;
@@ -9098,6 +9731,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel actPanel;
     private javax.swing.JPanel actPanel1;
     private javax.swing.JPanel administracionPanel;
+    private javax.swing.JPanel barritaEncabezado;
     private javax.swing.JButton btActivarPromo;
     private javax.swing.JButton btCalcular;
     private javax.swing.JButton btCalcularCuotas;
@@ -9127,6 +9761,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnAPersona;
     private javax.swing.JButton btnAPromociones;
     private javax.swing.JButton btnAVolver;
+    private javax.swing.JButton btnAccesos;
     private javax.swing.JButton btnActualizarInformeStock;
     private javax.swing.JButton btnActualizarP;
     private javax.swing.JButton btnAdministracion;
@@ -9145,8 +9780,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnCajaProveedores;
     private javax.swing.JButton btnCancelarModificacionProveedor;
     private javax.swing.JButton btnCancelarRegistroProveedor;
+    private javax.swing.JButton btnConfiguracion;
     private javax.swing.JButton btnConfirmarRegistroProveedor;
     private javax.swing.JButton btnEliminadosP;
+    private javax.swing.JButton btnEliminarPersonal;
     private javax.swing.JButton btnEliminarProveedor;
     private javax.swing.JButton btnEstadisticas;
     private javax.swing.JButton btnEstadisticas1;
@@ -9162,7 +9799,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnFiltrarProducto;
     private javax.swing.JButton btnGestionarP;
+    private javax.swing.JButton btnGuardarEmpresa;
     private javax.swing.JButton btnGuardarModificacionProveedor;
+    private javax.swing.JButton btnGuardarUsuario;
     private javax.swing.JButton btnInformeClientes;
     private javax.swing.JButton btnInformeStock;
     private javax.swing.JButton btnInformeVentas;
@@ -9176,7 +9815,10 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiarFiltroProducto;
     private javax.swing.JButton btnLimpiarFiltrosProveedor;
     private javax.swing.JButton btnListasP;
+    private javax.swing.JButton btnMiNegocio;
     private javax.swing.JButton btnModificarProveedor;
+    private javax.swing.JButton btnModificarUsuario;
+    private javax.swing.JButton btnPersonal;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnProductos1;
     private javax.swing.JButton btnProductos2;
@@ -9189,6 +9831,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnProveedores3;
     private javax.swing.JButton btnProveedores4;
     private javax.swing.JButton btnRegistrarProveedor;
+    private javax.swing.JButton btnRoles;
     private javax.swing.JButton btnSeccionProveedores;
     private javax.swing.JButton btnSinStockP;
     private javax.swing.JButton btnVentas;
@@ -9197,6 +9840,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnVentas3;
     private javax.swing.JButton btnVentas4;
     private javax.swing.JButton btnVentasProveedores;
+    private javax.swing.JButton btnVolverAInicio;
+    private javax.swing.JButton btnVolverASeleccionC;
+    private javax.swing.JButton btnVolverASeleccionC1;
     private javax.swing.JPanel btnsGestion;
     private javax.swing.JPanel buscarPanel;
     private javax.swing.JButton cancelarMP1;
@@ -9211,6 +9857,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbNombre;
     private javax.swing.JComboBox<Producto> cbProductoOferta;
     private javax.swing.JComboBox<Proveedor> cbProveedorP;
+    private javax.swing.JComboBox<Rol> cbRolesPersonal;
     private javax.swing.JComboBox<RubroProducto> cbRubroP;
     private javax.swing.JComboBox<String> cbRubroP1;
     private javax.swing.JComboBox<RubroProducto> cbRubroV;
@@ -9228,10 +9875,12 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton factX;
     private javax.swing.JPanel globGestion;
     private javax.swing.JLabel iconmp324;
+    private javax.swing.JLabel imgAmp1;
     private javax.swing.JPanel ingresosPanel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
@@ -9250,11 +9899,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -9277,6 +9923,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -9302,7 +9949,6 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -9319,6 +9965,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JLabel labelFact;
     private javax.swing.JLabel lblCC;
@@ -9365,7 +10012,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel metodoPago;
     private javax.swing.JPanel metodosPanel;
     private javax.swing.JPanel navbarADM;
-    private javax.swing.JPanel navbarADM1;
+    private javax.swing.JPanel navbarADMInicio;
     private javax.swing.JPanel navbarVNT;
     private javax.swing.JPanel panelCli;
     private javax.swing.JPanel panelContenidoEstadisticas;
@@ -9390,6 +10037,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel resumenPanel;
     private javax.swing.JScrollPane scrollTablaProveedores;
     private javax.swing.JTable tablaLista;
+    private javax.swing.JTable tablaMiPersonal;
     private javax.swing.JTable tablaProductosP;
     private javax.swing.JTable tablaProductosV;
     private javax.swing.JTable tablaProveedores;
@@ -9406,6 +10054,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscarRazonSocial;
     private javax.swing.JTextField txtBuscarRubro;
     private javax.swing.JTextField txtCantV;
+    private javax.swing.JPasswordField txtClaveUsuario;
     private javax.swing.JTextField txtCodP;
     private javax.swing.JTextField txtCodV;
     private javax.swing.JTextField txtCodigoPP;
@@ -9427,6 +10076,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccionProveedor;
     private javax.swing.JTextField txtDom;
     private javax.swing.JTextField txtDomCliente;
+    private javax.swing.JTextField txtDomEmpresa;
+    private javax.swing.JTextField txtDomUsuario;
     private javax.swing.JTextField txtEmailModificarProveedor;
     private javax.swing.JTextField txtEmailProveedor;
     private javax.swing.JTextField txtFiltroCuit;
@@ -9434,8 +10085,11 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtIVA;
     private javax.swing.JTextField txtInteres;
     private javax.swing.JTextField txtMail;
+    private javax.swing.JTextField txtMailUsuario;
     private javax.swing.JTextField txtMontoTotal;
     private javax.swing.JLabel txtNomCC;
+    private javax.swing.JTextField txtNomEmpresa;
+    private javax.swing.JTextField txtNomUsuario;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreModificarProveedor;
     private javax.swing.JTextField txtNombreProveedor;
@@ -9444,6 +10098,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel txtPrecioOferta;
     private javax.swing.JTextField txtPrecioP;
     private javax.swing.JTextField txtPromocion;
+    private javax.swing.JTextField txtProvEmpresa;
     private javax.swing.JTextField txtRS;
     private javax.swing.JTextField txtRubroModificarProveedor;
     private javax.swing.JTextField txtRubroProveedor;
@@ -9455,6 +10110,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtStockMinP;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTel;
+    private javax.swing.JTextField txtTelEmpresa;
+    private javax.swing.JTextField txtTelUsuario;
     private javax.swing.JTextField txtTelefonoModificarProveedor;
     private javax.swing.JTextField txtTelefonoProveedor;
     private javax.swing.JTextField txtTipoCondicion;
