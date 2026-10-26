@@ -10853,6 +10853,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JLabel labelFact;
+    private javax.swing.JLabel lblBoletaCobro;
+    private javax.swing.JLabel lblBoletaTitulo;
     private javax.swing.JLabel lblBuscarProd;
     private javax.swing.JLabel lblCC;
     private javax.swing.JLabel lblCambioTitulo;
@@ -10966,7 +10968,9 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollMetodosPagoInformeCaja;
     private javax.swing.JScrollPane scrollMotivoMovimientoCaja;
     private javax.swing.JScrollPane scrollTablaProveedores;
+    private javax.swing.JTable tablaHistorialCaja;
     private javax.swing.JTable tablaListaCC;
+    private javax.swing.JTable tablaMetodosPagoInformeCaja;
     private javax.swing.JTable tablaMiPersonal;
     private javax.swing.JTable tablaProductosP;
     private javax.swing.JTable tablaProductosV;
