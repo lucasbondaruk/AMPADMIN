@@ -4,12 +4,17 @@
  */
 package Negocio;
 
-import Conexiones.SqlConection;
+import Datos.DMetodoPago;
+import Datos.DPromocion;
+import Datos.DPromocionCombo;
+import Modelos.MetodoPago;
 import Modelos.Promocion;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import Modelos.PromocionCombo;
+import Modelos.PromocionComboDetalle;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,48 +22,76 @@ import javax.swing.table.DefaultTableModel;
  */
 public class NPromocion {
 
-    private final SqlConection conexion;
+    private DPromocion dPromocion = new DPromocion();
+    private final DMetodoPago dMetodoPago = new DMetodoPago();
 
-    public NPromocion() {
-        this.conexion = new SqlConection();
+    /**
+     * Recupera todos los medios de pago activos para el ComboBox dinámico
+     */
+    public List<MetodoPago> listarMediosPagoActivos() {
+        return dMetodoPago.Listar();
+    }
+
+    /**
+     * Busca un objeto MetodoPago por su descripción o nombre
+     */
+    public MetodoPago obtenerMedioPagoPorNombre(String nombre) {
+        List<MetodoPago> lista = dMetodoPago.Listar();
+        for (MetodoPago mp : lista) {
+            if (mp.getDescripcion().equalsIgnoreCase(nombre)) {
+                return mp;
+            }
+        }
+        return null;
+    }
+
+    public DefaultComboBoxModel<MetodoPago> cargarComboMediosPago() {
+        DefaultComboBoxModel<MetodoPago> model = new DefaultComboBoxModel<>();
+        List<MetodoPago> lista = dPromocion.listarMetodosPago(); // Método DAO
+        for (MetodoPago mp : lista) {
+            model.addElement(mp);
+        }
+        return model;
+    }
+
+    public boolean guardarPromocionMedioPago(String nombre, MetodoPago medioPago, double porcentaje, boolean activo) {
+        if (nombre == null || nombre.trim().isEmpty() || medioPago == null) {
+            return false;
+        }
+
+        Promocion promo = new Promocion();
+        promo.setNombre(nombre.trim());
+        promo.setTipoRegla("Por Medio de Pago");
+        promo.setMetodoPago(medioPago);
+        promo.setDescuentoPorcentaje(porcentaje);
+        promo.setCondicion(medioPago.getDescripcion() + " · " + String.format("%.0f%% de descuento", porcentaje));
+        promo.setEstado(activo);
+
+        return dPromocion.insertar(promo);
     }
 
     public boolean guardarPromocion(Promocion promo) {
-        String sql = "INSERT INTO Promocion (Nombre, TipoCondicion, Descuento, Estado) VALUES (?, ?, ?, ?)";
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setString(1, promo.getNombre());
-            ps.setString(2, promo.getTipoCondicion());
-            ps.setDouble(3, promo.getDescuento());
-            ps.setBoolean(4, promo.isEstado());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (promo == null) {
             return false;
+        }
+
+        if (promo.getIdPromocion() > 0) {
+            return dPromocion.modificar(promo);
+        } else {
+            return dPromocion.insertar(promo);
         }
     }
 
-    public List<Promocion> listarPromociones() {
-        List<Promocion> lista = new ArrayList<>();
-        String sql = "SELECT IdPromocion, Nombre, TipoCondicion, Descuento, Estado FROM Promocion";
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Promocion p = new Promocion(
-                        rs.getInt("IdPromocion"),
-                        rs.getString("Nombre"),
-                        rs.getString("TipoCondicion"),
-                        rs.getDouble("Descuento"),
-                        rs.getBoolean("Estado")
-                );
-                lista.add(p);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
+    public boolean cambiarEstadoPromocion(int idPromocion, boolean nuevoEstado) {
+        return dPromocion.cambiarEstado(idPromocion, nuevoEstado);
+    }
+
+    public boolean eliminarPromocion(int idPromocion) {
+        return dPromocion.eliminar(idPromocion);
     }
 
     public DefaultTableModel cargarTablaPromociones() {
-        String[] columnas = {"ID", "Nombre", "Tipo Condición", "Descuento (%)", "Estado"};
+        String[] columnas = {"ID", "Nombre Promoción", "Tipo Regla", "Detalle / Condición", "Estado"};
         DefaultTableModel model = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -66,28 +99,103 @@ public class NPromocion {
             }
         };
 
-        for (Promocion p : listarPromociones()) {
-            Object[] fila = {
-                p.getIdPromocion(),
-                p.getNombre(),
-                p.getTipoCondicion(),
-                String.format("%.2f", p.getDescuento()),
-                p.isEstado() ? "Activa" : "Inactiva"
-            };
+        List<Promocion> lista = dPromocion.listar();
+
+        for (Promocion p : lista) {
+            Object[] fila = new Object[5];
+            fila[0] = p.getIdPromocion();
+            fila[1] = p.getNombre();
+            fila[2] = p.getTipoRegla() != null ? p.getTipoRegla() : "General";
+            fila[3] = p.getCondicion() != null ? p.getCondicion() : "-";
+            fila[4] = p.isEstado() ? "Activa" : "Inactiva";
+
             model.addRow(fila);
         }
+
         return model;
     }
 
-    public boolean cambiarEstadoPromocion(int idPromocion, boolean nuevoEstado) {
-        String sql = "UPDATE Promocion SET Estado = ? WHERE IdPromocion = ?";
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setBoolean(1, nuevoEstado);
-            ps.setInt(2, idPromocion);
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public boolean guardarPromocionCombo(Promocion promo, List<PromocionComboDetalle> detalles, double precioFinal) {
+        if (promo == null || promo.getNombre() == null || promo.getNombre().trim().isEmpty()) {
             return false;
         }
+        if (detalles == null || detalles.isEmpty()) {
+            return false;
+        }
+        if (promo.getDescuentoPorcentaje() <= 0 || promo.getDescuentoPorcentaje() > 100) {
+            return false;
+        }
+        if (precioFinal <= 0) {
+            return false;
+        }
+
+        String nombre = promo.getNombre().trim();
+        PromocionCombo combo = new PromocionCombo();
+        combo.setNombreCombo(nombre.length() > 100 ? nombre.substring(0, 100) : nombre); // columna varchar(100)
+        combo.setPrecioFinal(precioFinal);
+        combo.setDetalles(detalles);
+
+        return dPromocion.insertarComboCompleto(promo, combo);
+    }
+
+    public Promocion buscarPorId(int idPromocion) {
+        for (Promocion p : dPromocion.listar()) {
+            if (p.getIdPromocion() == idPromocion) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public PromocionCombo obtenerCombo(int idPromocion) {
+        return new DPromocionCombo().buscarPorPromocion(idPromocion);
+    }
+
+    public String verificarColisionCombo(List<Integer> idsProductos, int idPromocionExcluir) {
+        return dPromocion.buscarColisionProductos(idsProductos, idPromocionExcluir);
+    }
+
+    /**
+     * null = activada. Si no, devuelve el motivo para mostrarlo en un
+     * JOptionPane.
+     */
+    public String activarPromocion(int idPromocion) {
+        Promocion p = buscarPorId(idPromocion);
+        if (p == null) {
+            return "No se encontró la promoción seleccionada.";
+        }
+        if (p.isEstado()) {
+            return "La promoción ya está activa.";
+        }
+        if ("Combo / Pack de Productos".equals(p.getTipoRegla())) {
+            PromocionCombo c = obtenerCombo(idPromocion);
+            if (c == null || c.getDetalles().isEmpty()) {
+                return "El combo no tiene productos cargados.";
+            }
+            List<Integer> ids = new ArrayList<>();
+            for (PromocionComboDetalle d : c.getDetalles()) {
+                ids.add(d.getProducto().getIdProducto());
+            }
+            String choque = dPromocion.buscarColisionProductos(ids, idPromocion);
+            if (choque != null) {
+                return choque;
+            }
+        }
+        return dPromocion.cambiarEstado(idPromocion, true) ? null : "No se pudo actualizar el estado en la base de datos.";
+    }
+
+    public boolean modificarPromocionCombo(Promocion promo, List<PromocionComboDetalle> detalles, double precioFinal) {
+        if (promo == null || promo.getIdPromocion() <= 0 || promo.getNombre() == null
+                || promo.getNombre().trim().isEmpty() || detalles == null || detalles.isEmpty()
+                || promo.getDescuentoPorcentaje() <= 0 || promo.getDescuentoPorcentaje() > 100 || precioFinal <= 0) {
+            return false;
+        }
+        String nombre = promo.getNombre().trim();
+        PromocionCombo combo = new PromocionCombo();
+        combo.setIdPromocion(promo.getIdPromocion());
+        combo.setNombreCombo(nombre.length() > 100 ? nombre.substring(0, 100) : nombre);
+        combo.setPrecioFinal(precioFinal);
+        combo.setDetalles(detalles);
+        return dPromocion.modificarComboCompleto(promo, combo);
     }
 }
