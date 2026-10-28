@@ -4,11 +4,12 @@
  */
 package Negocio;
 
-import Conexiones.SqlConection;
+import Datos.DOferta;
+import Datos.DProducto;
 import Modelos.Oferta;
 import Modelos.Producto;
-import java.sql.*;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -19,102 +20,103 @@ import javax.swing.table.DefaultTableModel;
  */
 public class NOferta {
 
-    private final SqlConection conexion;
+    private DOferta dOferta = new DOferta();
+    private DProducto dProducto = new DProducto();
 
-    public NOferta() {
-        this.conexion = new SqlConection();
+    public boolean guardarOferta(Oferta oferta) {
+        if (oferta == null) {
+            return false;
+        }
+
+        // Activa mientras no haya vencido (incluye las programadas a futuro)
+        oferta.setEstado(!oferta.getFechaFin().before(new Date()));
+
+        if (oferta.getIdOferta() > 0) {
+            return dOferta.modificar(oferta);
+        } else {
+            return dOferta.insertar(oferta);
+        }
     }
 
-    public boolean existeOfertaSolapada(int idProducto, java.util.Date inicio, java.util.Date fin) {
-        String sql = "SELECT COUNT(*) FROM Oferta "
-                + "WHERE IdProducto = ? AND Estado = 1 "
-                + "AND (? <= FechaFin AND ? >= FechaInicio)";
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, idProducto);
-            ps.setTimestamp(2, new java.sql.Timestamp(inicio.getTime()));
-            ps.setTimestamp(3, new java.sql.Timestamp(fin.getTime()));
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public boolean eliminarOferta(int idOferta) {
+        return dOferta.eliminar(idOferta);
     }
 
-    public List<Producto> obtenerProductos() {
-        List<Producto> lista = new ArrayList<>();
-        String sql = "SELECT idProducto, codigo, descripcion, precioUnitario FROM Producto";
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Producto p = new Producto();
-                p.setIdProducto(rs.getInt("idProducto"));
-                p.setCodigo(rs.getInt("codigo"));
-                p.setDescripcion(rs.getString("descripcion"));
-                p.setPrecioUnitario(rs.getFloat("precioUnitario"));
-                lista.add(p);
+    public DefaultTableModel cargarTablaOfertas() {
+        String[] columnas = {"ID", "Producto / Rubro", "Desc. (%)", "Precio Promo", "Desde", "Hasta", "Estado"};
+        DefaultTableModel model = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Evita edición directa en las celdas de la JTable
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        };
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        dOferta.marcarVencidas();
+        List<Oferta> lista = dOferta.listar();
+        Date hoy = new Date();
+
+        for (Oferta o : lista) {
+            Object[] fila = new Object[7];
+            fila[0] = o.getIdOferta();
+
+            if (o.getProducto() != null) {
+                fila[1] = o.getProducto().getDescripcion();
+            } else if (o.getRubroProducto() != null) {
+                fila[1] = "Rubro: " + o.getRubroProducto().getDescripcion();
+            } else {
+                fila[1] = "General";
+            }
+
+            fila[2] = String.format("%.2f", o.getDescuentoPorcentaje());
+            fila[3] = String.format("$ %.2f", o.getPrecioPromocional());
+            fila[4] = o.getFechaInicio() != null ? sdf.format(o.getFechaInicio()) : "";
+            fila[5] = o.getFechaFin() != null ? sdf.format(o.getFechaFin()) : "";
+
+            // Determinar etiqueta visual de estado
+            if (o.getFechaFin().before(hoy)) {
+                fila[6] = "No vigente";
+            } else if (!o.isEstado()) {
+                fila[6] = "Inactiva";
+            } else if (o.getFechaInicio().after(hoy)) {
+                fila[6] = "Programada";
+            } else {
+                fila[6] = "Vigente";
+            }
+
+            model.addRow(fila);
         }
-        return lista;
+
+        return model;
     }
 
     public DefaultComboBoxModel<Producto> cargarComboProductos() {
         DefaultComboBoxModel<Producto> model = new DefaultComboBoxModel<>();
-        for (Producto p : obtenerProductos()) {
+        List<Producto> productos = dProducto.listar();
+        for (Producto p : productos) {
             model.addElement(p);
         }
         return model;
     }
 
-    public boolean guardarOferta(Oferta oferta) {
-        String sql = "INSERT INTO Oferta (IdProducto, DescuentoPorcentaje, PrecioPromocional, FechaInicio, FechaFin, Estado) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, oferta.getIdProducto());
-            ps.setDouble(2, oferta.getDescuentoPorcentaje());
-            ps.setDouble(3, oferta.getPrecioPromocional());
-            ps.setTimestamp(4, new java.sql.Timestamp(oferta.getFechaInicio().getTime()));
-            ps.setTimestamp(5, new java.sql.Timestamp(oferta.getFechaFin().getTime()));
-            ps.setBoolean(6, oferta.isEstado());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+    public String verificarColision(int idProducto, int idRubro, java.util.Date inicio, java.util.Date fin, int idOfertaExcluir) {
+        if (inicio == null || fin == null) {
+            return "Las fechas de la oferta son obligatorias.";
         }
+        return dOferta.buscarColision(
+                idProducto,
+                idRubro,
+                new java.sql.Date(inicio.getTime()),
+                new java.sql.Date(fin.getTime()),
+                idOfertaExcluir);
     }
 
-    public DefaultTableModel cargarTablaOfertas() {
-        String[] columnas = {"ID", "Producto", "Desc. (%)", "Precio Promo", "Desde", "Hasta", "Estado"};
-        DefaultTableModel model = new DefaultTableModel(null, columnas) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+    public Oferta buscarPorId(int idOferta) {
+        for (Oferta o : dOferta.listar()) {
+            if (o.getIdOferta() == idOferta) {
+                return o;
             }
-        };
-
-        String sql = "SELECT o.IdOferta, p.descripcion, o.DescuentoPorcentaje, o.PrecioPromocional, "
-                + "o.FechaInicio, o.FechaFin, o.Estado "
-                + "FROM Oferta o INNER JOIN Producto p ON o.IdProducto = p.idProducto";
-
-        try (Connection con = conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Object[] fila = {
-                    rs.getInt("IdOferta"),
-                    rs.getString("descripcion"),
-                    String.format("%.2f", rs.getDouble("DescuentoPorcentaje")),
-                    String.format("$ %.2f", rs.getDouble("PrecioPromocional")),
-                    rs.getDate("FechaInicio"),
-                    rs.getDate("FechaFin"),
-                    rs.getBoolean("Estado") ? "Vigente" : "Inactiva"
-                };
-                model.addRow(fila);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return model;
+        return null;
     }
 }

@@ -108,6 +108,9 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.JTable;
+import java.awt.Component;
 
 public class PPanelAMP extends javax.swing.JFrame {
 
@@ -140,6 +143,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private java.util.List<Modelos.MetodoPago> listaMetodosPagoGlobal;
     private java.util.Date fechaVentaOriginal;
     private Proveedor proveedorSeleccionado;
+    private Modelos.Oferta ofertaEnEdicion = null;
+    private Modelos.Promocion promoEnEdicion = null;
 
     public PPanelAMP(Usuario usuarioLogueado) {
         initComponents();
@@ -178,6 +183,9 @@ public class PPanelAMP extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         BuscarProdBPDesc = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         InicioPanel = new javax.swing.JPanel();
         navbarADM1 = new javax.swing.JPanel();
         lblimg4 = new javax.swing.JLabel();
@@ -431,6 +439,20 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAOfertas = new javax.swing.JButton();
         btnAPromociones = new javax.swing.JButton();
         PanelPromociones = new javax.swing.JPanel();
+        ventanaGestionCombo = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tablaProductosCombo = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        txtDescuentoCombo = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        cbProductoCombo = new javax.swing.JComboBox<>();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        spCombo = new javax.swing.JSpinner();
+        jLabel72 = new javax.swing.JLabel();
+        btCerrarVentanaCombo = new javax.swing.JButton();
         PanelNuevaPromo = new javax.swing.JPanel();
         jLabel77 = new javax.swing.JLabel();
         jLabel78 = new javax.swing.JLabel();
@@ -439,15 +461,36 @@ public class PPanelAMP extends javax.swing.JFrame {
         jLabel81 = new javax.swing.JLabel();
         EstadodePromo = new javax.swing.JToggleButton();
         txtPromocion = new javax.swing.JTextField();
-        txtDescuento = new javax.swing.JTextField();
         btGuardarPromo = new javax.swing.JButton();
-        txtTipoCondicion = new javax.swing.JTextField();
         btActivarPromo = new javax.swing.JButton();
         btDesactivarPromo1 = new javax.swing.JButton();
+        cbPromocion = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        PanelMontoMinimo = new javax.swing.JPanel();
+        txtMontoMinimo = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtPorcentajeDescuento = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        PanelMetododePago = new javax.swing.JPanel();
+        cbDetalleMedioPago = new javax.swing.JComboBox<>();
+        txtDescuento = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        pnlComboProductos = new javax.swing.JPanel();
+        btnGestionar = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        txtInfoCombo = new javax.swing.JTextField();
         PanelPromoExistente = new javax.swing.JPanel();
         jLabel82 = new javax.swing.JLabel();
-        tablePromo = new javax.swing.JScrollPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
         tblPromo = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        btModificarPromo = new javax.swing.JButton();
+        btEliminarPromo = new javax.swing.JButton();
+        txtTipoCondicion = new javax.swing.JTextField();
         PanelOfertas = new javax.swing.JPanel();
         PanelNuevaOferta = new javax.swing.JPanel();
         cbProductoOferta = new javax.swing.JComboBox<>();
@@ -463,12 +506,16 @@ public class PPanelAMP extends javax.swing.JFrame {
         btGuardarOferta = new javax.swing.JButton();
         btPrevisualizarPrecio = new javax.swing.JButton();
         btLimpiarOferta = new javax.swing.JButton();
+        jLabel73 = new javax.swing.JLabel();
+        btModificarBoton = new javax.swing.JButton();
+        btBorrarOferta = new javax.swing.JButton();
         PanelOfertaExistente = new javax.swing.JPanel();
         jLabel68 = new javax.swing.JLabel();
         tableOferta = new javax.swing.JScrollPane();
         tblOferta = new javax.swing.JTable();
-        txtPrecioOferta = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
         btImprimirOferta = new javax.swing.JButton();
+        txtPrecioOferta = new javax.swing.JLabel();
         estadísticaPanel = new javax.swing.JPanel();
         lblimg2 = new javax.swing.JLabel();
         btnInformes2 = new javax.swing.JButton();
@@ -678,6 +725,21 @@ public class PPanelAMP extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane7.setViewportView(jTable1);
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AMPADMIN");
@@ -2133,7 +2195,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         listaGestion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Inventario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         listaGestion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tablaProductosP.setBackground(new java.awt.Color(255, 255, 255));
         tablaProductosP.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tablaProductosP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2158,28 +2219,21 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         listaGestion.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 930, 310));
 
-        txtDescripcionPP.setBackground(new java.awt.Color(255, 255, 255));
         txtDescripcionPP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtDescripcionPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtDescripcionPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Descripción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         listaGestion.add(txtDescripcionPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 320, 60));
 
-        txtCodigoPP.setBackground(new java.awt.Color(255, 255, 255));
         txtCodigoPP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        txtCodigoPP.setForeground(new java.awt.Color(0, 0, 0));
-        txtCodigoPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtCodigoPP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         listaGestion.add(txtCodigoPP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 100, 60));
 
-        cbRubroP1.setBackground(new java.awt.Color(255, 255, 255));
         cbRubroP1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cbRubroP1.setForeground(new java.awt.Color(0, 0, 0));
         cbRubroP1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbRubroP1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Rurbo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         cbRubroP1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listaGestion.add(cbRubroP1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 26, 210, 65));
 
-        cbStockP.setBackground(new java.awt.Color(255, 255, 255));
         cbStockP.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        cbStockP.setForeground(new java.awt.Color(0, 0, 0));
         cbStockP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todo", "Ascendente", "Descendente" }));
         cbStockP.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Stock", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         cbStockP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -2339,84 +2393,319 @@ public class PPanelAMP extends javax.swing.JFrame {
         ListasPPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NAVPAGOS.setBackground(new java.awt.Color(255, 255, 255));
-        NAVPAGOS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         NAVPAGOS.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnAOfertas.setBackground(new java.awt.Color(204, 204, 204));
-        btnAOfertas.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnAOfertas.setBackground(new java.awt.Color(244, 244, 244));
+        btnAOfertas.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         btnAOfertas.setForeground(new java.awt.Color(51, 51, 51));
         btnAOfertas.setText("Ofertas");
         btnAOfertas.setBorderPainted(false);
         btnAOfertas.addActionListener(this::btnAOfertasActionPerformed);
-        NAVPAGOS.add(btnAOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 450, 80));
+        NAVPAGOS.add(btnAOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 270, 50));
 
-        btnAPromociones.setBackground(new java.awt.Color(204, 204, 204));
-        btnAPromociones.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnAPromociones.setBackground(new java.awt.Color(244, 244, 244));
+        btnAPromociones.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         btnAPromociones.setForeground(new java.awt.Color(51, 51, 51));
         btnAPromociones.setText("Promociones");
         btnAPromociones.setBorderPainted(false);
         btnAPromociones.addActionListener(this::btnAPromocionesActionPerformed);
-        NAVPAGOS.add(btnAPromociones, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 80));
+        NAVPAGOS.add(btnAPromociones, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 240, 50));
 
-        ListasPPanel.add(NAVPAGOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 860, 80));
+        ListasPPanel.add(NAVPAGOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1020, 80));
 
         PanelPromociones.setBackground(new java.awt.Color(255, 255, 255));
         PanelPromociones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        ventanaGestionCombo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        tablaProductosCombo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane8.setViewportView(tablaProductosCombo);
+
+        jButton3.setText("Añadir");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+
+        jButton4.setText("Quitar");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+
+        jButton5.setText("Confirmar");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
+
+        jLabel23.setText("Porcentaje de descuento:");
+
+        cbProductoCombo.addActionListener(this::cbProductoComboActionPerformed);
+
+        jLabel70.setText("Productos que abarcan la promocion: ");
+
+        jLabel71.setText("Seleccione:");
+
+        jLabel72.setText("Cantidad de productos:");
+
+        btCerrarVentanaCombo.setText("Cerrar");
+        btCerrarVentanaCombo.addActionListener(this::btCerrarVentanaComboActionPerformed);
+
+        javax.swing.GroupLayout ventanaGestionComboLayout = new javax.swing.GroupLayout(ventanaGestionCombo);
+        ventanaGestionCombo.setLayout(ventanaGestionComboLayout);
+        ventanaGestionComboLayout.setHorizontalGroup(
+            ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                        .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ventanaGestionComboLayout.createSequentialGroup()
+                        .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbProductoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5))
+                            .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(spCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDescuentoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel23))
+                            .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btCerrarVentanaCombo)))
+                        .addGap(42, 42, 42))))
+        );
+        ventanaGestionComboLayout.setVerticalGroup(
+            ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventanaGestionComboLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel70)
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel71)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel72))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbProductoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescuentoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ventanaGestionComboLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3)
+                    .addComponent(jButton5)
+                    .addComponent(btCerrarVentanaCombo))
+                .addGap(14, 14, 14))
+        );
+
+        PanelPromociones.add(ventanaGestionCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 570, 380));
+
         PanelNuevaPromo.setBackground(new java.awt.Color(247, 247, 247));
         PanelNuevaPromo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel77.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel77.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         jLabel77.setText("Nueva Promoción");
         PanelNuevaPromo.add(jLabel77, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jLabel78.setText("Nombre de promoción:");
+        jLabel78.setText("Nombre de la promoción");
         PanelNuevaPromo.add(jLabel78, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jLabel79.setText("Tipo de Condición:");
         PanelNuevaPromo.add(jLabel79, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 120, -1));
 
-        jLabel80.setText("Descuento:");
+        jLabel80.setText("Detalle / Condición:");
         PanelNuevaPromo.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, -1, -1));
 
-        jLabel81.setText("Estado");
-        PanelNuevaPromo.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, -1));
+        jLabel81.setText("Estado de la Promocion");
+        PanelNuevaPromo.add(jLabel81, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         EstadodePromo.setText("Activa");
         EstadodePromo.addActionListener(this::EstadodePromoActionPerformed);
-        PanelNuevaPromo.add(EstadodePromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 140, -1));
+        PanelNuevaPromo.add(EstadodePromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 90, 30));
 
+        txtPromocion.setText("Ej: Black Friday");
         txtPromocion.addActionListener(this::txtPromocionActionPerformed);
-        PanelNuevaPromo.add(txtPromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 230, -1));
-        PanelNuevaPromo.add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 230, -1));
+        PanelNuevaPromo.add(txtPromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 270, -1));
 
-        btGuardarPromo.setBackground(new java.awt.Color(0, 102, 255));
+        btGuardarPromo.setBackground(new java.awt.Color(153, 204, 255));
         btGuardarPromo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btGuardarPromo.setText("Guardar");
         btGuardarPromo.addActionListener(this::btGuardarPromoActionPerformed);
-        PanelNuevaPromo.add(btGuardarPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 310, 40));
-        PanelNuevaPromo.add(txtTipoCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 230, -1));
+        PanelNuevaPromo.add(btGuardarPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 330, 40));
 
         btActivarPromo.setBackground(new java.awt.Color(51, 255, 0));
         btActivarPromo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btActivarPromo.setText("Activar");
         btActivarPromo.addActionListener(this::btActivarPromoActionPerformed);
-        PanelNuevaPromo.add(btActivarPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 150, 40));
+        PanelNuevaPromo.add(btActivarPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 150, 40));
 
         btDesactivarPromo1.setBackground(new java.awt.Color(255, 0, 0));
         btDesactivarPromo1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btDesactivarPromo1.setText("Desactivar");
         btDesactivarPromo1.addActionListener(this::btDesactivarPromo1ActionPerformed);
-        PanelNuevaPromo.add(btDesactivarPromo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 150, 40));
+        PanelNuevaPromo.add(btDesactivarPromo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 150, 40));
 
-        PanelPromociones.add(PanelNuevaPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 360, 440));
+        cbPromocion.addItemListener(this::cbPromocionItemStateChanged);
+        cbPromocion.addActionListener(this::cbPromocionActionPerformed);
+        PanelNuevaPromo.add(cbPromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 270, -1));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("Definí una regla comercial para tus ventas");
+        PanelNuevaPromo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        txtMontoMinimo.addActionListener(this::txtMontoMinimoActionPerformed);
+
+        jLabel15.setText("Indique el monto minimo:");
+
+        jLabel18.setText("Indique el Porcentaje de Descuento:");
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        jLabel22.setText("El descuento se activa si el total supera un valor de dinero determinado.");
+
+        javax.swing.GroupLayout PanelMontoMinimoLayout = new javax.swing.GroupLayout(PanelMontoMinimo);
+        PanelMontoMinimo.setLayout(PanelMontoMinimoLayout);
+        PanelMontoMinimoLayout.setHorizontalGroup(
+            PanelMontoMinimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMontoMinimoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelMontoMinimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMontoMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPorcentajeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelMontoMinimoLayout.setVerticalGroup(
+            PanelMontoMinimoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMontoMinimoLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMontoMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addGap(1, 1, 1)
+                .addComponent(txtPorcentajeDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        PanelNuevaPromo.add(PanelMontoMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 380, 140));
+
+        cbDetalleMedioPago.setToolTipText("");
+        cbDetalleMedioPago.setName(""); // NOI18N
+
+        jLabel13.setText("Seleccione Metodo de Pago:");
+
+        jLabel14.setText("Cantidad de descuento:");
+
+        jLabel21.setText("Aplica un descuento segun el metodo de pago");
+
+        javax.swing.GroupLayout PanelMetododePagoLayout = new javax.swing.GroupLayout(PanelMetododePago);
+        PanelMetododePago.setLayout(PanelMetododePagoLayout);
+        PanelMetododePagoLayout.setHorizontalGroup(
+            PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelMetododePagoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(PanelMetododePagoLayout.createSequentialGroup()
+                        .addGroup(PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(cbDetalleMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelMetododePagoLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel14))))
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+        PanelMetododePagoLayout.setVerticalGroup(
+            PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMetododePagoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelMetododePagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbDetalleMedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
+        );
+
+        PanelNuevaPromo.add(PanelMetododePago, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 350, 110));
+
+        jLabel10.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel10.setText("Puede activarla y desactivarla cuando desee");
+        PanelNuevaPromo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 260, -1));
+
+        btnGestionar.setText("Gestionar");
+        btnGestionar.addActionListener(this::btnGestionarActionPerformed);
+
+        jLabel17.setText("Seleccione los Productos que entran en la promocion:");
+
+        javax.swing.GroupLayout pnlComboProductosLayout = new javax.swing.GroupLayout(pnlComboProductos);
+        pnlComboProductos.setLayout(pnlComboProductosLayout);
+        pnlComboProductosLayout.setHorizontalGroup(
+            pnlComboProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlComboProductosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlComboProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                    .addGroup(pnlComboProductosLayout.createSequentialGroup()
+                        .addComponent(btnGestionar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtInfoCombo)))
+                .addContainerGap())
+        );
+        pnlComboProductosLayout.setVerticalGroup(
+            pnlComboProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlComboProductosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlComboProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGestionar)
+                    .addComponent(txtInfoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
+        PanelNuevaPromo.add(pnlComboProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 380, -1));
+
+        PanelPromociones.add(PanelNuevaPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 380, 510));
 
         PanelPromoExistente.setBackground(new java.awt.Color(247, 247, 247));
         PanelPromoExistente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel82.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel82.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         jLabel82.setText("Promociones Existentes");
-        PanelPromoExistente.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        PanelPromoExistente.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         tblPromo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2429,11 +2718,29 @@ public class PPanelAMP extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablePromo.setViewportView(tblPromo);
+        jScrollPane6.setViewportView(tblPromo);
 
-        PanelPromoExistente.add(tablePromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 480, 390));
+        PanelPromoExistente.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 460, 380));
 
-        PanelPromociones.add(PanelPromoExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 510, 460));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel6.setText("Administrá tus reglas y combos comerciales");
+        PanelPromoExistente.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 240, -1));
+
+        btModificarPromo.setBackground(new java.awt.Color(255, 255, 102));
+        btModificarPromo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btModificarPromo.setText("Modificar");
+        btModificarPromo.addActionListener(this::btModificarPromoActionPerformed);
+        PanelPromoExistente.add(btModificarPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 150, 40));
+
+        btEliminarPromo.setBackground(new java.awt.Color(255, 0, 0));
+        btEliminarPromo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btEliminarPromo.setText("Eliminar");
+        btEliminarPromo.addActionListener(this::btEliminarPromoActionPerformed);
+        PanelPromoExistente.add(btEliminarPromo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 150, 40));
+
+        PanelPromociones.add(PanelPromoExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 490, 500));
+        PanelPromociones.add(txtTipoCondicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 480, 120, -1));
 
         ListasPPanel.add(PanelPromociones, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 960, 500));
 
@@ -2443,17 +2750,18 @@ public class PPanelAMP extends javax.swing.JFrame {
         PanelNuevaOferta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbProductoOferta.addItemListener(this::cbProductoOfertaItemStateChanged);
-        PanelNuevaOferta.add(cbProductoOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 300, -1));
+        cbProductoOferta.addActionListener(this::cbProductoOfertaActionPerformed);
+        PanelNuevaOferta.add(cbProductoOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 300, -1));
 
         jLabel83.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel83.setText("Nueva Oferta");
-        PanelNuevaOferta.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        PanelNuevaOferta.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         jLabel84.setText("Buscar Producto:");
-        PanelNuevaOferta.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        PanelNuevaOferta.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jLabel64.setText("Porcentaje de Descuento: ");
-        PanelNuevaOferta.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        PanelNuevaOferta.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
         PrecioNuevo.setText("Precio del producto en ofeta:");
         PrecioNuevo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -2461,36 +2769,53 @@ public class PPanelAMP extends javax.swing.JFrame {
                 PrecioNuevoKeyReleased(evt);
             }
         });
-        PanelNuevaOferta.add(PrecioNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 160, -1));
+        PanelNuevaOferta.add(PrecioNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 160, -1));
 
         jTextField11.addActionListener(this::jTextField11ActionPerformed);
-        PanelNuevaOferta.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 40, -1));
+        PanelNuevaOferta.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 50, -1));
 
         FechaInicioOferta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PanelNuevaOferta.add(FechaInicioOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 280, 30));
+        PanelNuevaOferta.add(FechaInicioOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 120, 30));
 
-        jLabel66.setText("Fecha Inicio");
-        PanelNuevaOferta.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        jLabel66.setText("Fecha de Inicio:");
+        PanelNuevaOferta.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         FechaFinOferta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PanelNuevaOferta.add(FechaFinOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 280, 30));
+        PanelNuevaOferta.add(FechaFinOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 130, 30));
 
-        jLabel67.setText("Fecha Fin");
-        PanelNuevaOferta.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        jLabel67.setText("Fecha de Fin:");
+        PanelNuevaOferta.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
 
-        btGuardarOferta.setBackground(new java.awt.Color(0, 102, 255));
+        btGuardarOferta.setBackground(new java.awt.Color(51, 102, 255));
         btGuardarOferta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btGuardarOferta.setText("Guardar");
         btGuardarOferta.addActionListener(this::btGuardarOfertaActionPerformed);
-        PanelNuevaOferta.add(btGuardarOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 310, 40));
+        PanelNuevaOferta.add(btGuardarOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 300, 30));
 
         btPrevisualizarPrecio.setText("Previsualizar Precio");
         btPrevisualizarPrecio.addActionListener(this::btPrevisualizarPrecioActionPerformed);
-        PanelNuevaOferta.add(btPrevisualizarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 140, -1));
+        PanelNuevaOferta.add(btPrevisualizarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 140, -1));
 
         btLimpiarOferta.setText("Limpiar");
         btLimpiarOferta.addActionListener(this::btLimpiarOfertaActionPerformed);
-        PanelNuevaOferta.add(btLimpiarOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, -1, -1));
+        PanelNuevaOferta.add(btLimpiarOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, -1, -1));
+
+        jLabel73.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel73.setText("Registre una oferta sobre un producto.");
+        PanelNuevaOferta.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        btModificarBoton.setBackground(new java.awt.Color(255, 255, 51));
+        btModificarBoton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btModificarBoton.setText("Modificar");
+        btModificarBoton.addActionListener(this::btModificarBotonActionPerformed);
+        PanelNuevaOferta.add(btModificarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 410, 150, 30));
+
+        btBorrarOferta.setBackground(new java.awt.Color(255, 0, 0));
+        btBorrarOferta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btBorrarOferta.setText("Borrar");
+        btBorrarOferta.addActionListener(this::btBorrarOfertaActionPerformed);
+        PanelNuevaOferta.add(btBorrarOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 410, 140, 30));
 
         PanelOfertas.add(PanelNuevaOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 330, 450));
 
@@ -2498,7 +2823,7 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         jLabel68.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel68.setText("Ofertas Existentes");
-        PanelOfertaExistente.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        PanelOfertaExistente.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         tblOferta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2515,14 +2840,17 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         PanelOfertaExistente.add(tableOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 540, 360));
 
-        PanelOfertas.add(PanelOfertaExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 560, 430));
-
-        txtPrecioOferta.setText("Seleccione la oferta que desea imprimir:");
-        PanelOfertas.add(txtPrecioOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 450, -1, -1));
+        jLabel74.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel74.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel74.setText("Ofertas actualmente existentes");
+        PanelOfertaExistente.add(jLabel74, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         btImprimirOferta.setText("Imprimir");
         btImprimirOferta.addActionListener(this::btImprimirOfertaActionPerformed);
-        PanelOfertas.add(btImprimirOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 450, -1, -1));
+        PanelOfertaExistente.add(btImprimirOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+
+        PanelOfertas.add(PanelOfertaExistente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 560, 430));
+        PanelOfertas.add(txtPrecioOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 450, -1, -1));
 
         ListasPPanel.add(PanelOfertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 950, 480));
 
@@ -3315,8 +3643,6 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelListaProveedores.setBackground(new java.awt.Color(255, 255, 255));
         panelListaProveedores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tablaProveedores.setBackground(new java.awt.Color(255, 255, 255));
-        tablaProveedores.setForeground(new java.awt.Color(0, 0, 0));
         tablaProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -3333,12 +3659,11 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelListaProveedores.add(scrollTablaProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 950, 420));
 
         AccionesProveedores.setBackground(new java.awt.Color(255, 255, 255));
-        AccionesProveedores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Acciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 20), new java.awt.Color(0, 0, 0))); // NOI18N
+        AccionesProveedores.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Acciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 20))); // NOI18N
         AccionesProveedores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegistrarProveedor.setBackground(new java.awt.Color(228, 255, 228));
         btnRegistrarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnRegistrarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         btnRegistrarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/agregar.png"))); // NOI18N
         btnRegistrarProveedor.setText("  Registrar");
         btnRegistrarProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -3349,7 +3674,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         btnModificarProveedor.setBackground(new java.awt.Color(222, 221, 221));
         btnModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         btnModificarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
         btnModificarProveedor.setText(" Modificar");
         btnModificarProveedor.setPreferredSize(new java.awt.Dimension(76, 28));
@@ -3358,7 +3682,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         btnEliminarProveedor.setBackground(new java.awt.Color(255, 230, 230));
         btnEliminarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnEliminarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar.png"))); // NOI18N
         btnEliminarProveedor.setText(" Eliminar");
         btnEliminarProveedor.setPreferredSize(new java.awt.Dimension(76, 28));
@@ -3367,7 +3690,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         btnExportarProveedores.setBackground(new java.awt.Color(255, 255, 153));
         btnExportarProveedores.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnExportarProveedores.setForeground(new java.awt.Color(0, 0, 0));
         btnExportarProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/descargar.png"))); // NOI18N
         btnExportarProveedores.setText(" Exportar");
         btnExportarProveedores.setPreferredSize(new java.awt.Dimension(76, 28));
@@ -3377,26 +3699,21 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelListaProveedores.add(AccionesProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 950, 100));
 
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Filtros de Búsqueda", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 20), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Filtros de Búsqueda", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 20))); // NOI18N
         jPanel12.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtBuscarRazonSocial.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscarRazonSocial.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtBuscarRazonSocial.setActionCommand("<Not Set>");
         txtBuscarRazonSocial.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Razón Social:/CUIT: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         txtBuscarRazonSocial.setPreferredSize(new java.awt.Dimension(76, 28));
         jPanel12.add(txtBuscarRazonSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 50));
 
-        txtBuscarRubro.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscarRubro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtBuscarRubro.setForeground(new java.awt.Color(0, 0, 0));
         txtBuscarRubro.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Rubro:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         txtBuscarRubro.setPreferredSize(new java.awt.Dimension(76, 28));
         jPanel12.add(txtBuscarRubro, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 240, 50));
 
-        cbBuscarEstado.setBackground(new java.awt.Color(255, 255, 255));
         cbBuscarEstado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbBuscarEstado.setForeground(new java.awt.Color(0, 0, 0));
         cbBuscarEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Activo", "Inactivo" }));
         cbBuscarEstado.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, java.awt.Color.gray), "Estado:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
         jPanel12.add(cbBuscarEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, 160, 50));
@@ -3473,46 +3790,34 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelDatosProveedorRegistro.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(19, 42, 89), new java.awt.Color(19, 42, 89)), "Datos del nuevo proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 28), new java.awt.Color(19, 42, 89))); // NOI18N
         panelDatosProveedorRegistro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNombreProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtNombreProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtNombreProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtNombreProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNombreProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Razón Social / Nombre: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtNombreProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Razón Social / Nombre: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorRegistro.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 570, 70));
 
-        txtCuitProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtCuitProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtCuitProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtCuitProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCuitProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "CUIT / CUIL:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtCuitProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "CUIT / CUIL:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorRegistro.add(txtCuitProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 130, 570, 70));
 
-        txtTelefonoProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefonoProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtTelefonoProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefonoProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTelefonoProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Teléfono: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtTelefonoProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Teléfono: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorRegistro.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 570, 70));
 
-        txtEmailProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtEmailProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEmailProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtEmailProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEmailProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Email: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtEmailProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Email: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorRegistro.add(txtEmailProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 275, 890, 70));
 
-        txtDireccionProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccionProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtDireccionProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccionProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDireccionProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Dirección:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtDireccionProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Dirección:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorRegistro.add(txtDireccionProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 890, 70));
 
-        txtRubroProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtRubroProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtRubroProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtRubroProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtRubroProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Rubro: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtRubroProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Rubro: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorRegistro.add(txtRubroProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 425, 890, 70));
 
         jLabel69.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon-mp-blue.png"))); // NOI18N
@@ -3554,7 +3859,6 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         lblTituloModificarProveedor.setBackground(new java.awt.Color(204, 204, 204));
         lblTituloModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 40)); // NOI18N
-        lblTituloModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         lblTituloModificarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/modificar.png"))); // NOI18N
         lblTituloModificarProveedor.setText(" Modificar Proveedor");
         lblTituloModificarProveedor.setMaximumSize(new java.awt.Dimension(75, 23));
@@ -3587,25 +3891,19 @@ public class PPanelAMP extends javax.swing.JFrame {
         panelDatosProveedorModificar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(19, 42, 89), new java.awt.Color(19, 42, 89)), "Datos del proveedor", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 28), new java.awt.Color(19, 42, 89))); // NOI18N
         panelDatosProveedorModificar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtNombreModificarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtNombreModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtNombreModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtNombreModificarProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNombreModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Razón Social/Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtNombreModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Razón Social/Nombre:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorModificar.add(txtNombreModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 570, 70));
 
-        txtCuitModificarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtCuitModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtCuitModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtCuitModificarProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCuitModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "CUIT/CUIL:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtCuitModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "CUIT/CUIL:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorModificar.add(txtCuitModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 135, 570, 70));
 
-        txtTelefonoModificarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefonoModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtTelefonoModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefonoModificarProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTelefonoModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Teléfono:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtTelefonoModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Teléfono:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorModificar.add(txtTelefonoModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 205, 570, 70));
 
         btnGuardarModificacionProveedor.setBackground(new java.awt.Color(10, 72, 100));
@@ -3624,25 +3922,19 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnCancelarModificacionProveedor.addActionListener(this::btnCancelarModificacionProveedorActionPerformed);
         panelDatosProveedorModificar.add(btnCancelarModificacionProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 520, 140, 50));
 
-        txtEmailModificarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtEmailModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEmailModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtEmailModificarProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtEmailModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Email:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtEmailModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Email:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorModificar.add(txtEmailModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 345, 890, 70));
 
-        txtDireccionModificarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccionModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtDireccionModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtDireccionModificarProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtDireccionModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Dirección:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtDireccionModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Dirección:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorModificar.add(txtDireccionModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 275, 890, 70));
 
-        txtRubroModificarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         txtRubroModificarProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtRubroModificarProveedor.setForeground(new java.awt.Color(0, 0, 0));
         txtRubroModificarProveedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtRubroModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Rubro:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        txtRubroModificarProveedor.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.gray, null), "Rubro:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
         panelDatosProveedorModificar.add(txtRubroModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 415, 890, 70));
 
         iconmp324.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon-mp-blue.png"))); // NOI18N
@@ -3675,34 +3967,14 @@ public class PPanelAMP extends javax.swing.JFrame {
 
         InicioPanel.setVisible(true);
         iniciarActualizacionEstadisticas();
+        inicializarPanelesOfertasYPromos();
+        actualizarCamposSegunRegla();
     }
+
     private void inicializarPaneles() {
-// 1. Cargar Combo de Productos para Ofertas
-        cbProductoOferta.setModel(nOferta.cargarComboProductos());
-        cbProductoOferta.setRenderer(new javax.swing.DefaultListCellRenderer() {
-            @Override
-            public java.awt.Component getListCellRendererComponent(
-                    javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 
-                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-                if (value instanceof Modelos.Producto) {
-                    Modelos.Producto p = (Modelos.Producto) value;
-                    setText(p.getDescripcion() + " - $" + String.format("%.2f", p.getPrecioUnitario()));
-                }
-                return this;
-            }
-        });
-
-        // 2. Cargar Modelos de Datos en las Tablas
-        tblPromo.setModel(nPromocion.cargarTablaPromociones());
-        tblOferta.setModel(nOferta.cargarTablaOfertas());
-
-        // 3. Bloquear reordenamiento de columnas en ambas tablas
-        tblPromo.getTableHeader().setReorderingAllowed(false);
-        tblOferta.getTableHeader().setReorderingAllowed(false);
     }
-    
+
     //ADMINISTRACION - REGISTRO CUENTA CORRIENTE
 
     private void btnAEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAEmpresaActionPerformed
@@ -3833,6 +4105,21 @@ public class PPanelAMP extends javax.swing.JFrame {
         } catch (Exception e) {
             logger.log(java.util.logging.Level.SEVERE, "Error al cargar métodos de pago en el combobox", e);
             JOptionPane.showMessageDialog(this, "Error al cargar los métodos de pago.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cargarMediosPagoPromocion() {
+        try {
+            DefaultComboBoxModel<MetodoPago> modelo = new DefaultComboBoxModel<>();
+            NMetodoPago nmp = new NMetodoPago();
+            for (MetodoPago mp : nmp.GetListActivo()) {
+                modelo.addElement(mp);
+            }
+            cbDetalleMedioPago.setModel(modelo);
+            cbDetalleMedioPago.setSelectedIndex(-1); // sin selección, sin "String" placeholder
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar medios de pago: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     private void btnAContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAContinuarActionPerformed
@@ -3982,6 +4269,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         regEmp.setVisible(false);
         jScrollPane1.setVisible(true);
         verDetallePanel.setVisible(false);
+
     }//GEN-LAST:event_btnAListasActionPerformed
 
     private void btnAClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAClientesActionPerformed
@@ -4950,6 +5238,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         noSeleccionFactura();
         factA.setEnabled(true);
         factB.setEnabled(true);
+        cbDetalleMedioPago.setSelectedIndex(-1);
     }
 
     private void noSeleccionFactura() {
@@ -6704,8 +6993,8 @@ public class PPanelAMP extends javax.swing.JFrame {
         clickListasP();
     }//GEN-LAST:event_btnListasPActionPerformed
 
-    private void clickListasP(){
-       InicioProdPanel.setVisible(false);
+    private void clickListasP() {
+        InicioProdPanel.setVisible(false);
         AccionGestion.setVisible(false);
         GestionProdPanel.setVisible(false);
         NAVPAGOS.setVisible(true);
@@ -6718,6 +7007,7 @@ public class PPanelAMP extends javax.swing.JFrame {
         btnAPromociones.setForeground(new Color(51, 0, 255));
         PanelPromociones.setVisible(true);
         PanelOfertas.setVisible(false);
+        ventanaGestionCombo.setVisible(false);
     }
     private void btnGestionarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarPActionPerformed
         InicioProdPanel.setVisible(false);
@@ -8618,103 +8908,617 @@ public class PPanelAMP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPromocionActionPerformed
 
-     private NPromocion nPromocion = new NPromocion();
-     private NOferta nOferta = new NOferta();
+    private void guardarPromocionCombo() {
+        try {
+            String nombre = txtPromocion.getText().trim();
+            if (nombre.isEmpty() || nombre.equalsIgnoreCase("Ej: Black Friday")) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la promoción.", "Atención", JOptionPane.WARNING_MESSAGE);
+                txtPromocion.requestFocus();
+                return;
+            }
+            if (comboConfirmado.isEmpty() || txtInfoCombo.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Arme el combo con el botón Gestionar antes de guardar.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-    private void btGuardarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarPromoActionPerformed
-        // 1. Validar campos requeridos
-        if (txtPromocion.getText().trim().isEmpty()
-                || txtTipoCondicion.getText().trim().isEmpty()
-                || txtDescuento.getText().trim().isEmpty()) {
+            Modelos.Promocion promo = new Modelos.Promocion();
+            promo.setNombre(nombre);
+            promo.setTipoRegla("Combo / Pack de Productos");
+            promo.setDescuentoPorcentaje(descuentoCombo);
+            promo.setCondicion(txtInfoCombo.getText().trim()); // "Combo: 3 artículos | Desc: 15%"
+            promo.setEstado(EstadodePromo.isSelected());
 
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos (Nombre, Condición y Descuento).", "Atención", JOptionPane.WARNING_MESSAGE);
+            double precioFinal = calcularPrecioFinalCombo();
+
+            List<Modelos.PromocionComboDetalle> detalles = new ArrayList<>();
+            for (ItemCombo it : comboConfirmado) {
+                Modelos.PromocionComboDetalle d = new Modelos.PromocionComboDetalle();
+                d.setProducto(it.getProducto());
+                d.setCantidad(it.getCantidad());
+                detalles.add(d);
+            }
+            if (promo.isEstado()) {
+                List<Integer> ids = new ArrayList<>();
+                for (Modelos.PromocionComboDetalle d : detalles) {
+                    ids.add(d.getProducto().getIdProducto());
+                }
+                String choque = new NPromocion().verificarColisionCombo(ids, 0);
+                if (choque != null) {
+                    JOptionPane.showMessageDialog(this, choque, "Colisión de promociones", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+            boolean guardado = new NPromocion().guardarPromocionCombo(promo, detalles, precioFinal);
+
+            if (guardado) {
+                JOptionPane.showMessageDialog(this, "Promoción combo registrada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                limpiarComboTemporal();
+
+                cargarTablaPromociones();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo guardar la promoción combo.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error al guardar combo", e);
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void actualizarCamposSegunRegla() {
+        if (cbPromocion.getSelectedItem() == null) {
             return;
         }
 
+        switch (cbPromocion.getSelectedItem().toString()) {
+            case "Por Medio de Pago":
+                cargarMediosPagoPromocion();
+                PanelMetododePago.setVisible(true);
+                pnlComboProductos.setVisible(false);
+                PanelMontoMinimo.setVisible(false);
+                break;
+            case "Por Monto Mínimo de Compra":
+                txtMontoMinimo.setText("");
+                txtMontoMinimo.setVisible(true);
+                txtPorcentajeDescuento.setVisible(true);
+                PanelMontoMinimo.setVisible(true);
+                pnlComboProductos.setVisible(false);
+                PanelMetododePago.setVisible(false);
+                break;
+            case "Combo / Pack de Productos":
+                pnlComboProductos.setVisible(true);
+                PanelMetododePago.setVisible(false);
+                PanelMontoMinimo.setVisible(false);
+                break;
+        }
+        PanelNuevaPromo.revalidate();
+        PanelNuevaPromo.repaint();
+    }
+
+    private void cargarOfertaEnFormulario() {
         try {
-            // 2. Obtener datos de los controles
-            String nombre = txtPromocion.getText().trim();
-            String condicion = txtTipoCondicion.getText().trim(); // Ahora es un JTextField
-            double descuento = Double.parseDouble(txtDescuento.getText().trim().replace(",", "."));
-
-            // Estado del JToggleButton (true = Activa, false = Inactiva)
-            boolean estado = EstadodePromo.isSelected();
-
-            // 3. Crear objeto y guardar
-            Modelos.Promocion promo = new Modelos.Promocion(0, nombre, condicion, descuento, estado);
-
-            if (nPromocion.guardarPromocion(promo)) {
-                JOptionPane.showMessageDialog(this, "Promoción guardada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-                // Actualizar tabla
-                tblPromo.setModel(nPromocion.cargarTablaPromociones());
-
-                // Limpiar formulario y resetear switch
-                txtPromocion.setText("");
-                txtTipoCondicion.setText("");
-                txtDescuento.setText("");
-                EstadodePromo.setSelected(true);
-                EstadodePromo.setText("Activa");
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al registrar la promoción en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            int fila = tblOferta.getSelectedRow();
+            if (fila == -1) {
+                return;
+            }
+            int idOferta = Integer.parseInt(tblOferta.getValueAt(fila, 0).toString());
+            Modelos.Oferta o = new NOferta().buscarPorId(idOferta);
+            if (o == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró la oferta seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!"PRODUCTO".equals(o.getAlcance()) || o.getProducto() == null) {
+                JOptionPane.showMessageDialog(this, "Las ofertas por rubro todavía no se editan desde este formulario.",
+                        "Atención", JOptionPane.INFORMATION_MESSAGE);
+                return;
             }
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El valor del porcentaje de descuento debe ser numérico.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
+            for (int i = 0; i < cbProductoOferta.getItemCount(); i++) {
+                Modelos.Producto p = cbProductoOferta.getItemAt(i);
+                if (p.getIdProducto() == o.getProducto().getIdProducto()) {
+                    cbProductoOferta.setSelectedIndex(i);
+                    break;
+                }
+            }
+            jTextField11.setText(String.valueOf((int) o.getDescuentoPorcentaje()));
+            FechaInicioOferta.setDate(o.getFechaInicio());
+            FechaFinOferta.setDate(o.getFechaFin());
+            calcularPrecioNuevoOferta();
+
+            ofertaEnEdicion = o;
+            btGuardarOferta.setEnabled(false); // en modo edición se usará "Modificar" (4c)
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la oferta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void inicializarPanelesOfertasYPromos() {
+        NOferta nOferta = new NOferta();
+        NPromocion nPromocion = new NPromocion();
+        cbDetalleMedioPago.setVisible(true);
+        txtMontoMinimo.setVisible(false);
+        pnlComboProductos.setVisible(false);
+        cargarCbDetalleMedioPago();
+        ventanaGestionCombo.setVisible(false);
+        cbProductoCombo.setLightWeightPopupEnabled(false);
+        // 1. Cargar Combo de Productos
+        try {
+            cbProductoOferta.setModel(nOferta.cargarComboProductos());
+            cbProductoOferta.setRenderer(new javax.swing.DefaultListCellRenderer() {
+                @Override
+                public java.awt.Component getListCellRendererComponent(
+                        javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    if (value instanceof Modelos.Producto) {
+                        Modelos.Producto p = (Modelos.Producto) value;
+                        setText(p.getCodigo() + " - " + p.getDescripcion());
+                    }
+                    return this;
+                }
+            });
+            cbProductoOferta.setSelectedIndex(-1);
+        } catch (Exception e) {
+            System.err.println("Error combo productos: " + e.getMessage());
+        }
+        try {
+            ventanaGestionCombo.setVisible(false);
+            prepararGestionCombo();
+        } catch (Exception e) {
+            System.err.println("Error al preparar gestión de combo: " + e.getMessage());
+        }
+        tblPromo.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    cargarPromocionEnFormulario();
+                }
+            }
+        });
+
+        // 2. Cargar Combo de Reglas Promocionales
+        DefaultComboBoxModel<String> modelReglas = new DefaultComboBoxModel<>();
+        modelReglas.addElement("Por Medio de Pago");
+        modelReglas.addElement("Por Monto Mínimo de Compra");
+        modelReglas.addElement("Combo / Pack de Productos");
+        cbPromocion.setModel(modelReglas);
+
+        // 3. Cargar y Debuggear Tabla Ofertas
+        try {
+            javax.swing.table.DefaultTableModel modelOf = nOferta.cargarTablaOfertas();
+            System.out.println("Filas recuperadas de Ofertas: " + modelOf.getRowCount());
+            tblOferta.setModel(modelOf);
+            tblOferta.getTableHeader().setReorderingAllowed(false);
+        } catch (Exception e) {
+            System.err.println("Error tabla ofertas: " + e.getMessage());
+        }
+
+        // 4. Cargar y Debuggear Tabla Promociones
+        try {
+            javax.swing.table.DefaultTableModel modelPr = nPromocion.cargarTablaPromociones();
+            System.out.println("Filas recuperadas de Promociones: " + modelPr.getRowCount());
+            tblPromo.setModel(modelPr);
+            tblPromo.getTableHeader().setReorderingAllowed(false);
+        } catch (Exception e) {
+            System.err.println("Error tabla promociones: " + e.getMessage());
+        }
+        tblOferta.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    cargarOfertaEnFormulario();
+                }
+            }
+        });
+    }
+
+    private void cargarPromocionEnFormulario() {
+        try {
+            int fila = tblPromo.getSelectedRow();
+            if (fila == -1) {
+                return;
+            }
+            int id = Integer.parseInt(tblPromo.getValueAt(fila, 0).toString());
+            NPromocion nPromo = new NPromocion();
+            Modelos.Promocion p = nPromo.buscarPorId(id);
+            if (p == null) {
+                JOptionPane.showMessageDialog(this, "No se encontró la promoción seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Primero el tipo: su listener (actualizarCamposSegunRegla) limpia campos, así que los llenamos después
+            cbPromocion.setSelectedItem(p.getTipoRegla());
+            txtPromocion.setText(p.getNombre());
+            EstadodePromo.setSelected(p.isEstado());
+
+            String tipo = p.getTipoRegla() != null ? p.getTipoRegla() : "";
+            switch (tipo) {
+                case "Por Monto Mínimo de Compra":
+                    txtMontoMinimo.setText(formatearPorcentaje(p.getMontoMinimo()));
+                    txtPorcentajeDescuento.setText(formatearPorcentaje(p.getDescuentoPorcentaje()));
+                    break;
+                case "Por Medio de Pago":
+                    if (p.getMetodoPago() != null) {
+                        for (int i = 0; i < cbDetalleMedioPago.getItemCount(); i++) {
+                            Object it = cbDetalleMedioPago.getItemAt(i);
+                            if (it instanceof Modelos.MetodoPago
+                                    && ((Modelos.MetodoPago) it).getIdMetodoPago() == p.getMetodoPago().getIdMetodoPago()) {
+                                cbDetalleMedioPago.setSelectedIndex(i);
+                                break;
+                            }
+                        }
+                    }
+                    // TODO: <campo "Cantidad de descuento">.setText(formatearPorcentaje(p.getDescuentoPorcentaje()));
+                    break;
+                case "Combo / Pack de Productos":
+                    Modelos.PromocionCombo combo = nPromo.obtenerCombo(id);
+                    List<Producto> todos = new NProducto().listar();
+                    comboConfirmado.clear();
+                    if (combo != null) {
+                        for (Modelos.PromocionComboDetalle d : combo.getDetalles()) {
+                            for (Producto prod : todos) {
+                                if (prod.getIdProducto() == d.getProducto().getIdProducto()) {
+                                    comboConfirmado.add(new ItemCombo(prod, d.getCantidad()));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    descuentoCombo = p.getDescuentoPorcentaje();
+                    txtInfoCombo.setText(p.getCondicion());
+                    break;
+                default:
+                    break;
+            }
+
+            promoEnEdicion = p;
+            btGuardarPromo.setEnabled(false); // en edición se usa "Modificar"
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar la promoción: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void limpiarEdicionPromo() {
+        promoEnEdicion = null;
+        txtPromocion.setText("");
+        txtMontoMinimo.setText("");
+        txtPorcentajeDescuento.setText("");
+        limpiarComboTemporal();
+        btGuardarPromo.setEnabled(true);
+        tblPromo.clearSelection();
+    }
+
+    private int idPromoSeleccionada() {
+        int fila = tblPromo.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Primero seleccioná una promoción de la tabla.",
+                    "Atención", JOptionPane.WARNING_MESSAGE);
+            return -1;
+        }
+        return Integer.parseInt(tblPromo.getValueAt(fila, 0).toString());
+    }
+
+    private void cargarTablaPromociones() {
+        try {
+            tblPromo.setModel(new NPromocion().cargarTablaPromociones());
+            tblPromo.getTableHeader().setReorderingAllowed(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar promociones: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cargarCbDetalleMedioPago() {
+        try {
+            // Usamos la forma clásica sin <> para que NetBeans no moleste
+            javax.swing.DefaultComboBoxModel modelo = new javax.swing.DefaultComboBoxModel();
+            modelo.addElement("Seleccione un medio de pago...");
+
+            Negocio.NMetodoPago nMetodo = new Negocio.NMetodoPago();
+            for (Modelos.MetodoPago mp : nMetodo.GetListActivo()) {
+                modelo.addElement(mp);
+            }
+            cbDetalleMedioPago.setModel(modelo);
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar medios de pago: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static class ItemCombo {
+
+        private final Producto producto;
+        private int cantidad;
+
+        ItemCombo(Producto producto, int cantidad) {
+            this.producto = producto;
+            this.cantidad = cantidad;
+        }
+
+        Producto getProducto() {
+            return producto;
+        }
+
+        int getCantidad() {
+            return cantidad;
+        }
+
+        void setCantidad(int cantidad) {
+            this.cantidad = cantidad;
+        }
+    }
+
+    private final List<ItemCombo> comboEnEdicion = new ArrayList<>();   // lo que se arma en la ventana
+    private final List<ItemCombo> comboConfirmado = new ArrayList<>();  // lo que ve el panel principal
+    private double descuentoCombo = 0;
+
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private void cargarProductosCombo() {
+        try {
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+            for (Producto p : new NProducto().listar()) {
+                modelo.addElement(p);
+            }
+            System.out.println("Productos cargados en combo: " + modelo.getSize());
+            cbProductoCombo.setModel(modelo);
+            cbProductoCombo.setRenderer(new javax.swing.DefaultListCellRenderer() {
+                @Override
+                public java.awt.Component getListCellRendererComponent(
+                        javax.swing.JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    if (value instanceof Producto) {
+                        Producto p = (Producto) value;
+                        setText(p.getCodigo() + " - " + p.getDescripcion());
+                    }
+                    return this;
+                }
+            });
+            cbProductoCombo.setSelectedIndex(-1);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar productos: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void refrescarTablaCombo() {
+        DefaultTableModel modelo = new DefaultTableModel(
+                new String[]{"Código", "Descripción", "Cantidad", "P. Unitario"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        for (ItemCombo it : comboEnEdicion) {
+            Producto p = it.getProducto();
+            modelo.addRow(new Object[]{p.getCodigo(), p.getDescripcion(), it.getCantidad(), p.getPrecioUnitario()});
+        }
+        tablaProductosCombo.setModel(modelo);
+    }
+
+    private String formatearPorcentaje(double d) {
+        return d == Math.rint(d) ? String.valueOf((int) d) : String.valueOf(d);
+    }
+
+    private double calcularPrecioFinalCombo() {
+        double total = 0;
+        for (ItemCombo it : comboConfirmado) {
+            total += it.getProducto().getPrecioUnitario() * it.getCantidad();
+        }
+        return total - (total * descuentoCombo / 100.0);
+    }
+
+    private void limpiarComboTemporal() {
+        comboEnEdicion.clear();
+        comboConfirmado.clear();
+        descuentoCombo = 0;
+        txtInfoCombo.setText("");
+        txtDescuentoCombo.setText("");
+    }
+
+    // permiteInicioPasado = true solo al modificar una oferta que ya había empezado
+    private boolean validarFechasOferta(boolean permiteInicioPasado) {
+        if (FechaInicioOferta.getDate() == null || FechaFinOferta.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Completá la fecha de inicio y la de fin.",
+                    "Fechas obligatorias", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        java.time.ZoneId zona = java.time.ZoneId.systemDefault();
+        java.time.LocalDate ini = FechaInicioOferta.getDate().toInstant().atZone(zona).toLocalDate();
+        java.time.LocalDate fin = FechaFinOferta.getDate().toInstant().atZone(zona).toLocalDate();
+        java.time.LocalDate hoy = java.time.LocalDate.now();
+
+        if (!permiteInicioPasado && ini.isBefore(hoy)) {
+            JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser anterior a hoy.",
+                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (fin.isBefore(hoy)) {
+            JOptionPane.showMessageDialog(this, "La fecha de fin no puede ser anterior a hoy.",
+                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (fin.isBefore(ini)) {
+            JOptionPane.showMessageDialog(this, "La fecha de fin no puede ser anterior a la de inicio.",
+                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    private void btGuardarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarPromoActionPerformed
+        try {
+            String tipo = cbPromocion.getSelectedItem() != null ? cbPromocion.getSelectedItem().toString() : "";
+            String nombre = txtPromocion.getText().trim();
+
+            if (tipo.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Seleccioná el tipo de condición.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (nombre.isEmpty() || nombre.equalsIgnoreCase("Ej: Black Friday")) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la promoción.", "Atención", JOptionPane.WARNING_MESSAGE);
+                txtPromocion.requestFocus();
+                return;
+            }
+
+            switch (tipo) {
+                case "Combo / Pack de Productos":
+                    guardarPromocionCombo();
+                    break;
+                case "Por Monto Mínimo de Compra":
+                    guardarPromocionMontoMinimo(nombre);
+                    break;
+                case "Por Medio de Pago":
+                    guardarPromocionMedioPago(nombre);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Tipo de promoción no reconocido: " + tipo, "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+            }
+        } catch (Exception e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error al guardar promoción", e);
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btGuardarPromoActionPerformed
 
-    private void btActivarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActivarPromoActionPerformed
-        int fila = tblPromo.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione una promoción de la tabla.", "Atención", JOptionPane.WARNING_MESSAGE);
+    private void guardarPromocionMontoMinimo(String nombre) {
+        String montoTxt = txtMontoMinimo.getText().trim().replace(",", ".");
+        String porcTxt = txtPorcentajeDescuento.getText().trim().replace(",", ".");
+
+        if (montoTxt.isEmpty() || porcTxt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete el monto mínimo y el porcentaje de descuento.", "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        int idPromo = Integer.parseInt(tblPromo.getValueAt(fila, 0).toString());
-        String estadoActual = tblPromo.getValueAt(fila, 4).toString();
+        double montoMinimo;
+        double porcentaje;
+        try {
+            montoMinimo = Double.parseDouble(montoTxt);
+            porcentaje = Double.parseDouble(porcTxt);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "El monto mínimo y el porcentaje deben ser números válidos.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (montoMinimo <= 0) {
+            JOptionPane.showMessageDialog(this, "El monto mínimo debe ser mayor a 0.", "Atención", JOptionPane.WARNING_MESSAGE);
+            txtMontoMinimo.requestFocus();
+            return;
+        }
+        if (porcentaje <= 0 || porcentaje > 100) {
+            JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a 0 y menor o igual a 100.", "Atención", JOptionPane.WARNING_MESSAGE);
+            txtPorcentajeDescuento.requestFocus();
+            return;
+        }
 
-        if ("Activa".equalsIgnoreCase(estadoActual)) {
-            JOptionPane.showMessageDialog(this, "La promoción seleccionada ya se encuentra activa.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        Modelos.Promocion promo = new Modelos.Promocion();
+        promo.setNombre(nombre);
+        promo.setTipoRegla("Por Monto Mínimo de Compra");
+        promo.setMontoMinimo(montoMinimo);
+        promo.setDescuentoPorcentaje(porcentaje);
+        promo.setCondicion("Monto Mínimo: $" + montoMinimo + " | Descuento: " + porcentaje + "%");
+        promo.setEstado(EstadodePromo.isSelected());
+
+        if (new NPromocion().guardarPromocion(promo)) {
+            JOptionPane.showMessageDialog(this, "Promoción registrada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            txtPromocion.setText("");
+            txtMontoMinimo.setText("");
+            txtPorcentajeDescuento.setText("");
+            cargarTablaPromociones();
         } else {
-            if (nPromocion.cambiarEstadoPromocion(idPromo, true)) {
-                JOptionPane.showMessageDialog(this, "La promoción ha sido activada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                tblPromo.setModel(nPromocion.cargarTablaPromociones());
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al cambiar el estado de la promoción.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la promoción en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void guardarPromocionMedioPago(String nombre) {
+        Object sel = cbDetalleMedioPago.getSelectedItem();
+        if (!(sel instanceof Modelos.MetodoPago)) {
+            JOptionPane.showMessageDialog(this, "Seleccioná un medio de pago.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Modelos.MetodoPago medioPago = (Modelos.MetodoPago) sel;
+
+        String porcTxt = txtDescuento.getText().trim().replace(",", ".");
+        if (porcTxt.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingresá el porcentaje de descuento.", "Atención", JOptionPane.WARNING_MESSAGE);
+            txtDescuento.requestFocus();
+            return;
+        }
+
+        double porcentaje;
+        try {
+            porcentaje = Double.parseDouble(porcTxt);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "El porcentaje debe ser un número válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            txtDescuento.requestFocus();
+            return;
+        }
+        if (porcentaje <= 0 || porcentaje > 100) {
+            JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a 0 y menor o igual a 100.", "Atención", JOptionPane.WARNING_MESSAGE);
+            txtDescuento.requestFocus();
+            return;
+        }
+
+        if (new NPromocion().guardarPromocionMedioPago(nombre, medioPago, porcentaje, EstadodePromo.isSelected())) {
+            JOptionPane.showMessageDialog(this, "Promoción registrada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            txtPromocion.setText("");
+            txtDescuento.setText("");
+            cbDetalleMedioPago.setSelectedIndex(-1);
+            cargarTablaPromociones();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la promoción en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    private void btActivarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btActivarPromoActionPerformed
+        try {
+            int id = idPromoSeleccionada();
+            if (id == -1) {
+                return;
             }
+            String error = new NPromocion().activarPromocion(id);
+            if (error != null) {
+                JOptionPane.showMessageDialog(this, error, "No se puede activar", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "Promoción activada.");
+            cargarTablaPromociones();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al activar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btActivarPromoActionPerformed
 
     private void btDesactivarPromo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesactivarPromo1ActionPerformed
-        int fila = tblPromo.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione una promoción de la tabla.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        int idPromo = Integer.parseInt(tblPromo.getValueAt(fila, 0).toString());
-        String estadoActual = tblPromo.getValueAt(fila, 4).toString();
-
-        if ("Inactiva".equalsIgnoreCase(estadoActual)) {
-            JOptionPane.showMessageDialog(this, "La promoción seleccionada ya se encuentra desactivada.", "Información", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            if (nPromocion.cambiarEstadoPromocion(idPromo, false)) {
-                JOptionPane.showMessageDialog(this, "La promoción ha sido desactivada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                tblPromo.setModel(nPromocion.cargarTablaPromociones());
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al cambiar el estado de la promoción.", "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            int id = idPromoSeleccionada();
+            if (id == -1) {
+                return;
             }
+            if (new NPromocion().cambiarEstadoPromocion(id, false)) {
+                JOptionPane.showMessageDialog(this, "Promoción desactivada.");
+                cargarTablaPromociones();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo desactivar la promoción.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al desactivar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btDesactivarPromo1ActionPerformed
 
     private void cbProductoOfertaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProductoOfertaItemStateChanged
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-            Modelos.Producto prod = (Modelos.Producto) cbProductoOferta.getSelectedItem();
-            if (prod != null) {
-                txtPrecioOferta.setText(String.format(java.util.Locale.US, "%.2f", prod.getPrecioUnitario()));
-                PrecioNuevo.setText("Precio Nuevo: $ --");
+            Object item = cbProductoOferta.getSelectedItem();
+
+            // Validamos con instanceof para evitar la ClassCastException
+            if (item instanceof Modelos.Producto) {
+                Modelos.Producto prod = (Modelos.Producto) item;
+
+                // Si el usuario ya había escrito un % de descuento, recalculamos la vista previa
+                String txtDesc = txtPrecioOferta.getText() != null ? txtPrecioOferta.getText().trim().replace(",", ".") : "";
+                if (!txtDesc.isEmpty()) {
+                    try {
+                        double pct = Double.parseDouble(txtDesc);
+                        double nuevo = prod.getPrecioUnitario() - (prod.getPrecioUnitario() * (pct / 100.0));
+                        PrecioNuevo.setText(String.format(java.util.Locale.US, "Precio Nuevo: $ %.2f", nuevo));
+                    } catch (NumberFormatException e) {
+                        PrecioNuevo.setText("Precio Nuevo: $ --");
+                    }
+                } else {
+                    PrecioNuevo.setText("Precio Nuevo: $ --");
+                }
             }
         }
     }//GEN-LAST:event_cbProductoOfertaItemStateChanged
@@ -8775,50 +9579,84 @@ public class PPanelAMP extends javax.swing.JFrame {
         return true;
     }
     private void btGuardarOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarOfertaActionPerformed
-        Modelos.Producto prod = (Modelos.Producto) cbProductoOferta.getSelectedItem();
+        try {
+            Object itemSeleccionado = cbProductoOferta.getSelectedItem();
+            if (!(itemSeleccionado instanceof Modelos.Producto)) {
+                JOptionPane.showMessageDialog(this, "Seleccione un producto válido.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        if (prod == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione un producto.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+            java.util.Date fechaInicioSel = FechaInicioOferta.getDate();
+            java.util.Date fechaFinSel = FechaFinOferta.getDate();
+            if (fechaInicioSel == null || fechaFinSel == null) {
+                JOptionPane.showMessageDialog(this, "Seleccione las fechas de inicio y fin.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        if (FechaInicioOferta.getDate() == null || FechaFinOferta.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione las fechas de inicio y fin.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+            // Comparación solo por fecha (sin horas)
+            java.time.ZoneId zona = java.time.ZoneId.systemDefault();
+            java.time.LocalDate hoy = java.time.LocalDate.now(zona);
+            java.time.LocalDate ini = fechaInicioSel.toInstant().atZone(zona).toLocalDate();
+            java.time.LocalDate fin = fechaFinSel.toInstant().atZone(zona).toLocalDate();
 
-        // Validar porcentaje antes de intentar crear el objeto
-        if (!esPorcentajeValido(jTextField11.getText())) {
-            return;
-        }
+            if (ini.isBefore(hoy)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser anterior a hoy.", "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (fin.isBefore(ini)) {
+                JOptionPane.showMessageDialog(this, "La fecha de fin no puede ser anterior a la de inicio.", "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!validarFechasOferta(false)) {
+                return;
+            }
 
-        int porcentaje = Integer.parseInt(jTextField11.getText().trim());
-        double precioBase = prod.getPrecioUnitario();
-        double precioNuevo = precioBase - (precioBase * (porcentaje / 100.0));
+            // Porcentaje: se lee de jTextField11 (antes se leía del JLabel txtPrecioOferta)
+            if (!esPorcentajeValido(jTextField11.getText())) {
+                return;
+            }
+            int porcentaje = Integer.parseInt(jTextField11.getText().trim());
 
-        Modelos.Oferta oferta = new Modelos.Oferta();
-        oferta.setIdProducto(prod.getIdProducto());
-        oferta.setDescuentoPorcentaje(porcentaje);
-        oferta.setPrecioPromocional(precioNuevo);
-        oferta.setFechaInicio(FechaInicioOferta.getDate());
-        oferta.setFechaFin(FechaFinOferta.getDate());
+            Modelos.Producto prod = (Modelos.Producto) itemSeleccionado;
+            double precioBase = prod.getPrecioUnitario();
+            double precioNuevo = precioBase - (precioBase * (porcentaje / 100.0));
 
-        // Control de vigencia según la fecha actual
-        java.util.Date hoy = new java.util.Date();
-        boolean esVigente = !oferta.getFechaInicio().after(hoy) && !oferta.getFechaFin().before(hoy);
-        oferta.setEstado(esVigente);
+            // Inicio a las 00:00 y fin a las 23:59:59, así la oferta vence al terminar el día
+            java.util.Date inicioDB = java.util.Date.from(ini.atStartOfDay(zona).toInstant());
+            java.util.Date finDB = java.util.Date.from(fin.atTime(23, 59, 59).atZone(zona).toInstant());
 
-        if (nOferta.guardarOferta(oferta)) {
-            JOptionPane.showMessageDialog(this, "Oferta guardada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            tblOferta.setModel(nOferta.cargarTablaOfertas());
+            // Control de colisiones
+            int idRubro = prod.getIdRubroProducto() != null ? prod.getIdRubroProducto().getIdRubroProducto() : 0;
+            NOferta nOferta = new NOferta();
+            String choque = nOferta.verificarColision(prod.getIdProducto(), idRubro, inicioDB, finDB, 0);
+            if (choque != null) {
+                JOptionPane.showMessageDialog(this, choque, "Colisión de promociones", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-            // Limpiar controles
-            jTextField11.setText("");
-            PrecioNuevo.setText("Precio Nuevo:");
-            FechaInicioOferta.setDate(null);
-            FechaFinOferta.setDate(null);
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar la oferta.", "Error", JOptionPane.ERROR_MESSAGE);
+            Modelos.Oferta oferta = new Modelos.Oferta();
+            oferta.setAlcance("PRODUCTO");
+            oferta.setProducto(prod);
+            oferta.setTipoDescuento("PORCENTAJE");
+            oferta.setDescuentoPorcentaje(porcentaje);
+            oferta.setPrecioPromocional(precioNuevo);
+            oferta.setFechaInicio(inicioDB);
+            oferta.setFechaFin(finDB);
+
+            if (nOferta.guardarOferta(oferta)) {
+                JOptionPane.showMessageDialog(this, "Oferta guardada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                tblOferta.setModel(nOferta.cargarTablaOfertas());
+                cbProductoOferta.setSelectedIndex(-1);
+                jTextField11.setText("");
+                PrecioNuevo.setText("Precio Nuevo: $ --");
+                FechaInicioOferta.setDate(null);
+                FechaFinOferta.setDate(null);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar la oferta en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            logger.log(java.util.logging.Level.SEVERE, "Error al guardar oferta", e);
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btGuardarOfertaActionPerformed
 
@@ -8842,21 +9680,14 @@ public class PPanelAMP extends javax.swing.JFrame {
     }//GEN-LAST:event_btPrevisualizarPrecioActionPerformed
 
     private void btLimpiarOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarOfertaActionPerformed
-        // 1. Resetear la selección del ComboBox al primer elemento (si existe)
-        if (cbProductoOferta.getItemCount() > 0) {
-            cbProductoOferta.setSelectedIndex(0);
-        }
-
-        // 2. Limpiar campos de texto
+        cbProductoOferta.setSelectedIndex(-1);
         jTextField11.setText("");
-        txtPrecioOferta.setText("");
-
-        // 3. Resetear el label del precio nuevo
         PrecioNuevo.setText("Precio Nuevo: $ --");
-
-        // 4. Limpiar los seleccionadores de fecha
         FechaInicioOferta.setDate(null);
         FechaFinOferta.setDate(null);
+        ofertaEnEdicion = null;
+        btGuardarOferta.setEnabled(true);
+        tblOferta.clearSelection();
     }//GEN-LAST:event_btLimpiarOfertaActionPerformed
 
     private void btImprimirOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btImprimirOfertaActionPerformed
@@ -8946,6 +9777,375 @@ public class PPanelAMP extends javax.swing.JFrame {
         cargarTablaProductosP();
     }//GEN-LAST:event_btnLimpiarFiltroProductoActionPerformed
 
+    private void cbPromocionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbPromocionItemStateChanged
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            actualizarCamposSegunRegla();
+        }
+    }//GEN-LAST:event_cbPromocionItemStateChanged
+
+    private void cbPromocionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPromocionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbPromocionActionPerformed
+
+    private void cbProductoOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductoOfertaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbProductoOfertaActionPerformed
+
+    private void txtMontoMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoMinimoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoMinimoActionPerformed
+
+    private void cbProductoComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductoComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbProductoComboActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            Object sel = cbProductoCombo.getSelectedItem();
+            if (!(sel instanceof Producto)) {
+                JOptionPane.showMessageDialog(this, "Seleccione un producto.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int cantidad = ((Number) spCombo.getValue()).intValue();
+            if (cantidad <= 0) {
+                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            Producto p = (Producto) sel;
+            ItemCombo existente = null;
+            for (ItemCombo it : comboEnEdicion) {
+                if (it.getProducto().getIdProducto() == p.getIdProducto()) {
+                    existente = it;
+                    break;
+                }
+            }
+            if (existente != null) {
+                existente.setCantidad(existente.getCantidad() + cantidad); // mismo producto: suma
+            } else {
+                comboEnEdicion.add(new ItemCombo(p, cantidad));
+            }
+            refrescarTablaCombo();
+            spCombo.setValue(1);
+            cbProductoCombo.setSelectedIndex(-1);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al añadir el producto: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        try {
+            if (comboEnEdicion.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Agregue al menos un producto al combo.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            double descuento;
+            try {
+                descuento = Double.parseDouble(txtDescuentoCombo.getText().trim().replace(",", "."));
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Ingrese un porcentaje de descuento numérico.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                txtDescuentoCombo.requestFocus();
+                return;
+            }
+            if (descuento <= 0 || descuento > 100) {
+                JOptionPane.showMessageDialog(this, "El descuento debe ser mayor a 0 y menor o igual a 100.", "Atención", JOptionPane.WARNING_MESSAGE);
+                txtDescuentoCombo.requestFocus();
+                return;
+            }
+
+            comboConfirmado.clear();
+            int articulos = 0;
+            for (ItemCombo it : comboEnEdicion) {
+                comboConfirmado.add(new ItemCombo(it.getProducto(), it.getCantidad()));
+                articulos += it.getCantidad();
+            }
+            descuentoCombo = descuento;
+
+            txtInfoCombo.setText("Combo: " + articulos + " artículos | Desc: " + formatearPorcentaje(descuento) + "%");
+            ventanaGestionCombo.setVisible(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al confirmar el combo: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void prepararGestionCombo() {
+        cargarProductosCombo();
+        spCombo.setModel(new javax.swing.SpinnerNumberModel(1, 1, 999, 1));
+        comboEnEdicion.clear();
+        for (ItemCombo it : comboConfirmado) {
+            comboEnEdicion.add(new ItemCombo(it.getProducto(), it.getCantidad())); // copia
+        }
+        txtDescuentoCombo.setText(descuentoCombo > 0 ? formatearPorcentaje(descuentoCombo) : "");
+        refrescarTablaCombo();
+    }
+
+    private void mostrarGestionCombo() {
+        prepararGestionCombo();
+        ventanaGestionCombo.setVisible(true);
+        java.awt.Container padre = ventanaGestionCombo.getParent();
+        if (padre != null) {
+            padre.setComponentZOrder(ventanaGestionCombo, 0);
+            padre.revalidate();
+            padre.repaint();
+        }
+    }
+    private void btnGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionarActionPerformed
+        mostrarGestionCombo();
+    }//GEN-LAST:event_btnGestionarActionPerformed
+
+    private void ocultarGestionCombo() {
+        ventanaGestionCombo.setVisible(false);
+        java.awt.Container padre = ventanaGestionCombo.getParent();
+        if (padre != null) {
+            padre.revalidate();
+            padre.repaint();
+        }
+    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int fila = tablaProductosCombo.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un producto de la tabla.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        comboEnEdicion.remove(tablaProductosCombo.convertRowIndexToModel(fila));
+        refrescarTablaCombo();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void btModificarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarBotonActionPerformed
+        try {
+            if (ofertaEnEdicion == null) {
+                JOptionPane.showMessageDialog(this, "Primero hacé doble clic sobre una oferta de la tabla.",
+                        "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            Modelos.Producto prod = (Modelos.Producto) cbProductoOferta.getSelectedItem();
+            if (prod == null || FechaInicioOferta.getDate() == null || FechaFinOferta.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Completá producto y fechas.", "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (!esPorcentajeValido(jTextField11.getText())) {
+                return; // el helper ya muestra su mensaje
+            }
+            int porcentaje = Integer.parseInt(jTextField11.getText().trim());
+
+            java.time.LocalDate ini = new java.sql.Date(FechaInicioOferta.getDate().getTime()).toLocalDate();
+            java.time.LocalDate fin = new java.sql.Date(FechaFinOferta.getDate().getTime()).toLocalDate();
+            java.time.LocalDate hoy = java.time.LocalDate.now();
+            java.time.LocalDate iniOriginal = new java.sql.Date(ofertaEnEdicion.getFechaInicio().getTime()).toLocalDate();
+
+            // Una oferta ya iniciada conserva su inicio; solo si lo cambiás se exige >= hoy
+            if (!ini.equals(iniOriginal) && ini.isBefore(hoy)) {
+                JOptionPane.showMessageDialog(this, "La nueva fecha de inicio no puede ser anterior a hoy.",
+                        "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (fin.isBefore(ini) || fin.isBefore(hoy)) {
+                JOptionPane.showMessageDialog(this, "La fecha de fin no puede ser anterior al inicio ni a hoy.",
+                        "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            java.util.Date inicioDB = java.sql.Timestamp.valueOf(ini.atStartOfDay());
+            java.util.Date finDB = java.sql.Timestamp.valueOf(fin.atTime(23, 59, 59));
+            int idRubro = prod.getIdRubroProducto() != null ? prod.getIdRubroProducto().getIdRubroProducto() : 0;
+
+            String choque = new NOferta().verificarColision(prod.getIdProducto(), idRubro, inicioDB, finDB,
+                    ofertaEnEdicion.getIdOferta());
+            if (choque != null) {
+                JOptionPane.showMessageDialog(this, choque, "Colisión de promociones", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            Modelos.Oferta o = ofertaEnEdicion;
+            o.setProducto(prod);
+            o.setDescuentoPorcentaje(porcentaje);
+            o.setPrecioPromocional(prod.getPrecioUnitario() * (1 - porcentaje / 100.0));
+            o.setFechaInicio(inicioDB);
+            o.setFechaFin(finDB);
+
+            if (new NOferta().guardarOferta(o)) {
+                JOptionPane.showMessageDialog(this, "Oferta modificada correctamente.");
+                btLimpiarOfertaActionPerformed(null);
+                tblOferta.setModel(new NOferta().cargarTablaOfertas());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo modificar la oferta.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btModificarBotonActionPerformed
+
+    private void btBorrarOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarOfertaActionPerformed
+        try {
+            if (ofertaEnEdicion == null) {
+                JOptionPane.showMessageDialog(this, "Primero hacé doble clic sobre la oferta que querés borrar.",
+                        "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int r = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que querés borrar la oferta #" + ofertaEnEdicion.getIdOferta() + "?",
+                    "Confirmar borrado", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (r != JOptionPane.YES_OPTION) {
+                return;
+            }
+            if (new NOferta().eliminarOferta(ofertaEnEdicion.getIdOferta())) {
+                JOptionPane.showMessageDialog(this, "Oferta eliminada.");
+                btLimpiarOfertaActionPerformed(null);
+                tblOferta.setModel(new NOferta().cargarTablaOfertas());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar la oferta.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btBorrarOfertaActionPerformed
+
+    private void btModificarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModificarPromoActionPerformed
+        try {
+            if (promoEnEdicion == null) {
+                JOptionPane.showMessageDialog(this, "Primero hacé doble clic sobre una promoción de la tabla.",
+                        "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            String nombre = txtPromocion.getText().trim();
+            if (nombre.isEmpty() || nombre.equalsIgnoreCase("Ej: Black Friday")) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar un nombre para la promoción.", "Atención", JOptionPane.WARNING_MESSAGE);
+                txtPromocion.requestFocus();
+                return;
+            }
+            String tipo = cbPromocion.getSelectedItem().toString();
+            if (!tipo.equals(promoEnEdicion.getTipoRegla())) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede cambiar el tipo de una promoción existente. Creá una nueva.",
+                        "Atención", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            NPromocion nPromo = new NPromocion();
+            Modelos.Promocion promo = new Modelos.Promocion();
+            promo.setIdPromocion(promoEnEdicion.getIdPromocion());
+            promo.setNombre(nombre);
+            promo.setTipoRegla(tipo);
+            promo.setEstado(EstadodePromo.isSelected());
+            boolean ok;
+
+            if (tipo.equals("Combo / Pack de Productos")) {
+                if (comboConfirmado.isEmpty() || txtInfoCombo.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "El combo no tiene productos. Usá Gestionar.", "Atención", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                promo.setDescuentoPorcentaje(descuentoCombo);
+                promo.setCondicion(txtInfoCombo.getText().trim());
+
+                List<Integer> ids = new ArrayList<>();
+                List<Modelos.PromocionComboDetalle> detalles = new ArrayList<>();
+                for (ItemCombo it : comboConfirmado) {
+                    Modelos.PromocionComboDetalle d = new Modelos.PromocionComboDetalle();
+                    d.setProducto(it.getProducto());
+                    d.setCantidad(it.getCantidad());
+                    detalles.add(d);
+                    ids.add(it.getProducto().getIdProducto());
+                }
+                if (promo.isEstado()) { // una promo activa no puede quedar chocando
+                    String choque = nPromo.verificarColisionCombo(ids, promo.getIdPromocion());
+                    if (choque != null) {
+                        JOptionPane.showMessageDialog(this, choque, "Colisión de promociones", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+                ok = nPromo.modificarPromocionCombo(promo, detalles, calcularPrecioFinalCombo());
+
+            } else {
+                double montoMinimo = 0;
+                double porcentaje;
+                String porcTxt;
+                if (tipo.equals("Por Monto Mínimo de Compra")) {
+                    String montoTxt = txtMontoMinimo.getText().trim().replace(",", ".");
+                    porcTxt = txtPorcentajeDescuento.getText().trim().replace(",", ".");
+                    try {
+                        montoMinimo = Double.parseDouble(montoTxt);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(this, "El monto mínimo debe ser un número válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    if (montoMinimo <= 0) {
+                        JOptionPane.showMessageDialog(this, "El monto mínimo debe ser mayor a 0.", "Atención", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                } else {
+                    porcTxt = ""; // TODO: = <campo "Cantidad de descuento" del medio de pago>.getText().trim().replace(",", ".")
+                }
+                try {
+                    porcentaje = Double.parseDouble(porcTxt);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "El porcentaje debe ser un número válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (porcentaje <= 0 || porcentaje > 100) {
+                    JOptionPane.showMessageDialog(this, "El porcentaje debe ser mayor a 0 y menor o igual a 100.", "Atención", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                promo.setDescuentoPorcentaje(porcentaje);
+
+                if (tipo.equals("Por Monto Mínimo de Compra")) {
+                    promo.setMontoMinimo(montoMinimo);
+                    promo.setCondicion("Monto Mínimo: $" + montoMinimo + " | Descuento: " + porcentaje + "%");
+                } else {
+                    Modelos.MetodoPago mp = (Modelos.MetodoPago) cbDetalleMedioPago.getSelectedItem();
+                    if (mp == null) {
+                        JOptionPane.showMessageDialog(this, "Seleccioná un medio de pago.", "Atención", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    promo.setMetodoPago(mp);
+                    promo.setCondicion(mp.getDescripcion() + " · " + String.format("%.0f%% de descuento", porcentaje));
+                }
+                ok = nPromo.guardarPromocion(promo); // id > 0 ⇒ UPDATE
+            }
+
+            if (ok) {
+                JOptionPane.showMessageDialog(this, "Promoción modificada correctamente.");
+                limpiarEdicionPromo();
+                cargarTablaPromociones();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se pudo modificar la promoción.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btModificarPromoActionPerformed
+
+    private void btEliminarPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarPromoActionPerformed
+        try {
+            int id = idPromoSeleccionada();
+            if (id == -1) {
+                return;
+            }
+            String nombre = tblPromo.getValueAt(tblPromo.getSelectedRow(), 1).toString();
+            int r = JOptionPane.showConfirmDialog(this,
+                    "¿Seguro que querés eliminar la promoción \"" + nombre + "\"?",
+                    "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (r != JOptionPane.YES_OPTION) {
+                return;
+            }
+            if (new NPromocion().eliminarPromocion(id)) {
+                JOptionPane.showMessageDialog(this, "Promoción eliminada.");
+                limpiarEdicionPromo();
+                cargarTablaPromociones();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar. Si la promoción ya se usó en ventas, desactivala en lugar de borrarla.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btEliminarPromoActionPerformed
+
+    private void btCerrarVentanaComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarVentanaComboActionPerformed
+        ventanaGestionCombo.setVisible(false);
+    }//GEN-LAST:event_btCerrarVentanaComboActionPerformed
+
     private void ocultarProveedores() {
         proveedoresPanel.setVisible(false);
         panelRegistrarProveedor.setVisible(false);
@@ -8971,7 +10171,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     }
 
     private void filtrarProductosP() {
-        
+
         NProducto np = new NProducto();
         List<Producto> lista = np.listar();
 
@@ -9020,23 +10220,23 @@ public class PPanelAMP extends javax.swing.JFrame {
     private int obtenerStock(Producto p) {
         return p.getIdStockProducto() != null ? p.getIdStockProducto().getStockAct() : 0;
     }
-    
-    private void cargarTablaProductos(List<Producto> lista) {
-    DefaultTableModel modelo = (DefaultTableModel) tablaProductosP.getModel();
-    modelo.setRowCount(0);
 
-    for (Producto p : lista) {
-        modelo.addRow(new Object[]{
-            p.getCodigo(),
-            p.getDescripcion(),
-            p.getIdRubroProducto() != null ? p.getIdRubroProducto().getDescripcion() : "",
-            p.getIdTipoProducto() != null ? p.getIdTipoProducto().getDescripcion() : "",
-            obtenerStock(p),
-            p.getPrecioUnitario(),
-            p.getIdProveedor() != null ? p.getIdProveedor().getNombre() : ""
-        });
+    private void cargarTablaProductos(List<Producto> lista) {
+        DefaultTableModel modelo = (DefaultTableModel) tablaProductosP.getModel();
+        modelo.setRowCount(0);
+
+        for (Producto p : lista) {
+            modelo.addRow(new Object[]{
+                p.getCodigo(),
+                p.getDescripcion(),
+                p.getIdRubroProducto() != null ? p.getIdRubroProducto().getDescripcion() : "",
+                p.getIdTipoProducto() != null ? p.getIdTipoProducto().getDescripcion() : "",
+                obtenerStock(p),
+                p.getPrecioUnitario(),
+                p.getIdProveedor() != null ? p.getIdProveedor().getNombre() : ""
+            });
+        }
     }
-}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AGAceptar;
@@ -9083,6 +10283,8 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel PagosPanelCampos;
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelCalculo;
+    private javax.swing.JPanel PanelMetododePago;
+    private javax.swing.JPanel PanelMontoMinimo;
     private javax.swing.JPanel PanelNuevaOferta;
     private javax.swing.JPanel PanelNuevaPromo;
     private javax.swing.JPanel PanelOfertaExistente;
@@ -9099,14 +10301,19 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel actPanel1;
     private javax.swing.JPanel administracionPanel;
     private javax.swing.JButton btActivarPromo;
+    private javax.swing.JButton btBorrarOferta;
     private javax.swing.JButton btCalcular;
     private javax.swing.JButton btCalcularCuotas;
+    private javax.swing.JButton btCerrarVentanaCombo;
     private javax.swing.JButton btDesactivarPromo1;
+    private javax.swing.JButton btEliminarPromo;
     private javax.swing.JButton btGuardarOferta;
     private javax.swing.JButton btGuardarPromo;
     private javax.swing.JButton btImprimir;
     private javax.swing.JButton btImprimirOferta;
     private javax.swing.JButton btLimpiarOferta;
+    private javax.swing.JButton btModificarBoton;
+    private javax.swing.JButton btModificarPromo;
     private javax.swing.JButton btPrevisualizarPrecio;
     private javax.swing.JButton btnABorrar;
     private javax.swing.JButton btnABuscar;
@@ -9161,6 +10368,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JButton btnExportarStockPdf;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnFiltrarProducto;
+    private javax.swing.JButton btnGestionar;
     private javax.swing.JButton btnGestionarP;
     private javax.swing.JButton btnGuardarModificacionProveedor;
     private javax.swing.JButton btnInformeClientes;
@@ -9205,11 +10413,14 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JComboBox<CondIVA> cbCondIva;
     private javax.swing.JComboBox<CondIVA> cbCondIvaMp;
     private javax.swing.JCheckBox cbDescuento;
+    private javax.swing.JComboBox<MetodoPago> cbDetalleMedioPago;
     private javax.swing.JComboBox<IVA> cbIVAP;
     private javax.swing.JComboBox<String> cbMetodosPagos;
     private javax.swing.JComboBox<MetodoPago> cbMpVentas;
     private javax.swing.JComboBox<String> cbNombre;
+    private javax.swing.JComboBox<String> cbProductoCombo;
     private javax.swing.JComboBox<Producto> cbProductoOferta;
+    private javax.swing.JComboBox<String> cbPromocion;
     private javax.swing.JComboBox<Proveedor> cbProveedorP;
     private javax.swing.JComboBox<RubroProducto> cbRubroP;
     private javax.swing.JComboBox<String> cbRubroP1;
@@ -9231,13 +10442,26 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel ingresosPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -9277,6 +10501,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
@@ -9288,6 +10513,11 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
@@ -9319,6 +10549,11 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JLabel labelFact;
     private javax.swing.JLabel lblCC;
@@ -9383,19 +10618,21 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JPanel panelListaProveedores;
     private javax.swing.JPanel panelModificarProveedor;
     private javax.swing.JPanel panelRegistrarProveedor;
+    private javax.swing.JPanel pnlComboProductos;
     private javax.swing.JPanel productosPanel;
     private javax.swing.JPanel promedioPanel;
     private javax.swing.JPanel proveedoresPanel;
     private javax.swing.JPanel regEmp;
     private javax.swing.JPanel resumenPanel;
     private javax.swing.JScrollPane scrollTablaProveedores;
+    private javax.swing.JSpinner spCombo;
     private javax.swing.JTable tablaLista;
+    private javax.swing.JTable tablaProductosCombo;
     private javax.swing.JTable tablaProductosP;
     private javax.swing.JTable tablaProductosV;
     private javax.swing.JTable tablaProveedores;
     private javax.swing.JTable tablaVenta;
     private javax.swing.JScrollPane tableOferta;
-    private javax.swing.JScrollPane tablePromo;
     private javax.swing.JPanel tarjetaDetalle;
     private javax.swing.JTable tblOferta;
     private javax.swing.JTable tblPromo;
@@ -9423,6 +10660,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescV;
     private javax.swing.JTextField txtDescripcionPP;
     private javax.swing.JTextField txtDescuento;
+    private javax.swing.JTextField txtDescuentoCombo;
     private javax.swing.JTextField txtDireccionModificarProveedor;
     private javax.swing.JTextField txtDireccionProveedor;
     private javax.swing.JTextField txtDom;
@@ -9432,13 +10670,16 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtFiltroCuit;
     private javax.swing.JTextField txtFiltroRS;
     private javax.swing.JTextField txtIVA;
+    private javax.swing.JTextField txtInfoCombo;
     private javax.swing.JTextField txtInteres;
     private javax.swing.JTextField txtMail;
+    private javax.swing.JTextField txtMontoMinimo;
     private javax.swing.JTextField txtMontoTotal;
     private javax.swing.JLabel txtNomCC;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNombreModificarProveedor;
     private javax.swing.JTextField txtNombreProveedor;
+    private javax.swing.JTextField txtPorcentajeDescuento;
     private javax.swing.JTextField txtPre1;
     private javax.swing.JTextField txtPre2;
     private javax.swing.JLabel txtPrecioOferta;
@@ -9459,6 +10700,7 @@ public class PPanelAMP extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefonoProveedor;
     private javax.swing.JTextField txtTipoCondicion;
     private javax.swing.JTextField txtUnidadCuota;
+    private javax.swing.JPanel ventanaGestionCombo;
     private javax.swing.JPanel ventasPanel;
     private javax.swing.JPanel verDetallePanel;
     // End of variables declaration//GEN-END:variables

@@ -12,18 +12,33 @@ public class Promocion {
 
     private int idPromocion;
     private String nombre;
-    private String tipoCondicion;
-    private double descuento;
+    private String tipoRegla; // "MEDIO_PAGO", "MONTO_MINIMO", "COMBO"
+    private MetodoPago metodoPago; // Opcional, si aplica
+    private double montoMinimo;
+    private double descuentoPorcentaje;
+    private String condicion;
     private boolean estado;
 
     public Promocion() {
     }
 
-    public Promocion(int idPromocion, String nombre, String tipoCondicion, double descuento, boolean estado) {
+    public Promocion(int idPromocion, String nombre, String condicion, double descuentoPorcentaje, boolean estado) {
         this.idPromocion = idPromocion;
         this.nombre = nombre;
-        this.tipoCondicion = tipoCondicion;
-        this.descuento = descuento;
+        this.condicion = condicion;
+        this.descuentoPorcentaje = descuentoPorcentaje;
+        this.estado = estado;
+    }
+
+    public Promocion(int idPromocion, String nombre, String tipoRegla, MetodoPago metodoPago,
+            double montoMinimo, double descuentoPorcentaje, String condicion, boolean estado) {
+        this.idPromocion = idPromocion;
+        this.nombre = nombre;
+        this.tipoRegla = tipoRegla;
+        this.metodoPago = metodoPago;
+        this.montoMinimo = montoMinimo;
+        this.descuentoPorcentaje = descuentoPorcentaje;
+        this.condicion = condicion;
         this.estado = estado;
     }
 
@@ -44,20 +59,44 @@ public class Promocion {
         this.nombre = nombre;
     }
 
-    public String getTipoCondicion() {
-        return tipoCondicion;
+    public String getTipoRegla() {
+        return tipoRegla;
     }
 
-    public void setTipoCondicion(String tipoCondicion) {
-        this.tipoCondicion = tipoCondicion;
+    public void setTipoRegla(String tipoRegla) {
+        this.tipoRegla = tipoRegla;
     }
 
-    public double getDescuento() {
-        return descuento;
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
     }
 
-    public void setDescuento(double descuento) {
-        this.descuento = descuento;
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public double getMontoMinimo() {
+        return montoMinimo;
+    }
+
+    public void setMontoMinimo(double montoMinimo) {
+        this.montoMinimo = montoMinimo;
+    }
+
+    public double getDescuentoPorcentaje() {
+        return descuentoPorcentaje;
+    }
+
+    public void setDescuentoPorcentaje(double descuentoPorcentaje) {
+        this.descuentoPorcentaje = descuentoPorcentaje;
+    }
+
+    public String getCondicion() {
+        return condicion;
+    }
+
+    public void setCondicion(String condicion) {
+        this.condicion = condicion;
     }
 
     public boolean isEstado() {
