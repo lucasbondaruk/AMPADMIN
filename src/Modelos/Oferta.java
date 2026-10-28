@@ -13,33 +13,15 @@ import java.util.Date;
 public class Oferta {
 
     private int idOferta;
-    private String alcance; // "PRODUCTO" o "RUBRO"
-    private Producto producto; // Relación con Producto
-    private RubroProducto rubroProducto; // Relación con RubroProducto
-    private String tipoDescuento; // "PORCENTAJE" o "PRECIO_FIJO"
+    private int idProducto;
+    private String nombreProducto; // Campo aux para mostrar en JTable
     private double descuentoPorcentaje;
     private double precioPromocional;
     private Date fechaInicio;
     private Date fechaFin;
-    private boolean estado; // true: Activa, false: Inactiva
+    private boolean estado;
 
-    // Constructores
     public Oferta() {
-    }
-
-    public Oferta(int idOferta, String alcance, Producto producto, RubroProducto rubroProducto,
-            String tipoDescuento, double descuentoPorcentaje, double precioPromocional,
-            Date fechaInicio, Date fechaFin, boolean estado) {
-        this.idOferta = idOferta;
-        this.alcance = alcance;
-        this.producto = producto;
-        this.rubroProducto = rubroProducto;
-        this.tipoDescuento = tipoDescuento;
-        this.descuentoPorcentaje = descuentoPorcentaje;
-        this.precioPromocional = precioPromocional;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.estado = estado;
     }
 
     // Getters y Setters
@@ -51,36 +33,20 @@ public class Oferta {
         this.idOferta = idOferta;
     }
 
-    public String getAlcance() {
-        return alcance;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public void setAlcance(String alcance) {
-        this.alcance = alcance;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
-    }
-
-    public RubroProducto getRubroProducto() {
-        return rubroProducto;
-    }
-
-    public void setRubroProducto(RubroProducto rubroProducto) {
-        this.rubroProducto = rubroProducto;
-    }
-
-    public String getTipoDescuento() {
-        return tipoDescuento;
-    }
-
-    public void setTipoDescuento(String tipoDescuento) {
-        this.tipoDescuento = tipoDescuento;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
     public double getDescuentoPorcentaje() {
@@ -121,17 +87,5 @@ public class Oferta {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
-    }
-
-    // Métodos utilitarios complementarios para compatibilidad de vistas
-    public int getIdProducto() {
-        return (producto != null) ? producto.getIdProducto() : 0;
-    }
-
-    public void setIdProducto(int idProducto) {
-        if (this.producto == null) {
-            this.producto = new Producto();
-        }
-        this.producto.setIdProducto(idProducto);
     }
 }
