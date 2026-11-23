@@ -1,3 +1,6 @@
 /nbproject/private/
 /build/
 /dist/
+
+# Configuración local de IA (contiene la API key)
+/ia.properties
